@@ -1,1 +1,1 @@
-# social-network-link-prediction
+# **Social Network Link Prediction**
