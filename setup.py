@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='social_network_link_prediction',
+    name='sn_link_prediction',
     version='0.1',
     license='MIT',
     author="Cristian Cosci, Fabrizio Fagiolo, Nicolò Vescera, Nicolò Posta, Tommaso Romani",
