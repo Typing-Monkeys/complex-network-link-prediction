@@ -24,7 +24,26 @@ env:
 	
 	@echo "Created env $(venvname) ✅"
 
-cleanenv: $(venvname)
+clean-env: $(venvname)
 	rm -rf $(venvname)
 	
 	@echo "Removed env $(venvname) ✅"
+
+build:
+	# TODO
+	@echo "BUILD"
+
+clean-build:
+	# TODO
+	@echo "CLEAR"
+
+# clean all !
+clean: clean-env clean-build
+
+publish-release:
+	# TODO
+	@echo "RELEASE"
+
+publish-testing:
+	# TODO
+	@echo "TESTING"
