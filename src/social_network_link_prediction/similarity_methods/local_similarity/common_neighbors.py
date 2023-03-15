@@ -2,8 +2,6 @@ import networkx as nx
 import numpy as np
 
 
-## --- Common Neighbors Index 
-
 def __common_neighbors(G: nx.Graph, x, y) -> int:
     """
         Calcola l'indice Common Neighbors per la signola

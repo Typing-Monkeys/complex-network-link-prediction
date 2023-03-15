@@ -1,1 +1,1 @@
-from .local_similarity import common_neighbors
+from . import local_similarity
