@@ -1,1 +1,1 @@
-from similarity_methods import *
+from . import global_similarity
