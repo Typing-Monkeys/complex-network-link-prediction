@@ -4,7 +4,7 @@ from utils import to_adjacency_matrix
 
 
 # TODO: questo metodo funziona solo se le eitchette dei nodi sono interi
-def __t(G: nx.Graph, z):
+def __t(z):
     """
         Numero di Triangoli passanti per il Nodo Z
     """
@@ -14,15 +14,13 @@ def __t(G: nx.Graph, z):
     # in A[z,z] e dividerlo per 2 (ci sono 2 modi per percorrere un Triangolo)
     # https://github.com/dougissi/counting-triangles
 
-    A = to_adjacency_matrix(G, sparse=False)  # TODO: sparse True ??
-    triang = A @ A @ A  # A^3
-
-    return triang[z, z] / 2
+    # TODO: ricontrollare
+    return A3[z, z] / 2  # TODO: potrebbe essere / fact(A[z,z])
 
 
 def __C(G: nx.Graph, z):
     z_degree = G.degree[z]
-    return __t(G, z) / (z_degree * (z_degree - 1))
+    return __t(z) / (z_degree * (z_degree - 1))
 
 
 def __node_clustering(G: nx.Graph, x, y):
@@ -30,10 +28,14 @@ def __node_clustering(G: nx.Graph, x, y):
 
 
 def node_clustering(G: nx.Graph) -> np.ndarray:
+    global A3
+
     size = G.number_of_nodes()
     S = np.zeros((size, size))
 
-    # TODO: calcolare A qui !
+    # variabile globale che servirà in __t()
+    A3 = to_adjacency_matrix(G, sparse=False)  # TODO: sparse True ??
+    A3 = A3 @ A3 @ A3  # A^3
 
     for x in G:
         for y in G:
