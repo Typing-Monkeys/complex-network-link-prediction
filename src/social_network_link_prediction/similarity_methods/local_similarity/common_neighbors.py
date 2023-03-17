@@ -1,5 +1,7 @@
 import networkx as nx
 import numpy as np
+from utils import nodes_to_indexes
+from scipy.sparse import lil_matrix, csr_matrix
 
 
 def __common_neighbors(G: nx.Graph, x, y) -> int:
@@ -8,9 +10,10 @@ def __common_neighbors(G: nx.Graph, x, y) -> int:
         coppia di nodi
     """
 
-    return len(set(G[x]) & set(G[y]))
+    return len(set(G[x]).intersection(set(G[y])))
 
-def common_neighbors(G: nx.Graph) -> np.ndarray :
+
+def common_neighbors(G: nx.Graph) -> csr_matrix:
     """
         Cacola l'indice Common Neighbors per tutti i nodi 
         del grafo dato.
@@ -23,24 +26,20 @@ def common_neighbors(G: nx.Graph) -> np.ndarray :
     """
 
     size = G.number_of_nodes()
-    S = np.zeros((size, size))
+    S = lil_matrix((size, size))
+    name_index_map = nodes_to_indexes(G)
+
+    mem = set()    # memoization delle celle calcolate
 
     for x in G:
         for y in G:
-            S[x, y] = __common_neighbors(G, x, y)
+            _x = name_index_map[x]
+            _y = name_index_map[y]
+            
+            if (_x, _y) not in mem:
+                S[_x, _y] = __common_neighbors(G, x, y)
+                S[_y, _x] = S[_x, _y]
 
-    return S
+                mem.add((_y, _x))
 
-
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-
-    graph = nx.Graph()
-    graph.add_nodes_from([0, 1, 2, 3])
-    graph.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)])
-    
-    nx.draw(graph, with_labels=True)
-
-    print(common_neighbors(graph))
-
-    plt.show()
+    return S.tocsr()
