@@ -1,6 +1,7 @@
 import networkx as nx
 import numpy as np
 from utils import nodes_to_indexes
+from scipy.sparse import lil_matrix, csr_matrix
 
 
 def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:
@@ -27,10 +28,12 @@ def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:
     return score
 
 
-def path_of_length_three(G:nx.Graph):
+def path_of_length_three(G:nx.Graph) -> csr_matrix:
     size = G.number_of_nodes()
-    S = np.full((size, size), None)
+    S = lil_matrix((size, size))
     name_index_map = nodes_to_indexes(G) 
+
+    mem = set()    # memoization delle celle calcolate
 
     for x in G:
         for y in G:
@@ -39,8 +42,10 @@ def path_of_length_three(G:nx.Graph):
 
             # calcoliamo solo i valori della matrice Triangolare superiore
             # perchè simmetrica e risparmiamo il doppio dei calcoli
-            if S[_x, _y] is None:
+            if (_x, _y) not in mem: 
                 S[_x, _y] = __path_of_length_three_iter(G, x, y)
                 S[_y, _x] = S[_x, _y]
 
-    return S
+                mem.add((_y, _x))
+
+    return S.tocsr()

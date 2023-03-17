@@ -52,6 +52,6 @@ def test_common_neighbors_hard():
     plt.show()
 
 
-# test_path_of_length()
+test_path_of_length()
 # test_common_neighbors_easy()
 test_common_neighbors_hard()
