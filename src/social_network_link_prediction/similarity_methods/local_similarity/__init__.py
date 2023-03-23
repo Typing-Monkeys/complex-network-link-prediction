@@ -4,4 +4,5 @@ from .admic_adar import adamic_adar
 from .preferential_attachment import preferential_attachment
 from .cosine_similarity import cosine_similarity
 from .hub_promoted import hub_promoted
+from .hub_depressed import hub_depressed
 from .sorensen import sorensen
