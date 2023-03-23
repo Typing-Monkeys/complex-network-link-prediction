@@ -23,5 +23,6 @@ def jaccard(G: nx.Graph) -> csr_matrix:
         y_node = name_index_map[y][0]
 
         S[x, y] = __jaccard(G, x_node, y_node)
+        S[y, x] = S[x, y]
 
     return S.tocsr()

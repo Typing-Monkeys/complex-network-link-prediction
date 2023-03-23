@@ -4,11 +4,8 @@ from utils import to_adjacency_matrix
 from scipy.sparse import csr_matrix
 
 
-def local_path_index(G: nx.Graph,
-                     epsilon: float,
-                     n: int,
-                     sparse=True) -> np.ndarray | csr_matrix:
-    A = to_adjacency_matrix(G, sparse)
+def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
+    A = to_adjacency_matrix(G)
     A = A @ A
     S = np.power(epsilon, 0) * (A)
 
@@ -17,4 +14,4 @@ def local_path_index(G: nx.Graph,
         A = A @ A
         S += np.power(epsilon, i) * (A)
 
-    return S
+    return S.tocsr()
