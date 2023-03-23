@@ -4,7 +4,7 @@ from social_network_link_prediction.similarity_methods.local_similarity import c
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import local_path_index
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import path_of_length_three
 from social_network_link_prediction.similarity_methods.local_similarity import jaccard
-
+from social_network_link_prediction.similarity_methods.global_similarity import katz_index
 
 def test_LPI():
     graph = nx.Graph()
@@ -131,6 +131,15 @@ def test_nodeclusterintg():
     nx.draw(G, with_labels=True)
     plt.show()
 
+# --- Katz Index
+def test_katz_index():
+    G = nx.gnp_random_graph(10000, .01)
+
+    print(katz_index(G))
+
+    nx.draw(G, with_labels=True)
+    plt.show()
+
 # test_path_of_length()
 # test_common_neighbors_easy()
 # test_common_neighbors_hard()
@@ -142,4 +151,5 @@ def test_nodeclusterintg():
 # test_sorensen()
 # test_hubpromoted()
 # test_hubdepressed()
-test_nodeclusterintg()
+# test_nodeclusterintg()
+test_katz_index()
