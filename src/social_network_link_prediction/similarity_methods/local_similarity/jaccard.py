@@ -1,38 +1,27 @@
 import networkx as nx
 import numpy as np
-
-
-# TODO: vedere se si può riutilizzare codice
-#       da Common Nieghbors
-def __common_neighbors(G: nx.Graph, x, y) -> int:
-    return len(set(G[x]) & set(G[y]))
+from utils import nodes_to_indexes, get_node_from_index
+from scipy.sparse import lil_matrix, csr_matrix
+from .common_neighbors import __common_neighbors
 
 
 def __jaccard(G: nx.Graph, x, y) -> float:
     return __common_neighbors(G, x, y) / len(set(G[x]).union(set(G[y])))
 
 
-# TODO: utilizzare matrici sparse
-def jaccard(G: nx.Graph) -> np.ndarray:
+def jaccard(G: nx.Graph) -> csr_matrix:
     size = G.number_of_nodes()
-    S = np.zeros((size, size))
+    S = lil_matrix((size, size))
+    name_index_map = nodes_to_indexes(G)
 
-    for x in G:
-        for y in G:
-            S[x, y] = __jaccard(G, x, y)
+    # itera solo gli indici della matrice traingolare
+    # superiore (la matrice è simmetrica)
+    # Questo dobrebbe essere molto più veloce di un doppio
+    # ciclo for
+    for x, y in zip(*np.triu_indices(size)):
+        x_node = get_node_from_index(name_index_map, x)
+        y_node = get_node_from_index(name_index_map, y)
 
-    return S
+        S[x, y] = __jaccard(G, x_node, y_node)
 
-
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-
-    graph = nx.Graph()
-    graph.add_nodes_from([0, 1, 2, 3])
-    graph.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)])
-
-    nx.draw(graph, with_labels=True)
-
-    print(jaccard(graph))
-
-    plt.show()
+    return S.tocsr()
