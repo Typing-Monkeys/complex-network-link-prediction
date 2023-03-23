@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar
+from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar, preferential_attachment
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import local_path_index
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import path_of_length_three
 from social_network_link_prediction.similarity_methods.local_similarity import jaccard
@@ -68,9 +68,20 @@ def test_adamic_adar():
     nx.draw(G, with_labels=True)
     plt.show()
 
+# --- Preferentaial Attachment
+def test_preferential():
+    G = nx.gnp_random_graph(1000, .01)
+
+    print(preferential_attachment(G))
+
+    nx.draw(G, with_labels=True)
+    plt.show()
+
+    
 
 # test_path_of_length()
 # test_common_neighbors_easy()
 # test_common_neighbors_hard()
 # test_jaccard()
-test_adamic_adar()
+# test_adamic_adar()
+test_preferential()
