@@ -17,6 +17,7 @@ def to_adjacency_matrix(G: nx.Graph, sparse=True):
     
     return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)
 
+
 def __power_method(A, max_iterations = 100, tol = 1e-12, verbose = False):
     n = A.shape[0]
     x = np.ones(n) / np.sqrt(n) # initialize a vector x
@@ -43,17 +44,16 @@ def __power_method(A, max_iterations = 100, tol = 1e-12, verbose = False):
 
 
 def katz_index(G: nx.Graph, beta: int = 1) -> np.ndarray:
-    A = to_adjacency_matrix(G)
-    largest_eigenvalue = __power_method(A) #lambda1
+    A = to_adjacency_matrix(G, sparse=False)
+    largest_eigenvalue = __power_method(A) #lambda_1
     if beta >= largest_eigenvalue[0]:
         print('Warning, Beta should be less than {largest_eigenvalue}')
 
-    eye = sparse.identity(A.shape[0])
-    print(eye)
-    mid = sparse.linalg.inv((eye - beta * A))
-    print(mid)
+    eye = np.identity(A.shape[0])
+    S = np.linalg.inv((eye - beta * A))
+    print(S)
+    S -= eye
 
-    S = mid - eye
     return S
 
 
@@ -77,5 +77,5 @@ if __name__ == "__main__":
     S = katz_index(graph)
 
     print(S)
-    print(S(0,0))
+    #print(S(0,0))
     plt.show()
