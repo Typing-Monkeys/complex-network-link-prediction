@@ -1,5 +1,4 @@
 import networkx as nx
-import numpy as np
 from utils import nodes_to_indexes
 from scipy.sparse import lil_matrix, csr_matrix
 
@@ -29,13 +28,13 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
     S = lil_matrix((size, size))
     name_index_map = nodes_to_indexes(G)
 
-    mem = set()    # memoization delle celle calcolate
+    mem = set()  # memoization delle celle calcolate
 
     for x in G:
         for y in G:
             _x = name_index_map[x]
             _y = name_index_map[y]
-            
+
             if (_x, _y) not in mem:
                 S[_x, _y] = __common_neighbors(G, x, y)
                 S[_y, _x] = S[_x, _y]
