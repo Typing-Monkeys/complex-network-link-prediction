@@ -1,1 +1,1 @@
-import social_network_link_prediction
+from . import similarity_methods
