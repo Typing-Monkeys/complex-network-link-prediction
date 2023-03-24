@@ -7,3 +7,4 @@ from .hub_promoted import hub_promoted
 from .hub_depressed import hub_depressed
 from .sorensen import sorensen
 from .node_clustering import node_clustering
+from .resource_allocation import resource_allocation
