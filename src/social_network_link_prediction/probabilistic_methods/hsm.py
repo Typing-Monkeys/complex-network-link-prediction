@@ -9,7 +9,7 @@ class Node:
         self.left = left
         self.right = right
         self.parent = parent
-    
+
     def is_leaf(self):
 
         """
@@ -35,8 +35,31 @@ def build_tree(subtree, parent=None):
         right_node = build_tree(right_subtree, parent=link_count)
 
         return Node(link_count, left=left_node, right=right_node, parent=parent)
-    
-def likelihood(D, p):
+
+
+# def likelihood(D, p):
+
+#     """
+#         Calculates the likelihood of a given tree topology, D, with a set of branch lengths, p.
+#     """
+
+#     # Inizialize likelihood
+#     likelihood = 1.0
+
+#     # Iterate over the nodes in the tree
+#     for r in D:
+#         # Count the sizes of the subtrees rooted at the node
+#         left_size, right_size = count_subtree_sizes(r)
+
+#         # Count the number of links in the subtree rooted at the node
+#         E_r = count_links_in_subtree(r)
+
+#         # Calculate the probability of observing the subtree rooted at r given the branch length p[r]
+#         likelihood *= p[r] ** E_r * (1 - p[r]) ** (left_size * right_size - E_r)
+
+#     return likelihood
+
+def likelihood(D):
 
     """
         Calculates the likelihood of a given tree topology, D, with a set of branch lengths, p.
@@ -44,50 +67,65 @@ def likelihood(D, p):
 
     # Inizialize likelihood
     likelihood = 1.0
-    
-    # Iterate over the nodes in the tree
-    for r in D:
-        # Count the sizes of the subtrees rooted at the node
-        left_size, right_size = count_subtree_sizes(r)
-        
-        # Count the number of links in the subtree rooted at the node
-        E_r = count_links_in_subtree(r)
-        
-        # Calculate the probability of observing the subtree rooted at r given the branch length p[r]
-        likelihood *= p[r] ** E_r * (1 - p[r]) ** (left_size * right_size - E_r)
-    
+
+    Pn, left_size, right_size = calcolate_pn_maximize(D)
+
+    # Calculate the probability of observing the subtree rooted at r given the branch length p[r]
+    likelihood *= ((Pn ** Pn) * (1-Pn) ** (1-Pn)) ** (left_size * right_size)
+
+    print(likelihood)
+
     return likelihood
+
+
+def calcolate_pn_maximize(D):
+    """
+    This function calculates the maximum value of Pn, left_size, and right_size for each node in the tree topology D.
+    """
+    for n in D: 
+        # Call the function "count_subtree_sizes" to count the sizes of the left and right subtrees rooted at the node
+        left_size, right_size = count_subtree_sizes(n)
+        
+        # Call the function "count_links_in_subtree" to count the number of links in the subtree rooted at the node
+        E_r = count_links_in_subtree(n)
+
+        # Calculate Pn as the number of links in the subtree rooted at the node divided by the product of the sizes of the left and right subtrees rooted at the node
+        Pn = E_r / (left_size * right_size)
+
+    # Return the values of Pn, left_size, and right_size
+    return Pn, left_size, right_size
+
 
 def count_links_in_subtree(node):
 
     """
         Counts the number of links in the subtree rooted at `node`.
     """
-    
+
     stack = [node]  # initialize the stack with the root node
     links = {}  # create an empty dictionary to store the link counts
-    
+
     while stack:
         curr = stack.pop()  # get the current node from the stack
-        
+
         if curr.is_leaf():  # if the current node is a leaf, its link count is 0
             links[curr] = 0
-        
+
         else:
             left_links = links.get(curr.left, None)  # get the link count of the left child, if it exists
             right_links = links.get(curr.right, None)  # get the link count of the right child, if it exists
-            
+
             if left_links is None:  # if the left child's link count has not been computed yet, add it to the stack
                 stack.append(curr)
                 stack.append(curr.left)
-            
+
             elif right_links is None:  # if the right child's link count has not been computed yet, add it to the stack
                 stack.append(curr)
                 stack.append(curr.right)
-            
+
             else:  # if both children's link counts have been computed, compute the link count of the current node and store it in the dictionary
                 links[curr] = left_links + right_links + curr.data
-    
+
     return links[node]  # return the link count of the root node
 
 def count_subtree_sizes(node):
@@ -105,26 +143,26 @@ def count_subtree_sizes(node):
         if curr.is_leaf():
             # If the current node is a leaf node, set its subtree size to (0, 0)
             sizes[curr] = (0, 0)
-        
+
         else:
             # Check if the subtree sizes of the left and right child nodes have been computed
             left_size = sizes.get(curr.left, None)
             right_size = sizes.get(curr.right, None)
-            
+
             if left_size is None:
                 # If the size of the left subtree has not been computed, push the current node and its left child onto the stack
                 stack.append(curr)
                 stack.append(curr.left)
-            
+
             elif right_size is None:
                 # If the size of the right subtree has not been computed, push the current node and its right child onto the stack
                 stack.append(curr)
                 stack.append(curr.right)
-            
+
             else:
                 # If the sizes of both subtrees have been computed, compute the size of the current subtree and store it in the dictionary
                 sizes[curr] = (left_size[0] + left_size[1] + 1, right_size[0] + right_size[1] + 1)
-    
+
     return sizes[node]  # Return the size of the subtree rooted at the input node
 
 
@@ -152,24 +190,21 @@ def count_nodes(node):
 
     return count  # Return the node count
 
-def main():
 
+if __name__ == '__main__':
+   
     # Set the dendogram 
     D = [(1, (2, 3, 2), 1), ((4, 5, 3), 6, 2)]
 
     # Convert to tree structure with Node objects
     D = [build_tree(subtree) for subtree in D]
 
-    # Set probability dictionary for all node
-    p = {node: 0.7 for node in D}
+    Pn_max = calcolate_pn_maximize(D)
 
-    # Sets the probability of the root node to 0.5 and the probability of all other nodes to 0.8.
-    p2 = {node: 0.5 if node.parent is None else 0.8 for node in D}
+    # # Sets the probability of the root node to 0.5 and the probability of all other nodes to 0.8.
+    # p2 = {node: 0.5 if node.parent is None else 0.8 for node in D}
 
     # Compute likelihood
-    likelihood2 = likelihood(D, p2)
-    print(likelihood2)
+    result = likelihood(D)
 
-
-if __name__ == '__main__':
-    main()
+    print("Likelihood of dendrogram D: " + str(result.real))
