@@ -1,3 +1,5 @@
+import networkx as nx
+
 class Node:
     def __init__(self, data, left=None, right=None, parent=None):
 
@@ -33,6 +35,8 @@ def build_tree(subtree, parent=None):
         left_subtree, right_subtree, link_count = subtree
         left_node = build_tree(left_subtree, parent=link_count)
         right_node = build_tree(right_subtree, parent=link_count)
+        print("L: ", left_node.data, "LP: ", left_node.parent)
+        print("R: ", right_node.data, "RP: ", right_node.parent)
 
         return Node(link_count, left=left_node, right=right_node, parent=parent)
 
@@ -51,15 +55,19 @@ def build_tree(subtree, parent=None):
 #         # Count the sizes of the subtrees rooted at the node
 #         left_size, right_size = count_subtree_sizes(r)
 
+#         print(left_size, right_size)
+
 #         # Count the number of links in the subtree rooted at the node
 #         E_r = count_links_in_subtree(r)
+
+#         print(E_r)
 
 #         # Calculate the probability of observing the subtree rooted at r given the branch length p[r]
 #         likelihood *= p[r] ** E_r * (1 - p[r]) ** (left_size * right_size - E_r)
 
 #     return likelihood
 
-def likelihood(D):
+def likelihood2(D):
 
     """
         Calculates the likelihood of a given tree topology, D, with a set of branch lengths, p.
@@ -72,8 +80,6 @@ def likelihood(D):
 
     # Calculate the probability of observing the subtree rooted at r given the branch length p[r]
     likelihood *= ((Pn ** Pn) * (1-Pn) ** (1-Pn)) ** (left_size * right_size)
-
-    print(likelihood)
 
     return likelihood
 
@@ -193,18 +199,65 @@ def count_nodes(node):
 
 if __name__ == '__main__':
    
-    # Set the dendogram 
-    D = [(1, (2, 3, 2), 1), ((4, 5, 3), 6, 2)]
+    # # Set the dendogram 
+    # D = [(1, (2, 3, 4), 5), ((6, 7, 8), 9 , 10)]
 
+    # create the tree in NetworkX
+    G = nx.DiGraph()
+    G.add_edge(10, 9)
+    G.add_edge(10, 8)
+    G.add_edge(8, 7)
+    G.add_edge(8, 6)
+    G.add_edge(5, 4)
+    G.add_edge(4, 3)
+    G.add_edge(4, 2)
+    G.add_edge(5, 1)
+
+
+    def figli(l, root):
+        f = list((n[0] for n in l if n[1] == root))
+        
+        if len(f) == 0: 
+            return root
+        if len(f) == 1:
+            return (figli(l, f[0]), 0, root)
+        return (figli(l, f[1]), figli(l, f[0]), root)
+  
+
+    def build_tree_2(l):
+        roots = list((n[0] for n in l if n[1] == None))
+        
+        result = []
+        for root in roots:
+            result.append(figli(l, root))
+        
+        return result[::-1]
+
+
+    def convert_to_tuple():
+        l = []
+        for n in G.nodes:
+            pred = list(G.pred[n])
+            l.append((n,pred[0] if  len(pred) > 0 else None))
+
+        return build_tree_2(l)
+
+
+    # convert the dendrogram into the desired format
+    D = convert_to_tuple()
+
+    print("D", D)
     # Convert to tree structure with Node objects
     D = [build_tree(subtree) for subtree in D]
 
     Pn_max = calcolate_pn_maximize(D)
 
     # # Sets the probability of the root node to 0.5 and the probability of all other nodes to 0.8.
-    # p2 = {node: 0.5 if node.parent is None else 0.8 for node in D}
+    p2 = {node: Pn_max if node.parent is None else Pn_max for node in D}
 
     # Compute likelihood
-    result = likelihood(D)
+    # result1 = likelihood(D, p2)
+    
+    result2 = likelihood2(D)
 
-    print("Likelihood of dendrogram D: " + str(result.real))
+    print("Likelihood of dendrogram D: " + str(result2.real))
