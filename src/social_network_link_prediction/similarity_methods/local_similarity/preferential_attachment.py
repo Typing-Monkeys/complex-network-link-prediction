@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import lil_matrix, csr_matrix
-from utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __preferential_attachment(G: nx.Graph, x, y, sum=False) -> float:

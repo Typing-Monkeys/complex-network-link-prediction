@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix
 from scipy.sparse import csr_matrix
 
 

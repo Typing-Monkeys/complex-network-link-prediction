@@ -2,7 +2,7 @@ import networkx as nx
 import numpy as np
 from .common_neighbors import __common_neighbors
 from scipy.sparse import lil_matrix, csr_matrix
-from utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __cosine_similarity(G: nx.Graph, x, y) -> float:

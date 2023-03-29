@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 from .common_neighbors import __common_neighbors
-from utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes
 from scipy.sparse import lil_matrix, csr_matrix
 
 
