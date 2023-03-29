@@ -13,6 +13,7 @@ REQUIREMENTS	+=	virtualenv
 SRC = src
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
+INSTALL_DIR = requirements
 DOCS_DIR = docs
 # --html, --pdf or blank for markdown
 DOCS_FORMAT = "--html"
@@ -89,19 +90,19 @@ install-dev: check
 	@echo "Created env '$(VENV)' ✅"
 	@echo ""
 	
-	$(VENV_PYTHON) -m pip install -r utils/requirements.txt 
+	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements.txt 
 	@echo "dev dependencies installed ✅"
 	@echo ""
 
 install-doc:
-	"🟡 Installing doc dependencies ... "
-	$(VENV_PYTHON) -m pip install -r utils/requirements-doc.txt
+	@echo "🟡 Installing doc dependencies ... "
+	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements-doc.txt
 	@echo "doc dependencies installed ✅"
 	@echo ""
 
 install-test:
 	@echo "🟡 Installing testing dependencies ..."
-	$(VENV_PYTHON) -m pip install -r utils/requirements-test.txt # TODO: creare
+	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements-test.txt # TODO: creare
 	@echo "test dependencies installed ✅"
 	@echo ""
 
