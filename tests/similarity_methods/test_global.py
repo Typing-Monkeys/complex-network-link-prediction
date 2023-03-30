@@ -2,7 +2,6 @@ import unittest
 from social_network_link_prediction.similarity_methods import global_similarity
 import networkx as nx
 from sknetwork.data import house
-import numpy as np
 import networkit as nk
 
 

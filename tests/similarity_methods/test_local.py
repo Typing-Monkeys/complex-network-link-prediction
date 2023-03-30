@@ -40,7 +40,8 @@ class TestLocalSimilarityMethods(unittest.TestCase):
                          our_values,
                          skfunction,
                          samples_range,
-                         samples_number=20):
+                         samples_number=20,
+                         decimal_precision=3):
         indxes = [(random.randrange(samples_range),
                    random.randrange(samples_range))
                   for a in range(samples_number)]
@@ -49,7 +50,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
             expected = skfunction.predict((i, j))
             our_res = our_values[i, j]
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+            self.assertAlmostEqual(expected, our_res, decimal_precision)
 
     def test_common_neighbors_1(self):
         g, adjacency = self.__load_easy_dataset()
