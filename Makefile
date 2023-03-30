@@ -20,6 +20,7 @@ DOCS_FORMAT = "--html"
 DOCSTRINGS_FORMAT = numpydoc
 LINT_FORMAT = pylint
 
+.PHONY: tests
 
 all:
 	@echo "social-network-link-prediction Makefile guide."
