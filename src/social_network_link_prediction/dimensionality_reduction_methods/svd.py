@@ -1,21 +1,30 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_matrix, spdiags
 from scipy.sparse.linalg import svds
 
-def link_prediction_svd(G: nx.Graph, k = 5) -> csr_matrix:
+def link_prediction_svd(G: nx.Graph, k = 5, normalize=False) -> csr_matrix:
 
     # Create the adjacency matrix of the graph
     adj_matrix = nx.adjacency_matrix(G)
     
     # Perform the singular value decomposition
     U, S, Vt = svds(csr_matrix(adj_matrix).astype(float), k=k)
-    S = np.diag(S)
     
+    # Make the diagonal matrix sparse
+    S = spdiags(S, [0], k, k)
+
     # Compute the predicted adj_matrix
-    predicted_adj_matrix = U.dot(S).dot(Vt)
-    
+    predicted_adj_matrix = ((U @ S) @ Vt)
+
+    if normalize:
+        # Normalize the predicted edge weights to the range [0, 1]
+        rows, cols = np.nonzero(predicted_adj_matrix)
+        max_weight = np.max(predicted_adj_matrix[rows, cols])
+        for i in range(len(rows)):
+            predicted_adj_matrix[rows[i], cols[i]] /= max_weight
+
     return predicted_adj_matrix
 
 if __name__ == "__main__":
@@ -48,9 +57,9 @@ if __name__ == "__main__":
     # Sort the predicted edges by weight in descending order
     predicted_edges.sort(key=lambda x: x[2], reverse=True)
     
-    # Print the predicted edges with their probability score
+    # Print the predicted edges with their weight score
     print("Top 10 Predicted edges:")
     for edge in predicted_edges[:10]:
-        print("({0}, {1}): {2}".format(edge[0], edge[1], round(edge[2], 3)))
+        print(f"({edge[0]}, {edge[1]}): {round(edge[2], 3)}")
 
     plt.show()
