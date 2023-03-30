@@ -1,6 +1,7 @@
 import networkx as nx
 import unittest
 import random
+from timeout_decorator import timeout
 from social_network_link_prediction.similarity_methods import local_similarity
 from sknetwork.data import house, karate_club, load_konect
 from sknetwork.linkpred import CommonNeighbors
@@ -17,6 +18,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
     __dataset_easy = house()
     __dataset_medium = karate_club()
     __dataset_hard = load_konect('ego-facebook', verbose=False)["adjacency"]
+    __timeout = 5 * 60  # 5 minuit
 
     def __load_easy_dataset(self):
         adj = self.__dataset_easy
@@ -71,6 +73,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_common_neighbors_3(self):
         g, adjacency = self.__load_hard_dataset()
         cn = CommonNeighbors()
@@ -100,6 +103,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_jaccard_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -130,6 +134,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_sorensen_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -160,6 +165,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_hubpromoted_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -190,6 +196,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_hubdepressede_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -220,6 +227,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_adamicadar_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -250,6 +258,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_resourceallocation_3(self):
         g, adjacency = self.__load_hard_dataset()
 
@@ -280,6 +289,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
+    @timeout(__timeout)
     def test_preferentialattachment_3(self):
         g, adjacency = self.__load_hard_dataset()
 
