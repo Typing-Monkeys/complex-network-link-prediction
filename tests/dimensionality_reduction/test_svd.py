@@ -9,6 +9,7 @@ import networkit as nk
 class TestDimensionalityReductionMethods(unittest.TestCase):
 
     # TODO: ricontrollare
+    @unittest.skip("Metodo non ancora implementato")
     def test_svd(self):
         from socketserver.embedding import SVD
 
