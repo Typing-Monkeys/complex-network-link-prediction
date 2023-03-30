@@ -2,8 +2,8 @@ import networkx as nx
 import unittest
 import random
 from timeout_decorator import timeout
+from time import time
 from social_network_link_prediction.similarity_methods import local_similarity
-from sknetwork.data import house, karate_club, load_konect
 from sknetwork.linkpred import CommonNeighbors
 from sknetwork.linkpred import JaccardIndex
 from sknetwork.linkpred import SorensenIndex
@@ -12,13 +12,21 @@ from sknetwork.linkpred import HubDepressedIndex
 from sknetwork.linkpred import AdamicAdar
 from sknetwork.linkpred import ResourceAllocation
 from sknetwork.linkpred import PreferentialAttachment
+from tests import Configs
 
 
 class TestLocalSimilarityMethods(unittest.TestCase):
-    __dataset_easy = house()
-    __dataset_medium = karate_club()
-    __dataset_hard = load_konect('ego-facebook', verbose=False)["adjacency"]
-    __timeout = 5 * 60  # 5 minuit
+    __dataset_easy = Configs.dataset_easy
+    __dataset_medium = Configs.dataset_medium
+    __dataset_hard = Configs.dataset_hard
+    __timeout = Configs.timeout
+
+    def setUp(self):
+        self.start_time = time()
+
+    def tearDown(self):
+        t = time() - self.start_time
+        print(f"{round(t, 2)} s")
 
     def __load_easy_dataset(self):
         adj = self.__dataset_easy

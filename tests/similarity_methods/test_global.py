@@ -1,42 +1,44 @@
 import unittest
 from social_network_link_prediction.similarity_methods import global_similarity
-import networkx as nx
-from sknetwork.data import house
-import networkit as nk
+from timeout_decorator import timeout
+from tests import Configs
+from time import time
 
 
 class TestGlobalSimilarityMethods(unittest.TestCase):
 
-    # TODO: @Cosci, anche questa implementazione non va
+    def setUp(self):
+        self.start_time = time()
+
+    def tearDown(self):
+        t = time() - self.start_time
+
+        print(f"{round(t, 2)} s")
+
     @unittest.skip(
         "Il metodo di Networkit differisce nell'implementazione dal nostro")
-    def test_katz(self):
-        from networkit.linkprediction import KatzIndex
+    def test_katz_1(self):
+        pass
 
-        adjacency = house()
+    @unittest.skip(
+        "Il metodo di Networkit differisce nell'implementazione dal nostro")
+    def test_katz_2(self):
+        pass
 
-        beta = .3
+    @unittest.skip(
+        "Il metodo di Networkit differisce nell'implementazione dal nostro")
+    def test_katz_3(self):
+        pass
 
-        G = nx.from_numpy_array(adjacency)
-        G_nk = nk.Graph(G.number_of_nodes())
+    @timeout(Configs.timeout)
+    def test_katz_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+        beta = .001
 
-        for edge in G.edges():
-            G_nk.addEdge(*edge)
+        res = global_similarity.katz_index(g, beta=beta)
+        # print(res)
 
-        print(nk.overview(G_nk))
-
-        kaz = KatzIndex(G_nk, 10, beta)
-
-        # ritorna la similarità solo tra nodi non connessi
-        scores_nk = kaz.runAll()
-        our_scores = global_similarity.katz_index(G, beta=beta).toarray()
-
-        print()
-        print(scores_nk)
-        print()
-        print(our_scores)
-
-        self.assertEqual(scores_nk, our_scores)
+        self.assertIsNotNone(res)
 
 
 if __name__ == '__main__':
