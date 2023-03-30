@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import csr_matrix, linalg, identity
-from utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix
 
 
 def __power_method(A, max_iterations = 100, tol = 1e-12, verbose = False):

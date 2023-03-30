@@ -2,7 +2,7 @@ import networkx as nx
 import numpy as np
 from scipy.sparse import lil_matrix, csr_matrix
 from .common_neighbors import __common_neighbors
-from utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __sorensen(G: nx.Graph, x, y) -> float:
