@@ -17,7 +17,7 @@ def cosine_similarity(G: nx.Graph) -> csr_matrix:
     for x, y in zip(*np.triu_indices(size)):
         x_node = name_index_map[x][0]
         y_node = name_index_map[y][0]
-           
+
         S[x, y] = __cosine_similarity(G, x_node, y_node)
         S[y, x] = S[x, y]
 

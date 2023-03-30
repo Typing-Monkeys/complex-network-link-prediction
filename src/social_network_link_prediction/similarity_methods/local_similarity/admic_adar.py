@@ -13,7 +13,7 @@ def adamic_adar(G: nx.Graph) -> csr_matrix:
     S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())
 
-    for x,y in zip(*np.triu_indices(size)):
+    for x, y in zip(*np.triu_indices(size)):
         x_node = name_index_map[x][0]
         y_node = name_index_map[y][0]
 

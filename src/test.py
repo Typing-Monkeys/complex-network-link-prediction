@@ -1,10 +1,11 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar, preferential_attachment, resource_allocation, cosine_similarity, sorensen,hub_promoted, hub_depressed, node_clustering
+from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar, preferential_attachment, resource_allocation, cosine_similarity, sorensen, hub_promoted, hub_depressed, node_clustering
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import local_path_index
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import path_of_length_three
 from social_network_link_prediction.similarity_methods.local_similarity import jaccard
 from social_network_link_prediction.similarity_methods.global_similarity import katz_index
+
 
 def test_LPI():
     graph = nx.Graph()
@@ -59,6 +60,7 @@ def test_jaccard():
     nx.draw(G, with_labels=True)
     plt.show()
 
+
 # --- Adamic Adar Measure
 def test_adamic_adar():
     G = nx.gnp_random_graph(1000, .01)
@@ -67,6 +69,7 @@ def test_adamic_adar():
 
     nx.draw(G, with_labels=True)
     plt.show()
+
 
 # --- Preferentaial Attachment
 def test_preferential():
@@ -77,7 +80,8 @@ def test_preferential():
     nx.draw(G, with_labels=True)
     plt.show()
 
-# --- Resource Allocation    
+
+# --- Resource Allocation
 def test_resourceallocation():
     G = nx.gnp_random_graph(1000, .01)
 
@@ -85,6 +89,7 @@ def test_resourceallocation():
 
     nx.draw(G, with_labels=True)
     plt.show()
+
 
 # --- Cosine Similarity
 def test_cosinesimilarity():
@@ -95,6 +100,7 @@ def test_cosinesimilarity():
     nx.draw(G, with_labels=True)
     plt.show()
 
+
 # --- Sorensen
 def test_sorensen():
     G = nx.gnp_random_graph(1000, .01)
@@ -103,6 +109,7 @@ def test_sorensen():
 
     nx.draw(G, with_labels=True)
     plt.show()
+
 
 # --- Hub Promoted
 def test_hubpromoted():
@@ -113,6 +120,7 @@ def test_hubpromoted():
     nx.draw(G, with_labels=True)
     plt.show()
 
+
 # --- Hub Depressed
 def test_hubdepressed():
     G = nx.gnp_random_graph(1000, .01)
@@ -121,6 +129,7 @@ def test_hubdepressed():
 
     nx.draw(G, with_labels=True)
     plt.show()
+
 
 # --- Node Clustering
 def test_nodeclusterintg():
@@ -131,6 +140,7 @@ def test_nodeclusterintg():
     nx.draw(G, with_labels=True)
     plt.show()
 
+
 # --- Katz Index
 def test_katz_index():
     G = nx.gnp_random_graph(10000, .01)
@@ -139,6 +149,7 @@ def test_katz_index():
 
     nx.draw(G, with_labels=True)
     plt.show()
+
 
 # test_path_of_length()
 # test_common_neighbors_easy()

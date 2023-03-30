@@ -11,7 +11,7 @@ def __sorensen(G: nx.Graph, x, y) -> float:
 
 def sorensen(G: nx.Graph) -> csr_matrix:
     size = G.number_of_nodes()
-    S = lil_matrix((size,size))
+    S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())
 
     for x, y in zip(*np.triu_indices(size)):

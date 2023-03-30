@@ -19,5 +19,5 @@ def preferential_attachment(G: nx.Graph, sum=False) -> csr_matrix:
 
         S[x, y] = __preferential_attachment(G, x_node, y_node, sum=sum)
         S[y, x] = S[x, y]
-        
+
     return S.tocsr()
