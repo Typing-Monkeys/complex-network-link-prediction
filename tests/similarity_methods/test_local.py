@@ -1,4 +1,3 @@
-import networkx as nx
 import unittest
 import random
 from timeout_decorator import timeout
@@ -16,10 +15,6 @@ from tests import Configs
 
 
 class TestLocalSimilarityMethods(unittest.TestCase):
-    __dataset_easy = Configs.dataset_easy
-    __dataset_medium = Configs.dataset_medium
-    __dataset_hard = Configs.dataset_hard
-    __timeout = Configs.timeout
 
     def setUp(self):
         self.start_time = time()
@@ -27,24 +22,6 @@ class TestLocalSimilarityMethods(unittest.TestCase):
     def tearDown(self):
         t = time() - self.start_time
         print(f"{round(t, 2)} s")
-
-    def __load_easy_dataset(self):
-        adj = self.__dataset_easy
-        g = nx.from_numpy_array(adj)
-
-        return g, adj
-
-    def __load_medium_dataset(self):
-        adj = self.__dataset_medium
-        g = nx.from_numpy_array(adj)
-
-        return g, adj
-
-    def __load_hard_dataset(self):
-        adj = self.__dataset_hard
-        g = nx.from_numpy_array(adj)
-
-        return g, adj
 
     def __perform_sktest(self,
                          our_values,
@@ -63,7 +40,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
             self.assertAlmostEqual(expected, our_res, decimal_precision)
 
     def test_common_neighbors_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
         cn = CommonNeighbors()
 
         cn.fit(adjacency)
@@ -72,7 +49,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0], 20)
 
     def test_common_neighbors_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = CommonNeighbors()
         cn.fit(adjacency)
@@ -81,9 +58,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_common_neighbors_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
         cn = CommonNeighbors()
 
         cn.fit(adjacency)
@@ -92,7 +69,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_jaccard_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = JaccardIndex()
         cn.fit(adjacency)
@@ -102,7 +79,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_jaccard_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = JaccardIndex()
         cn.fit(adjacency)
@@ -111,9 +88,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_jaccard_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = JaccardIndex()
         cn.fit(adjacency)
@@ -123,7 +100,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_sorensen_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = SorensenIndex()
         cn.fit(adjacency)
@@ -133,7 +110,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_sorensen_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = SorensenIndex()
         cn.fit(adjacency)
@@ -142,9 +119,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_sorensen_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = SorensenIndex()
         cn.fit(adjacency)
@@ -154,7 +131,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_hubpromoted_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = HubPromotedIndex()
         cn.fit(adjacency)
@@ -164,7 +141,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_hubpromoted_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = HubPromotedIndex()
         cn.fit(adjacency)
@@ -173,9 +150,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_hubpromoted_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = HubPromotedIndex()
         cn.fit(adjacency)
@@ -185,7 +162,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_hubdepressed_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = HubDepressedIndex()
         cn.fit(adjacency)
@@ -195,7 +172,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_hubdepressed_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = HubDepressedIndex()
         cn.fit(adjacency)
@@ -204,9 +181,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_hubdepressede_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = HubDepressedIndex()
         cn.fit(adjacency)
@@ -216,7 +193,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_adamicadar_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = AdamicAdar()
         cn.fit(adjacency)
@@ -226,7 +203,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_adamicadar_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = AdamicAdar()
         cn.fit(adjacency)
@@ -235,9 +212,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_adamicadar_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = AdamicAdar()
         cn.fit(adjacency)
@@ -247,7 +224,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_resourceallocation_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = ResourceAllocation()
         cn.fit(adjacency)
@@ -257,7 +234,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_resourceallocation_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = ResourceAllocation()
         cn.fit(adjacency)
@@ -266,9 +243,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_resourceallocation_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = ResourceAllocation()
         cn.fit(adjacency)
@@ -278,7 +255,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_preferentialattachment_1(self):
-        g, adjacency = self.__load_easy_dataset()
+        g, adjacency = Configs.load_easy_dataset()
 
         cn = PreferentialAttachment()
         cn.fit(adjacency)
@@ -288,7 +265,7 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     def test_preferentialattachment_2(self):
-        g, adjacency = self.__load_medium_dataset()
+        g, adjacency = Configs.load_medium_dataset()
 
         cn = PreferentialAttachment()
         cn.fit(adjacency)
@@ -297,9 +274,9 @@ class TestLocalSimilarityMethods(unittest.TestCase):
 
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-    @timeout(__timeout)
+    @timeout(Configs.timeout)
     def test_preferentialattachment_3(self):
-        g, adjacency = self.__load_hard_dataset()
+        g, adjacency = Configs.load_hard_dataset()
 
         cn = PreferentialAttachment()
         cn.fit(adjacency)
