@@ -32,7 +32,7 @@ class TestQuasiGlobalSimilarityMethods(unittest.TestCase):
     def test_lpi_time(self):
         g, adjacency = Configs.load_hard_dataset()
         epsilon = .1
-        n = 4
+        n = 10
 
         res = quasi_local_similarity.local_path_index(g, epsilon, n)
         # print(res)
