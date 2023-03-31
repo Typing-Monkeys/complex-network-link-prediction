@@ -286,12 +286,44 @@ class TestLocalSimilarityMethods(unittest.TestCase):
         self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     @unittest.skip("Non è presente in scikit-network")
-    def test_cosine(self):
+    def test_cosine_1(self):
         pass
 
     @unittest.skip("Non è presente in scikit-network")
-    def test_nodeclustering(self):
+    def test_cosine_2(self):
         pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_cosine_3(self):
+        pass
+
+    @timeout(Configs.timeout)
+    def test_cosine_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        our_sim = local_similarity.cosine_similarity(g)
+
+        self.assertIsNotNone(our_sim)
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_1(self):
+        pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_2(self):
+        pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_3(self):
+        pass
+
+    @timeout(Configs.timeout)
+    def test_nodeclustering_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        our_sim = local_similarity.node_clustering(g)
+
+        self.assertIsNotNone(our_sim)
 
 
 if __name__ == '__main__':
