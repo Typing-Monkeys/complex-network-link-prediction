@@ -5,6 +5,7 @@ from social_network_link_prediction.similarity_methods.quasi_local_similarity im
 from social_network_link_prediction.similarity_methods.quasi_local_similarity import path_of_length_three
 from social_network_link_prediction.similarity_methods.local_similarity import jaccard
 from social_network_link_prediction.similarity_methods.global_similarity import katz_index
+from social_network_link_prediction.dimensionality_reduction_methods import link_prediction_svd
 
 
 def test_LPI():
@@ -151,6 +152,15 @@ def test_katz_index():
     plt.show()
 
 
+def test_svd():
+    G = nx.gnp_random_graph(1000, .01)
+
+    print(link_prediction_svd(G, normalize=True))
+
+    nx.draw(G, with_labels=True)
+    plt.show()
+
+
 # test_path_of_length()
 # test_common_neighbors_easy()
 # test_common_neighbors_hard()
@@ -163,4 +173,5 @@ def test_katz_index():
 # test_hubpromoted()
 # test_hubdepressed()
 # test_nodeclusterintg()
-test_katz_index()
+# test_katz_index()
+test_svd()
