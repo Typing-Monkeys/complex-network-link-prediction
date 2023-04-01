@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from social_network_link_prediction.utils import to_adjacency_matrix, nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes
 from scipy.sparse import lil_matrix, csr_matrix
 
 
@@ -22,16 +22,16 @@ def __node_clustering(G: nx.Graph, x, y) -> float:
 
 
 def node_clustering(G: nx.Graph) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

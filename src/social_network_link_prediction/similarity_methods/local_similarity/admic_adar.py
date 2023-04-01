@@ -9,16 +9,16 @@ def __adamic_adar(G: nx.Graph, x, y) -> float:
 
 
 def adamic_adar(G: nx.Graph) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

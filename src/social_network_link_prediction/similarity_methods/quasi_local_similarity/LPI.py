@@ -5,20 +5,20 @@ from scipy.sparse import csr_matrix
 
 
 def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
     epsilon: float :
-        
+        TODO
     n: int :
-        
+        TODO
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     A = to_adjacency_matrix(G)
     A = A @ A

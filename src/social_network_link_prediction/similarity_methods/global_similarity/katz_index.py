@@ -37,18 +37,19 @@ def __power_method(A: csr_matrix,
 
 
 def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
     beta: int :
+        TODO
          (Default value = 1)
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     A = to_adjacency_matrix(G)
     largest_eigenvalue = __power_method(A)  # lambda_1

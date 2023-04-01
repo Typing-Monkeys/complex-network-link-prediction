@@ -5,26 +5,22 @@ from scipy.sparse import lil_matrix, csr_matrix
 
 
 def __common_neighbors(G: nx.Graph, x, y) -> int:
-    """
-        Calcola l'indice Common Neighbors per la signola
-        coppia di nodi
-    """
+    """Calcola l'indice Common Neighbors per la singola coppia di nodi"""
 
     return len(set(G[x]).intersection(set(G[y])))
 
 
 def common_neighbors(G: nx.Graph) -> csr_matrix:
-    """Cacola l'indice Common Neighbors per tutti i nodi
-        del grafo dato.
+    """Calcola l'indice Common Neighbors per tutti i nodi del grafo dato.
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
 
     size = G.number_of_nodes()

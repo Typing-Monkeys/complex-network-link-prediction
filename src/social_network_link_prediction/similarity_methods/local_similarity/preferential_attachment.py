@@ -9,18 +9,20 @@ def __preferential_attachment(G: nx.Graph, x, y, sum: bool = False) -> float:
 
 
 def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
     sum: bool :
+        Indica quale operazione di aggregazione utilizzare.
+        Se True usa la SOMMA, altrimenti la MOLTIPLICAZIONE.
          (Default value = False)
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

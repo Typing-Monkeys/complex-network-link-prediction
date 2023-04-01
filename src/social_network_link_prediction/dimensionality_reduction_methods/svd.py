@@ -9,20 +9,22 @@ from social_network_link_prediction.utils import to_adjacency_matrix
 def link_prediction_svd(G: nx.Graph,
                         k: int = 5,
                         normalize: bool = False) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
     k: int :
+        TODO
          (Default value = 5)
     normalize: bool :
+        Se True normalizza i dati in output.
          (Default value = False)
 
     Returns
     -------
-
+    predicted_adj_matrix: csr_matrix : matrice di Similarità
     """
 
     # Create the adjacency matrix of the graph

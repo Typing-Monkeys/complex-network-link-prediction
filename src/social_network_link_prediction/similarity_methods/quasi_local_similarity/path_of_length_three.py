@@ -31,16 +31,16 @@ def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:
 
 
 def path_of_length_three(G: nx.Graph) -> csr_matrix:
-    """
+    """TODO
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        grafo da analizzare
 
     Returns
     -------
-
+    S: csr_matrix : matrice di Similarità
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
