@@ -6,7 +6,9 @@ from scipy.sparse.linalg import svds
 from social_network_link_prediction.utils import to_adjacency_matrix
 
 
-def link_prediction_svd(G: nx.Graph, k=5, normalize=False) -> csr_matrix:
+def link_prediction_svd(G: nx.Graph,
+                        k: int = 5,
+                        normalize: bool = False) -> csr_matrix:
 
     # Create the adjacency matrix of the graph
     adj_matrix = to_adjacency_matrix(G)

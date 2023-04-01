@@ -12,12 +12,12 @@ def __t(G: nx.Graph, z) -> int:
     return nx.triangles(G, z)
 
 
-def __C(G: nx.Graph, z):
+def __C(G: nx.Graph, z) -> float:
     z_degree = G.degree[z]
     return __t(G, z) / (z_degree * (z_degree - 1))
 
 
-def __node_clustering(G: nx.Graph, x, y):
+def __node_clustering(G: nx.Graph, x, y) -> float:
     return sum([__C(G, z) for z in (set(G[x]) & set(G[y]))])
 
 

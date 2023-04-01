@@ -4,11 +4,11 @@ from scipy.sparse import lil_matrix, csr_matrix
 from social_network_link_prediction.utils import nodes_to_indexes
 
 
-def __preferential_attachment(G: nx.Graph, x, y, sum=False) -> float:
+def __preferential_attachment(G: nx.Graph, x, y, sum: bool = False) -> float:
     return G.degree[x] * G.degree[y] if not sum else G.degree[x] + G.degree[y]
 
 
-def preferential_attachment(G: nx.Graph, sum=False) -> csr_matrix:
+def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())

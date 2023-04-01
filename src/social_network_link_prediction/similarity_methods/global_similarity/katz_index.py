@@ -4,7 +4,10 @@ from scipy.sparse import csr_matrix, linalg, identity
 from social_network_link_prediction.utils import to_adjacency_matrix
 
 
-def __power_method(A, max_iterations=100, tol=1e-12, verbose=False):
+def __power_method(A: csr_matrix,
+                   max_iterations: int = 100,
+                   tol: float = 1e-12,
+                   verbose: bool = False):
     n = A.shape[0]
     x = np.ones(n) / np.sqrt(n)  # initialize a vector x
     # r = A @ x - np.dot(A @ x, x) * x # residual initialization
