@@ -31,6 +31,17 @@ def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:
 
 
 def path_of_length_three(G: nx.Graph) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+
+    Returns
+    -------
+
+    """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())

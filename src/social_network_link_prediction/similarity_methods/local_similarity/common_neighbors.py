@@ -14,15 +14,17 @@ def __common_neighbors(G: nx.Graph, x, y) -> int:
 
 
 def common_neighbors(G: nx.Graph) -> csr_matrix:
-    """
-        Cacola l'indice Common Neighbors per tutti i nodi 
+    """Cacola l'indice Common Neighbors per tutti i nodi
         del grafo dato.
 
-        ARGS:
-            G: grafo networkx 
+    Parameters
+    ----------
+    G: nx.Graph :
+        
 
-        RET:
-            S np.ndarray: matrice di Similarità 
+    Returns
+    -------
+
     """
 
     size = G.number_of_nodes()

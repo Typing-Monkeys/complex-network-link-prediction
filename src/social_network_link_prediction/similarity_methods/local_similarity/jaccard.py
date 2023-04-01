@@ -10,6 +10,17 @@ def __jaccard(G: nx.Graph, x, y) -> float:
 
 
 def jaccard(G: nx.Graph) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+
+    Returns
+    -------
+
+    """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())

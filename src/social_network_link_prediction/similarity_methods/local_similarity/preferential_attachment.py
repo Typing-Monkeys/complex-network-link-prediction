@@ -9,6 +9,19 @@ def __preferential_attachment(G: nx.Graph, x, y, sum: bool = False) -> float:
 
 
 def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    sum: bool :
+         (Default value = False)
+
+    Returns
+    -------
+
+    """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
     name_index_map = list(nodes_to_indexes(G).items())

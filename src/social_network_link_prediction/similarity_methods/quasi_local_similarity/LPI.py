@@ -5,6 +5,21 @@ from scipy.sparse import csr_matrix
 
 
 def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    epsilon: float :
+        
+    n: int :
+        
+
+    Returns
+    -------
+
+    """
     A = to_adjacency_matrix(G)
     A = A @ A
     S = np.power(epsilon, 0) * (A)

@@ -9,6 +9,21 @@ from social_network_link_prediction.utils import to_adjacency_matrix
 def link_prediction_svd(G: nx.Graph,
                         k: int = 5,
                         normalize: bool = False) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    k: int :
+         (Default value = 5)
+    normalize: bool :
+         (Default value = False)
+
+    Returns
+    -------
+
+    """
 
     # Create the adjacency matrix of the graph
     adj_matrix = to_adjacency_matrix(G)

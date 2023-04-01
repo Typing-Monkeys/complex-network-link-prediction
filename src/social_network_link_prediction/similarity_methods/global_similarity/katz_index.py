@@ -37,6 +37,19 @@ def __power_method(A: csr_matrix,
 
 
 def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    beta: int :
+         (Default value = 1)
+
+    Returns
+    -------
+
+    """
     A = to_adjacency_matrix(G)
     largest_eigenvalue = __power_method(A)  # lambda_1
     if beta >= (1 / largest_eigenvalue[0]):
