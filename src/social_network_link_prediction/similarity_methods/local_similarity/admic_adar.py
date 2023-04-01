@@ -10,6 +10,8 @@ def __adamic_adar(G: nx.Graph, x, y) -> float:
 
 def adamic_adar(G: nx.Graph) -> csr_matrix:
     """TODO
+    TODO: esempio di utilizzo di Latex. Rimuovere.
+    \\(A \\in B, \\sum_{i=0}^{m} \\log m\\)
 
     Parameters
     ----------
