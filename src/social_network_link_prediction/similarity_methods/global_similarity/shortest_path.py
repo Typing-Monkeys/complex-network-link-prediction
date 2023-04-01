@@ -2,7 +2,7 @@ import networkx as nx
 from scipy.sparse import csr_matrix, lil_matrix
 
 def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
-    dim = len(G.nodes)
+    dim = G.number_of_nodes()
     if cutoff is None:
         cutoff = dim
 
