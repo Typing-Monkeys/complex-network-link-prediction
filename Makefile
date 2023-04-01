@@ -21,7 +21,7 @@ DOCS_LATEX  = True
 DOCSTRINGS_FORMAT = numpydoc
 LINT_FORMAT = pylint
 
-.PHONY: tests, docs
+.PHONY: tests docs
 
 all:
 	@echo "social-network-link-prediction Makefile guide."
