@@ -1,6 +1,6 @@
 import unittest
 from social_network_link_prediction.similarity_methods import dimensionality_reduction
-from socketserver.embedding import SVD
+from sknetwork.embedding import SVD
 from tests import Configs
 from time import time
 from timeout_decorator import timeout
