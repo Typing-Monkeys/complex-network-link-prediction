@@ -38,22 +38,45 @@ from social_network_link_prediction.utils import to_adjacency_matrix
 def link_prediction_svd(G: nx.Graph,
                         k: int = 5,
                         normalize: bool = False) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the SVD Decomposition for the Graph Adjacency Matrix.
+    The similarity decinoisutuin is defined as:
+
+    .. math::
+        X_\\pm \\approx F G^T
+
+    where \\(F \\in \\mathbb{R}^{p \\times k}\\) contains
+    the bases of the latent space and is called the basis matrix;
+    \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
+    of the bases for reconstructing the matrix \\(X\\), and is called
+    the coefficient matrix; \\(k\\) is the dimention of the latent space
+    (\\(k&lt;n\\)) and \\(n\\) is the nunber of data vector
+    (as columns) in \\(X\\).
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
     k: int :
-        TODO
+        dimention of the latent space (must be \\(&lt; n\\))
          (Default value = 5)
     normalize: bool :
-        Se True normalizza i dati in output.
+        if True, normalize the output values
          (Default value = False)
 
     Returns
     -------
-    predicted_adj_matrix: csr_matrix : matrice di Similarità
+    predicted_adj_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Typically, the latent features are extracted and using these features,
+    each vertex is represented in latent space, and such representations are
+    used in a supervised or unsupervised framework for link prediction.
+    To further improve the prediction results, some additional node/link or
+    other attribute information can be used.
+
+    In most of the works, non-negative matrix factorization has been used.
+    Some authors also applied the singular value decomposition technique.
     &#34;&#34;&#34;
 
     # Create the adjacency matrix of the graph
@@ -128,23 +151,40 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">link_prediction_svd</span></span>(<span>G: networkx.classes.graph.Graph, k: int = 5, normalize: bool = False) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>TODO</p>
+<div class="desc"><p>Compute the SVD Decomposition for the Graph Adjacency Matrix.
+The similarity decinoisutuin is defined as:</p>
+<p><span><span class="MathJax_Preview"> X_\pm \approx F G^T </span><script type="math/tex; mode=display"> X_\pm \approx F G^T </script></span>
+where <span><span class="MathJax_Preview">F \in \mathbb{R}^{p \times k}</span><script type="math/tex">F \in \mathbb{R}^{p \times k}</script></span> contains
+the bases of the latent space and is called the basis matrix;
+<span><span class="MathJax_Preview">G \in \mathbb{R}^{n \times k}</span><script type="math/tex">G \in \mathbb{R}^{n \times k}</script></span> contains combination of coefficients
+of the bases for reconstructing the matrix <span><span class="MathJax_Preview">X</span><script type="math/tex">X</script></span>, and is called
+the coefficient matrix; <span><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> is the dimention of the latent space
+((k&lt;n)) and <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> is the nunber of data vector
+(as columns) in <span><span class="MathJax_Preview">X</span><script type="math/tex">X</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>grafo da analizzare</dd>
+<dd>input Graph (a networkx Graph)</dd>
 <dt><strong><code>k</code></strong> :&ensp;<code>int :</code></dt>
-<dd>TODO
+<dd>dimention of the latent space (must be <span><span class="MathJax_Preview">&lt; n</span><script type="math/tex">< n</script></span>)
 (Default value = 5)</dd>
 <dt><strong><code>normalize</code></strong> :&ensp;<code>bool :</code></dt>
-<dd>Se True normalizza i dati in output.
+<dd>if True, normalize the output values
 (Default value = False)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>predicted_adj_matrix</code></strong> :&ensp;<code>csr_matrix : matrice di Similarità</code></dt>
+<dt><strong><code>predicted_adj_matrix</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
 <dd>&nbsp;</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Typically, the latent features are extracted and using these features,
+each vertex is represented in latent space, and such representations are
+used in a supervised or unsupervised framework for link prediction.
+To further improve the prediction results, some additional node/link or
+other attribute information can be used.</p>
+<p>In most of the works, non-negative matrix factorization has been used.
+Some authors also applied the singular value decomposition technique.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -152,22 +192,45 @@ if __name__ == &#34;__main__&#34;:
 <pre><code class="python">def link_prediction_svd(G: nx.Graph,
                         k: int = 5,
                         normalize: bool = False) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the SVD Decomposition for the Graph Adjacency Matrix.
+    The similarity decinoisutuin is defined as:
+
+    .. math::
+        X_\\pm \\approx F G^T
+
+    where \\(F \\in \\mathbb{R}^{p \\times k}\\) contains
+    the bases of the latent space and is called the basis matrix;
+    \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
+    of the bases for reconstructing the matrix \\(X\\), and is called
+    the coefficient matrix; \\(k\\) is the dimention of the latent space
+    (\\(k&lt;n\\)) and \\(n\\) is the nunber of data vector
+    (as columns) in \\(X\\).
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
     k: int :
-        TODO
+        dimention of the latent space (must be \\(&lt; n\\))
          (Default value = 5)
     normalize: bool :
-        Se True normalizza i dati in output.
+        if True, normalize the output values
          (Default value = False)
 
     Returns
     -------
-    predicted_adj_matrix: csr_matrix : matrice di Similarità
+    predicted_adj_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Typically, the latent features are extracted and using these features,
+    each vertex is represented in latent space, and such representations are
+    used in a supervised or unsupervised framework for link prediction.
+    To further improve the prediction results, some additional node/link or
+    other attribute information can be used.
+
+    In most of the works, non-negative matrix factorization has been used.
+    Some authors also applied the singular value decomposition technique.
     &#34;&#34;&#34;
 
     # Create the adjacency matrix of the graph
