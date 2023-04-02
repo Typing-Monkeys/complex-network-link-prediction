@@ -34,6 +34,7 @@ from scipy.sparse import lil_matrix, csr_matrix
 
 
 def __path_of_length_three_iter(G: nx.Graph, x, y) -&gt; float:
+    &#34;&#34;&#34;Compute the Path of Length Three Index for 2 given nodes.&#34;&#34;&#34;
     k_x = G.degree(x)
     k_y = G.degree(y)
 
@@ -60,7 +61,13 @@ def __path_of_length_three_iter(G: nx.Graph, x, y) -&gt; float:
 
 
 def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Path of Length Three Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\sum \\frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v}
+
+    where \\(k_x\\) is the degree of node \\(x\\).
 
     Parameters
     ----------
@@ -70,6 +77,21 @@ def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
     Returns
     -------
     S: csr_matrix : matrice di Similarità
+
+    Notes
+    -----
+    Georg Simmel, a German sociologist, first coined the concept
+    “triadic closure” and made popular by Mark Granovetter in his work
+    “The Strength of Weak Ties”. The authors proposed a similarity index
+    in protein-protein interaction (PPI) network,
+    called path of length 3 (or L3) published in the
+    Nature Communication. They experimentally show that the triadic closure
+    principle (TCP) does not work well with PPI networks. They showed the
+    paradoxical behavior of the TCP (i.e., the path of length 2),
+    which does not follow the structural and evolutionary mechanism that
+    governs protein interaction. The TCP predicts well to the interaction of
+    self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+    and fails in prediction between SIP and non SIP that amounts to 96%.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -96,7 +118,10 @@ def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
 <span>def <span class="ident">path_of_length_three</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>TODO</p>
+<div class="desc"><p>Compute the Path of Length Three Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \sum \frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v} </span><script type="math/tex; mode=display"> S(x, y) = \sum \frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v} </script></span>
+where <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -106,13 +131,32 @@ def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
 <dl>
 <dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : matrice di Similarità</code></dt>
 <dd>&nbsp;</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Georg Simmel, a German sociologist, first coined the concept
+“triadic closure” and made popular by Mark Granovetter in his work
+“The Strength of Weak Ties”. The authors proposed a similarity index
+in protein-protein interaction (PPI) network,
+called path of length 3 (or L3) published in the
+Nature Communication. They experimentally show that the triadic closure
+principle (TCP) does not work well with PPI networks. They showed the
+paradoxical behavior of the TCP (i.e., the path of length 2),
+which does not follow the structural and evolutionary mechanism that
+governs protein interaction. The TCP predicts well to the interaction of
+self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+and fails in prediction between SIP and non SIP that amounts to 96%.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Path of Length Three Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\sum \\frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v}
+
+    where \\(k_x\\) is the degree of node \\(x\\).
 
     Parameters
     ----------
@@ -122,6 +166,21 @@ def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
     Returns
     -------
     S: csr_matrix : matrice di Similarità
+
+    Notes
+    -----
+    Georg Simmel, a German sociologist, first coined the concept
+    “triadic closure” and made popular by Mark Granovetter in his work
+    “The Strength of Weak Ties”. The authors proposed a similarity index
+    in protein-protein interaction (PPI) network,
+    called path of length 3 (or L3) published in the
+    Nature Communication. They experimentally show that the triadic closure
+    principle (TCP) does not work well with PPI networks. They showed the
+    paradoxical behavior of the TCP (i.e., the path of length 2),
+    which does not follow the structural and evolutionary mechanism that
+    governs protein interaction. The TCP predicts well to the interaction of
+    self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+    and fails in prediction between SIP and non SIP that amounts to 96%.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

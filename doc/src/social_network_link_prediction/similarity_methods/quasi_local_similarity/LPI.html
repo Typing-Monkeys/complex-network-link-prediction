@@ -34,20 +34,42 @@ from scipy.sparse import csr_matrix
 
 
 def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Local Path  Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S^{LP} = A^{2} + \\epsilon A^{3} +
+        \\epsilon^{2} A^{4} + \\ldots + \\epsilon^{n - 2} A^{n}
+
+    where \\(\\epsilon\\) is a free parameter,
+    \\(A\\) is the Adjacency Matrix and \\(n\\) is the maximal order.
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
     epsilon: float :
-        TODO
+        free parameter
     n: int :
-        TODO
+        maximal order
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This metric has the intent to furnish a good trade-off
+    between accuracy and computational complexity.
+
+    Clearly, the measurement converges to common neighbor when
+    \\(\\epsilon = 0\\). If there is no direct connection between
+    \\(x\\) and \\(y\\), \\((A^{3})_{x,y}\\) is equated to the total
+    different paths of length 3 between \\(x\\) and \\(y\\).
+
+    Computing this index becomes more complicated with the increasing
+    value of \\(n\\). The LP index outperforms the proximity-based indices,
+    such as RA, AA, and CN.
     &#34;&#34;&#34;
     A = to_adjacency_matrix(G)
     A = A @ A
@@ -72,40 +94,79 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
 <span>def <span class="ident">local_path_index</span></span>(<span>G: networkx.classes.graph.Graph, epsilon: float, n: int) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>TODO</p>
+<div class="desc"><p>Compute the Local Path
+Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S^{LP} = A^{2} + \epsilon A^{3} +
+\epsilon^{2} A^{4} + \ldots + \epsilon^{n - 2} A^{n} </span><script type="math/tex; mode=display"> S^{LP} = A^{2} + \epsilon A^{3} +
+\epsilon^{2} A^{4} + \ldots + \epsilon^{n - 2} A^{n} </script></span>
+where <span><span class="MathJax_Preview">\epsilon</span><script type="math/tex">\epsilon</script></span> is a free parameter,
+<span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span> is the Adjacency Matrix and <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span> is the maximal order.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>grafo da analizzare</dd>
+<dd>input Graph (a networkx Graph)</dd>
 <dt><strong><code>epsilon</code></strong> :&ensp;<code>float :</code></dt>
-<dd>TODO</dd>
+<dd>free parameter</dd>
 <dt><strong><code>n</code></strong> :&ensp;<code>int :</code></dt>
-<dd>TODO</dd>
+<dd>maximal order</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : matrice di Similarità</code></dt>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
 <dd>&nbsp;</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This metric has the intent to furnish a good trade-off
+between accuracy and computational complexity.</p>
+<p>Clearly, the measurement converges to common neighbor when
+<span><span class="MathJax_Preview">\epsilon = 0</span><script type="math/tex">\epsilon = 0</script></span>. If there is no direct connection between
+<span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>, <span><span class="MathJax_Preview">(A^{3})_{x,y}</span><script type="math/tex">(A^{3})_{x,y}</script></span> is equated to the total
+different paths of length 3 between <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>.</p>
+<p>Computing this index becomes more complicated with the increasing
+value of <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>. The LP index outperforms the proximity-based indices,
+such as RA, AA, and CN.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Local Path  Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S^{LP} = A^{2} + \\epsilon A^{3} +
+        \\epsilon^{2} A^{4} + \\ldots + \\epsilon^{n - 2} A^{n}
+
+    where \\(\\epsilon\\) is a free parameter,
+    \\(A\\) is the Adjacency Matrix and \\(n\\) is the maximal order.
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
     epsilon: float :
-        TODO
+        free parameter
     n: int :
-        TODO
+        maximal order
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This metric has the intent to furnish a good trade-off
+    between accuracy and computational complexity.
+
+    Clearly, the measurement converges to common neighbor when
+    \\(\\epsilon = 0\\). If there is no direct connection between
+    \\(x\\) and \\(y\\), \\((A^{3})_{x,y}\\) is equated to the total
+    different paths of length 3 between \\(x\\) and \\(y\\).
+
+    Computing this index becomes more complicated with the increasing
+    value of \\(n\\). The LP index outperforms the proximity-based indices,
+    such as RA, AA, and CN.
     &#34;&#34;&#34;
     A = to_adjacency_matrix(G)
     A = A @ A

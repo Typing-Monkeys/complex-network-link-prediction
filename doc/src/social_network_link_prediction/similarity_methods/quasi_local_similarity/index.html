@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>src.social_network_link_prediction.similarity_methods.quasi_local_similarity API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Collection of Quasi-local Similarity Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,11 +23,30 @@
 <h1 class="title">Module <code>src.social_network_link_prediction.similarity_methods.quasi_local_similarity</code></h1>
 </header>
 <section id="section-intro">
+<p>Collection of Quasi-local Similarity Methods for Link Prediction.</p>
+<p>Quasi-local indices have been introduced as a trade-off between
+local and global approaches or performance and complexity.
+These metrics are as efficient to compute as local indices.
+Some of these indices extract the entire topological information
+of the network.</p>
+<p>The time complexities of these indices are still below compared
+to the global approaches.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .path_of_length_three import path_of_length_three
+<pre><code class="python">&#34;&#34;&#34;Collection of Quasi-local Similarity Methods for Link Prediction.
+
+Quasi-local indices have been introduced as a trade-off between
+local and global approaches or performance and complexity.
+These metrics are as efficient to compute as local indices.
+Some of these indices extract the entire topological information
+of the network.
+
+The time complexities of these indices are still below compared
+to the global approaches.
+&#34;&#34;&#34;
+from .path_of_length_three import path_of_length_three
 from .LPI import local_path_index</code></pre>
 </details>
 </section>
