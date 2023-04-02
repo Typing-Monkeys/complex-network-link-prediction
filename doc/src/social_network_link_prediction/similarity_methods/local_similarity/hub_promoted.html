@@ -35,20 +35,32 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __hub_promoted(G: nx.Graph, x, y) -&gt; float:
+    &#34;&#34;&#34;Compute the Hub Promoted Index for 2 given nodes.&#34;&#34;&#34;
     return __common_neighbors(G, x, y) / min(G.degree[x], G.degree[y])
 
 
 def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Hub Promoted Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)}
+
+    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+    It also tries to prevent links formation between the hub nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -75,32 +87,49 @@ def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
 <span>def <span class="ident">hub_promoted</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>TODO</p>
+<div class="desc"><p>Compute the Hub Promoted Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)} </span><script type="math/tex; mode=display"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)} </script></span>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>grafo da analizzare</dd>
+<dd>input Graph (a networkx Graph)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : matrice di Similarità</code></dt>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
 <dd>&nbsp;</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+It also tries to prevent links formation between the hub nodes.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;TODO
+    &#34;&#34;&#34;Compute the Hub Promoted Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)}
+
+    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+    It also tries to prevent links formation between the hub nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

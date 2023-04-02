@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>src.social_network_link_prediction.similarity_methods.local_similarity API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Collection of Local Similarity Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,11 +23,19 @@
 <h1 class="title">Module <code>src.social_network_link_prediction.similarity_methods.local_similarity</code></h1>
 </header>
 <section id="section-intro">
+<p>Collection of Local Similarity Methods for Link Prediction.</p>
+<p>Local indices are generally calculated using information about common neighbors and node degree.
+These indices <strong>consider immediate neighbors of a node</strong>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .common_neighbors import common_neighbors
+<pre><code class="python">&#34;&#34;&#34;Collection of Local Similarity Methods for Link Prediction.
+
+Local indices are generally calculated using information about common neighbors and node degree. 
+These indices **consider immediate neighbors of a node**.
+&#34;&#34;&#34;
+from .common_neighbors import common_neighbors
 from .jaccard import jaccard
 from .admic_adar import adamic_adar
 from .preferential_attachment import preferential_attachment

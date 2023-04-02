@@ -6,20 +6,34 @@ from .common_neighbors import __common_neighbors
 
 
 def __jaccard(G: nx.Graph, x, y) -> float:
+    """Compute the Jaccard Coefficient for 2 given nodes."""
     return __common_neighbors(G, x, y) / len(set(G[x]).union(set(G[y])))
 
 
 def jaccard(G: nx.Graph) -> csr_matrix:
-    """TODO
+    """Compute the Jaccard Coefficient for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|}
+    
+    where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    The Jaccard coefficient is defined as the probability of selection of common neighbors of pairwise vertices
+    from all the neighbors of either vertex. The pairwise Jaccard score increases with the number of 
+    common neighbors between the two vertices considered. Some researcher (**Liben-Nowell et al.**) 
+    demonstrated that this similarity metric performs worse as compared to Common Neighbors.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

@@ -6,20 +6,34 @@ from scipy.sparse import lil_matrix, csr_matrix
 
 
 def __hub_depressed(G: nx.Graph, x, y) -> float:
+    """Compute the Hub Depressed Index for 2 given nodes."""
     return __common_neighbors(G, x, y) / max(G.degree[x], G.degree[y])
 
 
 def hub_depressed(G: nx.Graph) -> csr_matrix:
-    """TODO
+    """Compute the Hub Depressed Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)}
+
+    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This index is the same as the previous one but with the opposite goal as it avoids the formation of 
+    links between hubs and low degree nodes in the networks. 
+    The Hub depressed index promotes the links evolution between the hubs as well as the low degree nodes.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
