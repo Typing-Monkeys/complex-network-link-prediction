@@ -34,19 +34,20 @@ from scipy.sparse import csc_matrix
 
 def to_adjacency_matrix(G: nx.Graph,
                         sparse: bool = True) -&gt; csc_matrix | np.ndarray:
-    &#34;&#34;&#34;Dato un grafo ritorna la relativa Matrice di Adiacenza
+    &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo di cui ottenere la matrice di adiacenza
+        input Graph (a networkx Graph)
     sparse: bool:
-        Indica se ritornare una Sparse Matrix (True) o Full Matrix (False)
+        if True, return the Adjacency Matrix in sparse format,
+        otherwise in full format.
          (Default value = True)
 
     Returns
     -------
-    sparse | np.ndarray: matrice di adiacenza
+    csc_matrix | np.ndarray: the Adjacency Matrix
     &#34;&#34;&#34;
     return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)</code></pre>
 </details>
@@ -62,18 +63,19 @@ def to_adjacency_matrix(G: nx.Graph,
 <span>def <span class="ident">to_adjacency_matrix</span></span>(<span>G: networkx.classes.graph.Graph, sparse: bool = True) ‑> scipy.sparse._csc.csc_matrix | numpy.ndarray</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Dato un grafo ritorna la relativa Matrice di Adiacenza</p>
+<div class="desc"><p>Convert a ginven Graph in to its Adjacency Matrix</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>grafo di cui ottenere la matrice di adiacenza</dd>
+<dd>input Graph (a networkx Graph)</dd>
 <dt><strong><code>sparse</code></strong> :&ensp;<code>bool:</code></dt>
-<dd>Indica se ritornare una Sparse Matrix (True) o Full Matrix (False)
+<dd>if True, return the Adjacency Matrix in sparse format,
+otherwise in full format.
 (Default value = True)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>sparse | np.ndarray: matrice di adiacenza</code></dt>
+<dt><code>csc_matrix | np.ndarray: the Adjacency Matrix</code></dt>
 <dd>&nbsp;</dd>
 </dl></div>
 <details class="source">
@@ -82,19 +84,20 @@ def to_adjacency_matrix(G: nx.Graph,
 </summary>
 <pre><code class="python">def to_adjacency_matrix(G: nx.Graph,
                         sparse: bool = True) -&gt; csc_matrix | np.ndarray:
-    &#34;&#34;&#34;Dato un grafo ritorna la relativa Matrice di Adiacenza
+    &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
 
     Parameters
     ----------
     G: nx.Graph :
-        grafo di cui ottenere la matrice di adiacenza
+        input Graph (a networkx Graph)
     sparse: bool:
-        Indica se ritornare una Sparse Matrix (True) o Full Matrix (False)
+        if True, return the Adjacency Matrix in sparse format,
+        otherwise in full format.
          (Default value = True)
 
     Returns
     -------
-    sparse | np.ndarray: matrice di adiacenza
+    csc_matrix | np.ndarray: the Adjacency Matrix
     &#34;&#34;&#34;
     return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)</code></pre>
 </details>
