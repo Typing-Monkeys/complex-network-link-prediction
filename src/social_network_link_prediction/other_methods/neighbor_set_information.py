@@ -17,10 +17,10 @@ Per utilizzare questa informazione per prevedere la probabilità di connessione 
 # definition of the 2 indormation used in this information theory approach: overlapping nodes of different sets and
 # the exsistence of link across different sets 
 #
-def overlap_info(G:nx.Graph, x, y, prior, likelihood):
+def overlap_info(G:nx.Graph, x, y, edge_num):
     # ottenimento dei dati da cui ottenere le informazioni
     o_nodes = nx.common_neighbors(G, x, y)
-    p_prob_overlap = -np.log2(prior(x, y, G))
+    p_prob_overlap = -np.log2(prior(x, y, G, edge_num))
 
     # utilizzo delle informazioni per stimarsi la likelihood
     # con gli overlapping nodes
@@ -33,7 +33,7 @@ def overlap_info(G:nx.Graph, x, y, prior, likelihood):
         coeffZ = 1 / (kz * (kz-1))   
         # sum over edges = neighbors of z
         for m, n in itertools.combinations(G.neighbors(z), 2):
-            priorInfo = -np.log2(prior(m, n, G))
+            priorInfo = -np.log2(prior(m, n, G, edge_num))
             likelihoodInfo = -np.log2(likelihood(z, G))     
             # combine mutual information
             zOverlap += 2 * (priorInfo -likelihoodInfo)
@@ -48,12 +48,11 @@ def overlap_info(G:nx.Graph, x, y, prior, likelihood):
 # funzione che calcola la probabilità a priori dati due nodi e 
 # un grafo riferita alla probabilità con cui non si forma un cammino
 # tra i due nodi    
-def prior(m, n, G):
+def prior(m, n, G, edge_num):
     kn = G.degree(n)
     km = G.degree(m)
-    M = G.number_of_edges()
 
-    return 1 - math.comb(M-kn, km)/math.comb(M, km)
+    return 1 - math.comb(edge_num-kn, km)/math.comb(edge_num, km)
 
 # probabilità condizionata che in questo caso è definita come il clustering
 # coefficient dei common neighbor dei nodi x e y
@@ -69,16 +68,14 @@ def likelihood(z, G):
 def MI(G : nx.Graph, lalla: int):
     I_Oxy = 0
     s_xy = []
+    res = np.zeros((G.number_of_nodes(), G.number_of_nodes()))
+    edge_num = G.number_of_edges()
 
     for i,j in nx.complement(G).edges():
-        I_Oxy = overlap_info(G, i, j, prior, likelihood)
-        elem = {
-                "nodes":(i,j),
-                "rank":I_Oxy
-            }
-        s_xy.append(elem)
+        I_Oxy = overlap_info(G, i, j, edge_num)
+        res[i-1,j-1] = I_Oxy
     
-    return s_xy
+    return res
 
 
 if __name__ == "__main__":
@@ -93,12 +90,14 @@ if __name__ == "__main__":
     # da aggiungere informazioni dei nodi che hanno fatto ottentere il 
     # ranking migliore
     print(ranking)
+    '''
     max_ranking = max(ranking, key=lambda x: x['rank'])['rank']
     #G.add_edge(max_ranking)
     new_link = 0
     for i in ranking:
         if i["rank"] == max_ranking:
             new_link = i["nodes"]
-    print(new_link)
+    print(ranking)
+    '''
 
     plt.show()
