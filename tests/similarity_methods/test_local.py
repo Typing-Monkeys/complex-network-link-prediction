@@ -1,167 +1,329 @@
 import unittest
-from social_network_link_prediction.similarity_methods import local_similarity
-import networkx as nx
-from sknetwork.data import house
 import random
+from timeout_decorator import timeout
+from time import time
+from social_network_link_prediction.similarity_methods import local_similarity
+from sknetwork.linkpred import CommonNeighbors
+from sknetwork.linkpred import JaccardIndex
+from sknetwork.linkpred import SorensenIndex
+from sknetwork.linkpred import HubPromotedIndex
+from sknetwork.linkpred import HubDepressedIndex
+from sknetwork.linkpred import AdamicAdar
+from sknetwork.linkpred import ResourceAllocation
+from sknetwork.linkpred import PreferentialAttachment
+from tests import Configs
 
 
 class TestLocalSimilarityMethods(unittest.TestCase):
 
-    def test_common_neighbors(self):
-        from sknetwork.linkpred import CommonNeighbors
+    def setUp(self):
+        self.start_time = time()
 
-        adjacency = house()
+    def tearDown(self):
+        t = time() - self.start_time
+        print(f"{round(t, 2)} s")
+
+    def __perform_sktest(self,
+                         our_values,
+                         skfunction,
+                         samples_range,
+                         samples_number=20,
+                         decimal_precision=3):
+        indxes = [(random.randrange(samples_range),
+                   random.randrange(samples_range))
+                  for a in range(samples_number)]
+
+        for i, j in indxes:
+            expected = skfunction.predict((i, j))
+            our_res = our_values[i, j]
+
+            self.assertAlmostEqual(expected, our_res, decimal_precision)
+
+    def test_common_neighbors_1(self):
+        g, adjacency = Configs.load_easy_dataset()
         cn = CommonNeighbors()
 
         cn.fit(adjacency)
-        our_sim = local_similarity.common_neighbors(
-            nx.from_numpy_array(adjacency))
+        our_sim = local_similarity.common_neighbors(g)
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0], 20)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+    def test_common_neighbors_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-            self.assertEqual(expected, our_res)
+        cn = CommonNeighbors()
+        cn.fit(adjacency)
 
-    def test_jaccard(self):
-        from sknetwork.linkpred import JaccardIndex
+        our_sim = local_similarity.common_neighbors(g)
 
-        adjacency = house()
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_common_neighbors_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+        cn = CommonNeighbors()
+
+        cn.fit(adjacency)
+        our_sim = local_similarity.common_neighbors(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_jaccard_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = JaccardIndex()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.jaccard(nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.jaccard(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_jaccard_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_sorensen(self):
-        from sknetwork.linkpred import SorensenIndex
+        cn = JaccardIndex()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.jaccard(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_jaccard_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = JaccardIndex()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.jaccard(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_sorensen_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = SorensenIndex()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.sorensen(nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.sorensen(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_sorensen_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_hubpromoted(self):
-        from sknetwork.linkpred import HubPromotedIndex
+        cn = SorensenIndex()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.sorensen(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_sorensen_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = SorensenIndex()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.sorensen(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_hubpromoted_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = HubPromotedIndex()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.hub_promoted(nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.hub_promoted(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_hubpromoted_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_hubdepressed(self):
-        from sknetwork.linkpred import HubDepressedIndex
+        cn = HubPromotedIndex()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.hub_promoted(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_hubpromoted_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = HubPromotedIndex()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.hub_promoted(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_hubdepressed_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = HubDepressedIndex()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.hub_depressed(
-            nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.hub_depressed(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_hubdepressed_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_adamicadar(self):
-        from sknetwork.linkpred import AdamicAdar
+        cn = HubDepressedIndex()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.hub_depressed(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_hubdepressede_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = HubDepressedIndex()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.hub_depressed(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_adamicadar_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = AdamicAdar()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.adamic_adar(nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.adamic_adar(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_adamicadar_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_resourceallocation(self):
-        from sknetwork.linkpred import ResourceAllocation
+        cn = AdamicAdar()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.adamic_adar(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_adamicadar_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = AdamicAdar()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.adamic_adar(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_resourceallocation_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = ResourceAllocation()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.resource_allocation(
-            nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.resource_allocation(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_resourceallocation_2(self):
+        g, adjacency = Configs.load_medium_dataset()
 
-    def test_preferentialattachment(self):
-        from sknetwork.linkpred import PreferentialAttachment
+        cn = ResourceAllocation()
+        cn.fit(adjacency)
 
-        adjacency = house()
+        our_sim = local_similarity.resource_allocation(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_resourceallocation_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = ResourceAllocation()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.resource_allocation(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    def test_preferentialattachment_1(self):
+        g, adjacency = Configs.load_easy_dataset()
+
         cn = PreferentialAttachment()
-
         cn.fit(adjacency)
-        our_sim = local_similarity.preferential_attachment(
-            nx.from_numpy_array(adjacency))
 
-        indxes = [(random.randrange(adjacency.shape[0]),
-                   random.randrange(adjacency.shape[0])) for a in range(20)]
+        our_sim = local_similarity.preferential_attachment(g)
 
-        for i, j in indxes:
-            expected = cn.predict((i, j))
-            our_res = our_sim[i, j]
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
-            self.assertEqual(expected.round(2), our_res.round(2))
+    def test_preferentialattachment_2(self):
+        g, adjacency = Configs.load_medium_dataset()
+
+        cn = PreferentialAttachment()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.preferential_attachment(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
+
+    @timeout(Configs.timeout)
+    def test_preferentialattachment_3(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        cn = PreferentialAttachment()
+        cn.fit(adjacency)
+
+        our_sim = local_similarity.preferential_attachment(g)
+
+        self.__perform_sktest(our_sim, cn, adjacency.shape[0])
 
     @unittest.skip("Non è presente in scikit-network")
-    def test_cosine(self):
+    def test_cosine_1(self):
         pass
 
     @unittest.skip("Non è presente in scikit-network")
-    def test_nodeclustering(self):
+    def test_cosine_2(self):
         pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_cosine_3(self):
+        pass
+
+    @timeout(Configs.timeout)
+    def test_cosine_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        our_sim = local_similarity.cosine_similarity(g)
+
+        self.assertIsNotNone(our_sim)
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_1(self):
+        pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_2(self):
+        pass
+
+    @unittest.skip("Non è presente in scikit-network")
+    def test_nodeclustering_3(self):
+        pass
+
+    @timeout(Configs.timeout)
+    def test_nodeclustering_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        our_sim = local_similarity.node_clustering(g)
+
+        self.assertIsNotNone(our_sim)
 
 
 if __name__ == '__main__':

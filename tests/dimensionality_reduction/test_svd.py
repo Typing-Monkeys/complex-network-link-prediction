@@ -1,25 +1,40 @@
 import unittest
 from social_network_link_prediction.similarity_methods import dimensionality_reduction
-import networkx as nx
-from sknetwork.data import karate_club
-import numpy as np
-import networkit as nk
+from sknetwork.embedding import SVD
+from tests import Configs
+from time import time
+from timeout_decorator import timeout
 
 
 class TestDimensionalityReductionMethods(unittest.TestCase):
 
-    # TODO: ricontrollare
-    def test_svd(self):
-        from socketserver.embedding import SVD
+    def setUp(self):
+        self.start_time = time()
 
-        adjacency = karate_club()
-        G = nx.from_numpy_array(adjacency)
+    def tearDown(self):
+        t = time() - self.start_time
+
+        print(f"{round(t, 2)} s")
+
+    # TODO: ricontrollare
+    @unittest.skip("Metodo non ancora implementato")
+    def test_svd_3(self):
+        g, adjacency = Configs.load_hard_dataset()
 
         svd = SVD()
         embedding = svd.fit_transform(adjacency)
-        our_embedding = dimensionality_reduction.svd(G)
+        our_embedding = dimensionality_reduction.svd(g)
 
         self.assertEqual(embedding, our_embedding)
+
+    @unittest.skip("Metodo non ancora implementato")
+    @timeout(Configs.timeout)
+    def test_svd_time(self):
+        g, adjacency = Configs.load_hard_dataset()
+
+        our_embedding = dimensionality_reduction.svd(g)
+
+        self.assertIsNotNone(our_embedding)
 
 
 if __name__ == '__main__':

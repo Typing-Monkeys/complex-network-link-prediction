@@ -103,7 +103,7 @@ install-doc:
 
 install-test:
 	@echo "🟡 Installing testing dependencies ..."
-	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements-test.txt # TODO: creare
+	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements-test.txt
 	@echo "test dependencies installed ✅"
 	@echo ""
 
