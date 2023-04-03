@@ -1,5 +1,5 @@
 import unittest
-from social_network_link_prediction.similarity_methods import dimensionality_reduction
+from social_network_link_prediction import dimensionality_reduction_methods
 from sknetwork.embedding import SVD
 from tests import Configs
 from time import time
@@ -17,22 +17,22 @@ class TestDimensionalityReductionMethods(unittest.TestCase):
         print(f"{round(t, 2)} s")
 
     # TODO: ricontrollare
-    @unittest.skip("Metodo non ancora implementato")
+    # @unittest.skip("Metodo non ancora implementato")
     def test_svd_3(self):
         g, adjacency = Configs.load_hard_dataset()
 
         svd = SVD()
         embedding = svd.fit_transform(adjacency)
-        our_embedding = dimensionality_reduction.svd(g)
+        our_embedding = dimensionality_reduction_methods.link_prediction_svd(g)
 
         self.assertEqual(embedding, our_embedding)
 
-    @unittest.skip("Metodo non ancora implementato")
+    # @unittest.skip("Metodo non ancora implementato")
     @timeout(Configs.timeout)
     def test_svd_time(self):
         g, adjacency = Configs.load_hard_dataset()
 
-        our_embedding = dimensionality_reduction.svd(g)
+        our_embedding = dimensionality_reduction_methods.link_prediction_svd(g)
 
         self.assertIsNotNone(our_embedding)
 
