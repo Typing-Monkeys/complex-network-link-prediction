@@ -1,11 +1,12 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import csr_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix
 
 
 def link_prediction_nmf(graph, num_features=2, num_iterations=100):
-    
-    adj_matrix = nx.to_numpy_array(graph)
+
+    adj_matrix = to_adjacency_matrix(graph, sparse=False)
 
     # Initialize the feature and coefficient matrices randomly
     num_nodes = adj_matrix.shape[0]
@@ -14,17 +15,18 @@ def link_prediction_nmf(graph, num_features=2, num_iterations=100):
 
     coefficient_matrix = np.random.rand(num_features, num_nodes)
 
-
     # Perform NMF using multiplicative updates
     for i in range(num_iterations):
         # Update the coefficient matrix
         numerator = feature_matrix.T @ adj_matrix
-        denominator = ((feature_matrix.T @ feature_matrix) @ coefficient_matrix)
+        denominator = (
+            (feature_matrix.T @ feature_matrix) @ coefficient_matrix)
 
         coefficient_matrix *= (numerator / denominator)
 
         numerator = adj_matrix @ coefficient_matrix.T
-        denominator = (feature_matrix @ (coefficient_matrix @ coefficient_matrix.T))
+        denominator = (
+            feature_matrix @ (coefficient_matrix @ coefficient_matrix.T))
 
         feature_matrix *= (numerator / denominator)
 
@@ -39,8 +41,8 @@ if __name__ == "__main__":
     graph = nx.karate_club_graph()
 
     # Compute the SVD of the similarity matrix and do link prediction on it
-    predicted_adj_matrix =  link_prediction_nmf(graph)
-    
+    predicted_adj_matrix = link_prediction_nmf(graph)
+
     adj_matrix = nx.to_numpy_array(graph)
 
     # Initialize the feature and coefficient matrices randomly
