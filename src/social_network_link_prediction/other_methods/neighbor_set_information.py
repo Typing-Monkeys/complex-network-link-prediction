@@ -1,5 +1,6 @@
 import networkx as nx
 import numpy as np
+import scipy.sparse as scipy
 import math
 import itertools
 
@@ -68,14 +69,17 @@ def likelihood(z, G):
 def MI(G : nx.Graph, lalla: int):
     I_Oxy = 0
     s_xy = []
-    res = np.zeros((G.number_of_nodes(), G.number_of_nodes()))
     edge_num = G.number_of_edges()
+    node_num = G.number_of_nodes()
+    res = np.zeros((node_num, node_num))
+    edge_num = G.number_of_edges()
+    res_sparse = scipy.csr_matrix(res, shape=(node_num, node_num))
 
     for i,j in nx.complement(G).edges():
         I_Oxy = overlap_info(G, i, j, edge_num)
-        res[i-1,j-1] = I_Oxy
+        res_sparse[i-1,j-1] = I_Oxy
     
-    return res
+    return res_sparse
 
 
 if __name__ == "__main__":
