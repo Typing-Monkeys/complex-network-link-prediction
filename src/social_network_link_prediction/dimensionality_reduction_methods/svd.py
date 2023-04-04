@@ -6,7 +6,49 @@ from scipy.sparse.linalg import svds
 from social_network_link_prediction.utils import to_adjacency_matrix
 
 
-def link_prediction_svd(G: nx.Graph, k=5, normalize=False) -> csr_matrix:
+def link_prediction_svd(G: nx.Graph,
+                        k: int = 5,
+                        normalize: bool = False) -> csr_matrix:
+    """Compute the SVD Decomposition for the Graph Adjacency Matrix.
+    The similarity decinoisutuin is defined as:
+
+    .. math::
+        X_\\pm \\approx F G^T
+
+    where \\(F \\in \\mathbb{R}^{p \\times k}\\) contains
+    the bases of the latent space and is called the basis matrix;
+    \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
+    of the bases for reconstructing the matrix \\(X\\), and is called
+    the coefficient matrix; \\(k\\) is the dimention of the latent space
+    (\\(k<n\\)) and \\(n\\) is the nunber of data vector
+    (as columns) in \\(X\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    k: int :
+        dimention of the latent space (must be \\(< n\\))
+         (Default value = 5)
+    normalize: bool :
+        if True, normalize the output values
+         (Default value = False)
+
+    Returns
+    -------
+    predicted_adj_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Typically, the latent features are extracted and using these features,
+    each vertex is represented in latent space, and such representations are
+    used in a supervised or unsupervised framework for link prediction.
+    To further improve the prediction results, some additional node/link or
+    other attribute information can be used.
+
+    In most of the works, non-negative matrix factorization has been used.
+    Some authors also applied the singular value decomposition technique.
+    """
 
     # Create the adjacency matrix of the graph
     adj_matrix = to_adjacency_matrix(G)

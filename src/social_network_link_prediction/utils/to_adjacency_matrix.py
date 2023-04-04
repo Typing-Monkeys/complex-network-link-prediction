@@ -1,17 +1,23 @@
 import networkx as nx
+import numpy as np
+from scipy.sparse import csc_matrix
 
 
-def to_adjacency_matrix(G: nx.Graph, sparse=True):
+def to_adjacency_matrix(G: nx.Graph,
+                        sparse: bool = True) -> csc_matrix | np.ndarray:
+    """Convert a ginven Graph in to its Adjacency Matrix
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    sparse: bool:
+        if True, return the Adjacency Matrix in sparse format,
+        otherwise in full format.
+         (Default value = True)
+
+    Returns
+    -------
+    csc_matrix | np.ndarray: the Adjacency Matrix
     """
-        Dato un grafo ritorna la relativa Matrice di Adiacenza
-
-        ARGS
-            G: grafo in formato Networkx
-            sparse: se True, ritorna una matrice sparsa, altrimenti
-                    un numpy array
-
-        RET
-            ritorna la matrice di adiacenza (sparse o numpy array)
-    """
-
     return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)

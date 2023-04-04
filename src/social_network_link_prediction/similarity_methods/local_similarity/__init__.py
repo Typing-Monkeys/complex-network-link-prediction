@@ -1,3 +1,9 @@
+"""Collection of Local Similarity Methods for Link Prediction.
+
+Local indices are generally calculated using information about
+common neighbors and node degree.
+These indices **consider immediate neighbors of a node**.
+"""
 from .common_neighbors import common_neighbors
 from .jaccard import jaccard
 from .admic_adar import adamic_adar

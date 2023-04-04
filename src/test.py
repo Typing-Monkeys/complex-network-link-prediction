@@ -174,4 +174,4 @@ def test_svd():
 # test_hubdepressed()
 # test_nodeclusterintg()
 # test_katz_index()
-test_svd()
+# test_svd()

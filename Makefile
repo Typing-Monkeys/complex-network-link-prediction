@@ -14,13 +14,14 @@ SRC = src
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
 INSTALL_DIR = requirements
-DOCS_DIR = docs
+DOCS_DIR = doc
 # --html, --pdf or blank for markdown
 DOCS_FORMAT = "--html"
+DOCS_LATEX  = True
 DOCSTRINGS_FORMAT = numpydoc
 LINT_FORMAT = pylint
 
-.PHONY: tests
+.PHONY: tests docs
 
 all:
 	@echo "social-network-link-prediction Makefile guide."
@@ -111,7 +112,7 @@ install-test:
 # -- Clean Section --
 clean-docs: $(DOCS_DIR)
 	@echo "🟡 Cleaning documentation files ..."
-	rm -rf $(DOCS_DIR)/*
+	if [ -d $(DOCS_DIR)/* ]; then rm -r $(DOCS_DIR)/*; fi
 	@echo "Documentation files cleaned ✅"
 
 clean-build:
@@ -180,10 +181,11 @@ docstrings:
 # 	done;
 # 	rm *.patch
 
-documentation:
+docs:
 	@echo "🟡 Generating docs from code ..."
+	@$(MAKE) clean-docs
 	mkdir -p $(DOCS_DIR)
-	pdoc $(DOCS_FORMAT) -o $(DOCS_DIR) $(SRC)
+	pdoc $(DOCS_FORMAT) -c latex_math=$(DOCS_LATEX) -o $(DOCS_DIR) $(SRC)
 	@echo "Done ✅"
 
 
