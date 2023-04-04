@@ -1,11 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar, preferential_attachment, resource_allocation, cosine_similarity, sorensen, hub_promoted, hub_depressed, node_clustering
-from social_network_link_prediction.similarity_methods.quasi_local_similarity import local_path_index
-from social_network_link_prediction.similarity_methods.quasi_local_similarity import path_of_length_three
-from social_network_link_prediction.similarity_methods.local_similarity import jaccard
-from social_network_link_prediction.similarity_methods.global_similarity import katz_index
-from social_network_link_prediction.dimensionality_reduction_methods import link_prediction_svd
+from social_network_link_prediction.similarity_methods.local_similarity import common_neighbors, adamic_adar, preferential_attachment, resource_allocation, cosine_similarity, sorensen, hub_promoted, hub_depressed, node_clustering, jaccard
+from social_network_link_prediction.similarity_methods.quasi_local_similarity import local_path_index, path_of_length_three
+from social_network_link_prediction.similarity_methods.global_similarity import shortest_path, katz_index, rooted_page_rank
+from social_network_link_prediction.dimensionality_reduction_methods import link_prediction_svd, link_prediction_nmf
 
 
 def test_LPI():
@@ -146,12 +144,30 @@ def test_nodeclusterintg():
 def test_katz_index():
     G = nx.gnp_random_graph(10000, .01)
 
-    print(katz_index(G))
+    print(katz_index(G, 10))
 
     nx.draw(G, with_labels=True)
     plt.show()
 
+# --- Shortest Path
+def test_shortest_path():
+    G = nx.gnp_random_graph(100, .01)
+    
+    print(shortest_path(G,10))
+    
+    nx.draw(G, with_labels=True)
+    plt.show()
+    
+# --- Rooted Page Rank
+def test_rooted_page_rank():
+    G = nx.gnp_random_graph(1000, .01)
+    
+    print(rooted_page_rank(G))
+    
+    nx.draw(G, with_labels=True)
+    plt.show()
 
+# --- SVD
 def test_svd():
     G = nx.gnp_random_graph(1000, .01)
 
@@ -160,6 +176,12 @@ def test_svd():
     nx.draw(G, with_labels=True)
     plt.show()
 
+# --- NMF
+def test_link_prediction_nmf():
+    G = nx.gnp_random_graph(1000, .01)
+    
+    print(link_prediction_nmf(G))
+    
 
 # test_path_of_length()
 # test_common_neighbors_easy()
@@ -174,4 +196,7 @@ def test_svd():
 # test_hubdepressed()
 # test_nodeclusterintg()
 # test_katz_index()
-test_svd()
+# test_svd()
+# test_shortest_path()
+# test_rooted_page_rank()
+test_link_prediction_nmf()
