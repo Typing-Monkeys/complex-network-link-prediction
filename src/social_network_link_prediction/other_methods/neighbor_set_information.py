@@ -94,5 +94,10 @@ if __name__ == "__main__":
     ranking = MI(G_to_int, 0.1)
     # da aggiungere informazioni dei nodi che hanno fatto ottentere il 
     # ranking migliore
+
+    # va preso il risultato più piccolo perchè si tratta di entropia
     print(ranking)
+    for i,j in nx.complement(G_to_int).edges():
+        if(ranking[i,j] == ranking.toarray().min()):
+            print(f"Il link più probabile tra quelli possibili è tra {i} e {j}, con un valore di {ranking[i,j]}")
     plt.show()
