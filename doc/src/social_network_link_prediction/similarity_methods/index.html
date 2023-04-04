@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>src.social_network_link_prediction.similarity_methods API documentation</title>
-<meta name="description" content="Similarity-based metrics are the simplest one in link prediction,
-in which for each pair \(x\) and \(y\) , a similarity score \(S(x, y)\) is …" />
+<meta name="description" content="Similarity based Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -24,26 +23,35 @@ in which for each pair \(x\) and \(y\) , a similarity score \(S(x, y)\) is …" 
 <h1 class="title">Module <code>src.social_network_link_prediction.similarity_methods</code></h1>
 </header>
 <section id="section-intro">
+<p>Similarity based Methods for Link Prediction.</p>
 <p>Similarity-based metrics are the simplest one in link prediction,
-in which for each pair <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> , a similarity score <span><span class="MathJax_Preview">S(x, y)</span><script type="math/tex">S(x, y)</script></span> is calculated.
-The score <span><span class="MathJax_Preview">S(x, y)</span><script type="math/tex">S(x, y)</script></span> is based on the structural or node’s properties of the considered pair.
-The non-observed links (i.e., <span><span class="MathJax_Preview">U - E^T</span><script type="math/tex">U - E^T</script></span>) are assigned scores according to their similarities.
-<strong>The pair of nodes having a higher score represents the predicted link between them</strong>.
-The similarity measures between every pair can be <em>calculated using several properties of the network</em>,
-one of which is structural property.
-Scores based on this property can be grouped in several categories like <strong>local</strong> and <strong>global</strong>, and so on.</p>
+in which for each pair <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> , a similarity score
+<span><span class="MathJax_Preview">S(x, y)</span><script type="math/tex">S(x, y)</script></span> is calculated.
+The score <span><span class="MathJax_Preview">S(x, y)</span><script type="math/tex">S(x, y)</script></span> is based on the structural or node’s properties of
+the considered pair. The non-observed links (i.e., <span><span class="MathJax_Preview">U - E^T</span><script type="math/tex">U - E^T</script></span>) are assigned
+scores according to their similarities. <strong>The pair of nodes having a higher
+score represents the predicted link between them</strong>.
+The similarity measures between every pair can be <em>calculated using several
+properties of the network</em>, one of which is structural property.
+Scores based on this property can be grouped in several categories
+like <strong>local</strong> and <strong>global</strong>, and so on.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Similarity-based metrics are the simplest one in link prediction, 
-in which for each pair \\(x\\) and \\(y\\) , a similarity score \\(S(x, y)\\) is calculated.
-The score \\(S(x, y)\\) is based on the structural or node’s properties of the considered pair. 
-The non-observed links (i.e., \\(U - E^T\\)) are assigned scores according to their similarities. 
-**The pair of nodes having a higher score represents the predicted link between them**. 
-The similarity measures between every pair can be _calculated using several properties of the network_, 
-one of which is structural property. 
-Scores based on this property can be grouped in several categories like **local** and **global**, and so on.
+<pre><code class="python">&#34;&#34;&#34;Similarity based Methods for Link Prediction.
+
+Similarity-based metrics are the simplest one in link prediction,
+in which for each pair \\(x\\) and \\(y\\) , a similarity score
+\\(S(x, y)\\) is calculated.
+The score \\(S(x, y)\\) is based on the structural or node’s properties of
+the considered pair. The non-observed links (i.e., \\(U - E^T\\)) are assigned
+scores according to their similarities. **The pair of nodes having a higher
+score represents the predicted link between them**.
+The similarity measures between every pair can be _calculated using several
+properties of the network_, one of which is structural property.
+Scores based on this property can be grouped in several categories
+like **local** and **global**, and so on.
 &#34;&#34;&#34;
 from . import local_similarity
 from . import quasi_local_similarity

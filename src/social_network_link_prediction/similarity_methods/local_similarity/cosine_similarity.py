@@ -11,13 +11,15 @@ def __cosine_similarity(G: nx.Graph, x, y) -> float:
 
 
 def cosine_similarity(G: nx.Graph) -> csr_matrix:
-    """Compute the Cosine Similarity Index (a.k.a. Salton Index) for all nodes in the Graph.
+    """Compute the Cosine Similarity Index
+    (a.k.a. Salton Index) for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{\sqrt{k_x k_y}}
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}{\\sqrt{k_x k_y}}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -30,8 +32,9 @@ def cosine_similarity(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    This similarity index between two nodes is measured by calculating the Cosine of the angle between them. 
-    The metric is all about the orientation and not magnitude. 
+    This similarity index between two nodes is measured by
+    calculating the Cosine of the angle between them.
+    The metric is all about the orientation and not magnitude.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

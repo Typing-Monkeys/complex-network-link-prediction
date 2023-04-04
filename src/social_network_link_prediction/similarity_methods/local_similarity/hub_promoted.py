@@ -15,9 +15,10 @@ def hub_promoted(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\min(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -30,7 +31,8 @@ def hub_promoted(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+    This similarity index promotes the formation of links between
+    the sparsely connected nodes and hubs.
     It also tries to prevent links formation between the hub nodes.
     """
     size = G.number_of_nodes()

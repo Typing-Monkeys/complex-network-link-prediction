@@ -44,9 +44,10 @@ def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\min(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -59,7 +60,8 @@ def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+    This similarity index promotes the formation of links between
+    the sparsely connected nodes and hubs.
     It also tries to prevent links formation between the hub nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
@@ -90,7 +92,8 @@ def hub_promoted(G: nx.Graph) -&gt; csr_matrix:
 <div class="desc"><p>Compute the Hub Promoted Index for all nodes in the Graph.
 Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)} </span><script type="math/tex; mode=display"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)} </script></span>
-where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -102,7 +105,8 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+<p>This similarity index promotes the formation of links between
+the sparsely connected nodes and hubs.
 It also tries to prevent links formation between the hub nodes.</p></div>
 <details class="source">
 <summary>
@@ -113,9 +117,10 @@ It also tries to prevent links formation between the hub nodes.</p></div>
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\min(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\min(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -128,7 +133,8 @@ It also tries to prevent links formation between the hub nodes.</p></div>
 
     Notes
     -----
-    This similarity index promotes the formation of links between the sparsely connected nodes and hubs.
+    This similarity index promotes the formation of links between
+    the sparsely connected nodes and hubs.
     It also tries to prevent links formation between the hub nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()

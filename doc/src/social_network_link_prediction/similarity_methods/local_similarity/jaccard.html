@@ -44,8 +44,9 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|}
-    
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
+        {|\\Gamma(x) \\cup \\Gamma(y)|}
+
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
@@ -59,10 +60,12 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    The Jaccard coefficient is defined as the probability of selection of common neighbors of pairwise vertices
-    from all the neighbors of either vertex. The pairwise Jaccard score increases with the number of 
-    common neighbors between the two vertices considered. Some researcher (**Liben-Nowell et al.**) 
-    demonstrated that this similarity metric performs worse as compared to Common Neighbors.
+    The Jaccard coefficient is defined as the probability of selection
+    of common neighbors of pairwise vertices from all the neighbors of
+    either vertex. The pairwise Jaccard score increases with the number of
+    common neighbors between the two vertices considered. Some researcher
+    (**Liben-Nowell et al.**) demonstrated that this similarity metric
+    performs worse as compared to Common Neighbors.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -95,7 +98,8 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
 <dd>
 <div class="desc"><p>Compute the Jaccard Coefficient for all nodes in the Graph.
 Each similarity value is defined as:</p>
-<p><span><span class="MathJax_Preview"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|} </span><script type="math/tex; mode=display"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|} </script></span>
+<p><span><span class="MathJax_Preview"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}
+{|\Gamma(x) \cup \Gamma(y)|} </span><script _Gamma_x_="|\Gamma(x)" _Gamma_y_="\Gamma(y)|" _cup="\cup" type="math/tex; mode=display"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}</script></span>
 where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
@@ -108,10 +112,12 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>The Jaccard coefficient is defined as the probability of selection of common neighbors of pairwise vertices
-from all the neighbors of either vertex. The pairwise Jaccard score increases with the number of
-common neighbors between the two vertices considered. Some researcher (<strong>Liben-Nowell et al.</strong>)
-demonstrated that this similarity metric performs worse as compared to Common Neighbors.</p></div>
+<p>The Jaccard coefficient is defined as the probability of selection
+of common neighbors of pairwise vertices from all the neighbors of
+either vertex. The pairwise Jaccard score increases with the number of
+common neighbors between the two vertices considered. Some researcher
+(<strong>Liben-Nowell et al.</strong>) demonstrated that this similarity metric
+performs worse as compared to Common Neighbors.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -121,8 +127,9 @@ demonstrated that this similarity metric performs worse as compared to Common Ne
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|}
-    
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
+        {|\\Gamma(x) \\cup \\Gamma(y)|}
+
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
@@ -136,10 +143,12 @@ demonstrated that this similarity metric performs worse as compared to Common Ne
 
     Notes
     -----
-    The Jaccard coefficient is defined as the probability of selection of common neighbors of pairwise vertices
-    from all the neighbors of either vertex. The pairwise Jaccard score increases with the number of 
-    common neighbors between the two vertices considered. Some researcher (**Liben-Nowell et al.**) 
-    demonstrated that this similarity metric performs worse as compared to Common Neighbors.
+    The Jaccard coefficient is defined as the probability of selection
+    of common neighbors of pairwise vertices from all the neighbors of
+    either vertex. The pairwise Jaccard score increases with the number of
+    common neighbors between the two vertices considered. Some researcher
+    (**Liben-Nowell et al.**) demonstrated that this similarity metric
+    performs worse as compared to Common Neighbors.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

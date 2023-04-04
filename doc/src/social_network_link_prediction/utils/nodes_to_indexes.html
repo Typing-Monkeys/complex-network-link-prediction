@@ -28,10 +28,13 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import networkx as nx
+from typing import Dict, Any
 
 
-def nodes_to_indexes(G: nx.Graph) -&gt; dict:
-    &#34;&#34;&#34;TODO
+def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
+    &#34;&#34;&#34;Node Label - Index encoder
+
+    Associate, for each node label, and index starting from 0.
 
     Parameters
     ----------
@@ -40,7 +43,14 @@ def nodes_to_indexes(G: nx.Graph) -&gt; dict:
 
     Returns
     -------
-    Dict[Any, int]: dizionario di mappatura Nodo-indice
+    Dict[Any, int]: the encoding Node Label - Index dictionary
+
+    Notes
+    -----
+    The method `Graph.nodes` return the nodes in the exactly same order, and
+    the first node (at index 0) represent the index 0 in the Adjacency Matrix
+    obtained with the method `Graph.to_adjacency_matrix` or
+    `Graph.to_numpy_array`.
     &#34;&#34;&#34;
     return {node_name: index for index, node_name in enumerate(G.nodes)}</code></pre>
 </details>
@@ -53,10 +63,11 @@ def nodes_to_indexes(G: nx.Graph) -&gt; dict:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="src.social_network_link_prediction.utils.nodes_to_indexes.nodes_to_indexes"><code class="name flex">
-<span>def <span class="ident">nodes_to_indexes</span></span>(<span>G: networkx.classes.graph.Graph) ‑> dict</span>
+<span>def <span class="ident">nodes_to_indexes</span></span>(<span>G: networkx.classes.graph.Graph) ‑> Dict[Any, int]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>TODO</p>
+<div class="desc"><p>Node Label - Index encoder</p>
+<p>Associate, for each node label, and index starting from 0.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -64,15 +75,22 @@ def nodes_to_indexes(G: nx.Graph) -&gt; dict:
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>Dict[Any, int]: dizionario di mappatura Nodo-indice</code></dt>
+<dt><code>Dict[Any, int]: the encoding Node Label - Index dictionary</code></dt>
 <dd>&nbsp;</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The method <code>Graph.nodes</code> return the nodes in the exactly same order, and
+the first node (at index 0) represent the index 0 in the Adjacency Matrix
+obtained with the method <code>Graph.to_adjacency_matrix</code> or
+<code>Graph.to_numpy_array</code>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nodes_to_indexes(G: nx.Graph) -&gt; dict:
-    &#34;&#34;&#34;TODO
+<pre><code class="python">def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
+    &#34;&#34;&#34;Node Label - Index encoder
+
+    Associate, for each node label, and index starting from 0.
 
     Parameters
     ----------
@@ -81,7 +99,14 @@ def nodes_to_indexes(G: nx.Graph) -&gt; dict:
 
     Returns
     -------
-    Dict[Any, int]: dizionario di mappatura Nodo-indice
+    Dict[Any, int]: the encoding Node Label - Index dictionary
+
+    Notes
+    -----
+    The method `Graph.nodes` return the nodes in the exactly same order, and
+    the first node (at index 0) represent the index 0 in the Adjacency Matrix
+    obtained with the method `Graph.to_adjacency_matrix` or
+    `Graph.to_numpy_array`.
     &#34;&#34;&#34;
     return {node_name: index for index, node_name in enumerate(G.nodes)}</code></pre>
 </details>

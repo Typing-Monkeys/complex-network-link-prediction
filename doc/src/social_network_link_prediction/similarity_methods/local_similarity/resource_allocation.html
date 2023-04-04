@@ -43,9 +43,10 @@ def resource_allocation(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \\frac{1}{k_z}
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} \\frac{1}{k_z}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\) and
+    \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -58,18 +59,21 @@ def resource_allocation(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    Consider two non-adjacent vertices \\(x\\) and \\(y\\). Suppose node \\(x\\)
-    sends some resources to \\(y\\) through the common nodes of both \\(x\\)
-    and \\(y\\) then the similarity between the two vertices is computed in terms 
+    Consider two non-adjacent vertices \\(x\\) and \\(y\\).
+    Suppose node \\(x\\) sends some resources to \\(y\\)
+    through the common nodes of both \\(x\\) and \\(y\\)
+    then the similarity between the two vertices is computed in terms
     of resources sent from \\(x\\) to \\(y\\).
 
-    The difference between Resource Allocation (**RA**) and Adamic and Adar (**AA**) is that the RA index 
-    heavily penalizes to higher degree nodes compared to the AA index. 
-    Prediction results of these indices become almost the same 
+    The difference between Resource Allocation (**RA**) and
+    Adamic and Adar (**AA**) is that the RA index
+    heavily penalizes to higher degree nodes compared to the AA index.
+    Prediction results of these indices become almost the same
     for smaller average degree networks.
-    
-    This index shows good performance on heterogeneous 
-    networks with a high clustering coefficient, especially on transportation networks.
+
+    This index shows good performance on heterogeneous
+    networks with a high clustering coefficient, especially
+    on transportation networks.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -99,7 +103,8 @@ def resource_allocation(G: nx.Graph) -&gt; csr_matrix:
 <div class="desc"><p>Compute the Resource Allocation Index for all nodes in the Graph.
 Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \frac{1}{k_z} </span><script type="math/tex; mode=display"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \frac{1}{k_z} </script></span>
-where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and
+<span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -111,16 +116,19 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>Consider two non-adjacent vertices <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>. Suppose node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
-sends some resources to <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> through the common nodes of both <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
-and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> then the similarity between the two vertices is computed in terms
+<p>Consider two non-adjacent vertices <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>.
+Suppose node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> sends some resources to <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>
+through the common nodes of both <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>
+then the similarity between the two vertices is computed in terms
 of resources sent from <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> to <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>.</p>
-<p>The difference between Resource Allocation (<strong>RA</strong>) and Adamic and Adar (<strong>AA</strong>) is that the RA index
+<p>The difference between Resource Allocation (<strong>RA</strong>) and
+Adamic and Adar (<strong>AA</strong>) is that the RA index
 heavily penalizes to higher degree nodes compared to the AA index.
 Prediction results of these indices become almost the same
 for smaller average degree networks.</p>
 <p>This index shows good performance on heterogeneous
-networks with a high clustering coefficient, especially on transportation networks.</p></div>
+networks with a high clustering coefficient, especially
+on transportation networks.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -130,9 +138,10 @@ networks with a high clustering coefficient, especially on transportation networ
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \\frac{1}{k_z}
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} \\frac{1}{k_z}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\) and
+    \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -145,18 +154,21 @@ networks with a high clustering coefficient, especially on transportation networ
 
     Notes
     -----
-    Consider two non-adjacent vertices \\(x\\) and \\(y\\). Suppose node \\(x\\)
-    sends some resources to \\(y\\) through the common nodes of both \\(x\\)
-    and \\(y\\) then the similarity between the two vertices is computed in terms 
+    Consider two non-adjacent vertices \\(x\\) and \\(y\\).
+    Suppose node \\(x\\) sends some resources to \\(y\\)
+    through the common nodes of both \\(x\\) and \\(y\\)
+    then the similarity between the two vertices is computed in terms
     of resources sent from \\(x\\) to \\(y\\).
 
-    The difference between Resource Allocation (**RA**) and Adamic and Adar (**AA**) is that the RA index 
-    heavily penalizes to higher degree nodes compared to the AA index. 
-    Prediction results of these indices become almost the same 
+    The difference between Resource Allocation (**RA**) and
+    Adamic and Adar (**AA**) is that the RA index
+    heavily penalizes to higher degree nodes compared to the AA index.
+    Prediction results of these indices become almost the same
     for smaller average degree networks.
-    
-    This index shows good performance on heterogeneous 
-    networks with a high clustering coefficient, especially on transportation networks.
+
+    This index shows good performance on heterogeneous
+    networks with a high clustering coefficient, especially
+    on transportation networks.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

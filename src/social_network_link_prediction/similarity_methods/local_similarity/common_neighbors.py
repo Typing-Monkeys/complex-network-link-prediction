@@ -14,7 +14,7 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = |\Gamma(x) \cap \Gamma(y)|
+        S(x, y) = |\\Gamma(x) \\cap \\Gamma(y)|
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
@@ -29,8 +29,8 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    The likelihood of the existence of a link between \\(x\\) and \\(y\\) increases with the number 
-    of common neighbors between them.
+    The likelihood of the existence of a link between \\(x\\)
+    and \\(y\\) increases with the number of common neighbors between them.
     """
 
     size = G.number_of_nodes()

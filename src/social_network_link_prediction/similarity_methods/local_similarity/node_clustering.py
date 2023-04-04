@@ -25,16 +25,17 @@ def node_clustering(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z)
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} C(z)
 
     where
 
     .. math::
         C(z) = \\frac{t(z)}{k_z(k_z - 1)}
-    
-    is the clustering coefficient of node \\(z\\), \\(t(z)\\) is the total triangles passing 
-    through the node \\(z\\), \\(\Gamma(x)\\) are the neighbors
-    of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+
+    is the clustering coefficient of node \\(z\\), \\(t(z)\\)
+    is the total triangles passing through the node \\(z\\),
+    \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -47,9 +48,10 @@ def node_clustering(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    This index is also based on the clustering coefficient property of the network in which the 
-    clustering coefficients of all the common neighbors of a 
-    seed node pair are computed and summed to find the final similarity score of the pair.
+    This index is also based on the clustering coefficient property
+    of the network in which the clustering coefficients of all
+    the common neighbors of a seed node pair are computed
+    and summed to find the final similarity score of the pair.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

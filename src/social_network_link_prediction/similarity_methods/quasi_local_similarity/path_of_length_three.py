@@ -18,7 +18,8 @@ def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:
             if u == v:
                 continue
 
-            # Calcolate the score with the multiply of value of node and divide for degree
+            # Calcolate the score with the multiply of
+            # value of node and divide for degree
             if G.has_edge(u, v):
                 a_xu = G[x][u].get(
                     'weight',

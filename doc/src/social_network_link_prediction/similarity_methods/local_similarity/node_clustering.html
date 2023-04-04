@@ -54,16 +54,17 @@ def node_clustering(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z)
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} C(z)
 
     where
 
     .. math::
         C(z) = \\frac{t(z)}{k_z(k_z - 1)}
-    
-    is the clustering coefficient of node \\(z\\), \\(t(z)\\) is the total triangles passing 
-    through the node \\(z\\), \\(\Gamma(x)\\) are the neighbors
-    of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+
+    is the clustering coefficient of node \\(z\\), \\(t(z)\\)
+    is the total triangles passing through the node \\(z\\),
+    \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -76,9 +77,10 @@ def node_clustering(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    This index is also based on the clustering coefficient property of the network in which the 
-    clustering coefficients of all the common neighbors of a 
-    seed node pair are computed and summed to find the final similarity score of the pair.
+    This index is also based on the clustering coefficient property
+    of the network in which the clustering coefficients of all
+    the common neighbors of a seed node pair are computed
+    and summed to find the final similarity score of the pair.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -110,9 +112,10 @@ Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z) </span><script type="math/tex; mode=display"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z) </script></span>
 where</p>
 <p><span><span class="MathJax_Preview"> C(z) = \frac{t(z)}{k_z(k_z - 1)} </span><script type="math/tex; mode=display"> C(z) = \frac{t(z)}{k_z(k_z - 1)} </script></span>
-is the clustering coefficient of node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span>, <span><span class="MathJax_Preview">t(z)</span><script type="math/tex">t(z)</script></span> is the total triangles passing
-through the node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span>, <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors
-of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+is the clustering coefficient of node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span>, <span><span class="MathJax_Preview">t(z)</span><script type="math/tex">t(z)</script></span>
+is the total triangles passing through the node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span>,
+<span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -124,9 +127,10 @@ of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</s
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>This index is also based on the clustering coefficient property of the network in which the
-clustering coefficients of all the common neighbors of a
-seed node pair are computed and summed to find the final similarity score of the pair.</p></div>
+<p>This index is also based on the clustering coefficient property
+of the network in which the clustering coefficients of all
+the common neighbors of a seed node pair are computed
+and summed to find the final similarity score of the pair.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -136,16 +140,17 @@ seed node pair are computed and summed to find the final similarity score of the
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z)
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} C(z)
 
     where
 
     .. math::
         C(z) = \\frac{t(z)}{k_z(k_z - 1)}
-    
-    is the clustering coefficient of node \\(z\\), \\(t(z)\\) is the total triangles passing 
-    through the node \\(z\\), \\(\Gamma(x)\\) are the neighbors
-    of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+
+    is the clustering coefficient of node \\(z\\), \\(t(z)\\)
+    is the total triangles passing through the node \\(z\\),
+    \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -158,9 +163,10 @@ seed node pair are computed and summed to find the final similarity score of the
 
     Notes
     -----
-    This index is also based on the clustering coefficient property of the network in which the 
-    clustering coefficients of all the common neighbors of a 
-    seed node pair are computed and summed to find the final similarity score of the pair.
+    This index is also based on the clustering coefficient property
+    of the network in which the clustering coefficients of all
+    the common neighbors of a seed node pair are computed
+    and summed to find the final similarity score of the pair.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

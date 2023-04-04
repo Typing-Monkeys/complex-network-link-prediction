@@ -40,13 +40,15 @@ def __cosine_similarity(G: nx.Graph, x, y) -&gt; float:
 
 
 def cosine_similarity(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Cosine Similarity Index (a.k.a. Salton Index) for all nodes in the Graph.
+    &#34;&#34;&#34;Compute the Cosine Similarity Index
+    (a.k.a. Salton Index) for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{\sqrt{k_x k_y}}
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}{\\sqrt{k_x k_y}}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -59,8 +61,9 @@ def cosine_similarity(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    This similarity index between two nodes is measured by calculating the Cosine of the angle between them. 
-    The metric is all about the orientation and not magnitude. 
+    This similarity index between two nodes is measured by
+    calculating the Cosine of the angle between them.
+    The metric is all about the orientation and not magnitude.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -87,10 +90,12 @@ def cosine_similarity(G: nx.Graph) -&gt; csr_matrix:
 <span>def <span class="ident">cosine_similarity</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Compute the Cosine Similarity Index (a.k.a. Salton Index) for all nodes in the Graph.
+<div class="desc"><p>Compute the Cosine Similarity Index
+(a.k.a. Salton Index) for all nodes in the Graph.
 Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}{\sqrt{k_x k_y}} </span><script type="math/tex; mode=display"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}{\sqrt{k_x k_y}} </script></span>
-where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -102,20 +107,23 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>This similarity index between two nodes is measured by calculating the Cosine of the angle between them.
+<p>This similarity index between two nodes is measured by
+calculating the Cosine of the angle between them.
 The metric is all about the orientation and not magnitude.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def cosine_similarity(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Cosine Similarity Index (a.k.a. Salton Index) for all nodes in the Graph.
+    &#34;&#34;&#34;Compute the Cosine Similarity Index
+    (a.k.a. Salton Index) for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{\sqrt{k_x k_y}}
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}{\\sqrt{k_x k_y}}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -128,8 +136,9 @@ The metric is all about the orientation and not magnitude.</p></div>
 
     Notes
     -----
-    This similarity index between two nodes is measured by calculating the Cosine of the angle between them. 
-    The metric is all about the orientation and not magnitude. 
+    This similarity index between two nodes is measured by
+    calculating the Cosine of the angle between them.
+    The metric is all about the orientation and not magnitude.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

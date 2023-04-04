@@ -44,9 +44,10 @@ def hub_depressed(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\max(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
 
     Parameters
@@ -60,9 +61,11 @@ def hub_depressed(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    This index is the same as the previous one but with the opposite goal as it avoids the formation of 
-    links between hubs and low degree nodes in the networks. 
-    The Hub depressed index promotes the links evolution between the hubs as well as the low degree nodes.
+    This index is the same as the previous one but with the
+    opposite goal as it avoids the formation of
+    links between hubs and low degree nodes in the networks.
+    The Hub depressed index promotes the links evolution
+    between the hubs as well as the low degree nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -92,7 +95,8 @@ def hub_depressed(G: nx.Graph) -&gt; csr_matrix:
 <div class="desc"><p>Compute the Hub Depressed Index for all nodes in the Graph.
 Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)} </span><script type="math/tex; mode=display"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)} </script></span>
-where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -104,9 +108,11 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>This index is the same as the previous one but with the opposite goal as it avoids the formation of
+<p>This index is the same as the previous one but with the
+opposite goal as it avoids the formation of
 links between hubs and low degree nodes in the networks.
-The Hub depressed index promotes the links evolution between the hubs as well as the low degree nodes.</p></div>
+The Hub depressed index promotes the links evolution
+between the hubs as well as the low degree nodes.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -116,9 +122,10 @@ The Hub depressed index promotes the links evolution between the hubs as well as
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\max(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
 
     Parameters
@@ -132,9 +139,11 @@ The Hub depressed index promotes the links evolution between the hubs as well as
 
     Notes
     -----
-    This index is the same as the previous one but with the opposite goal as it avoids the formation of 
-    links between hubs and low degree nodes in the networks. 
-    The Hub depressed index promotes the links evolution between the hubs as well as the low degree nodes.
+    This index is the same as the previous one but with the
+    opposite goal as it avoids the formation of
+    links between hubs and low degree nodes in the networks.
+    The Hub depressed index promotes the links evolution
+    between the hubs as well as the low degree nodes.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

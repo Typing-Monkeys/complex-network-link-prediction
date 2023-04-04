@@ -15,9 +15,10 @@ def hub_depressed(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)}
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\max(k_x, k_y)}
 
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
 
     Parameters
@@ -31,9 +32,11 @@ def hub_depressed(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    This index is the same as the previous one but with the opposite goal as it avoids the formation of 
-    links between hubs and low degree nodes in the networks. 
-    The Hub depressed index promotes the links evolution between the hubs as well as the low degree nodes.
+    This index is the same as the previous one but with the
+    opposite goal as it avoids the formation of
+    links between hubs and low degree nodes in the networks.
+    The Hub depressed index promotes the links evolution
+    between the hubs as well as the low degree nodes.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

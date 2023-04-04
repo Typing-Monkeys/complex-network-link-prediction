@@ -15,8 +15,9 @@ def jaccard(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\Gamma(x) \cap \Gamma(y)|}{|\Gamma(x) \cup \Gamma(y)|}
-    
+        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
+        {|\\Gamma(x) \\cup \\Gamma(y)|}
+
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
@@ -30,10 +31,12 @@ def jaccard(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    The Jaccard coefficient is defined as the probability of selection of common neighbors of pairwise vertices
-    from all the neighbors of either vertex. The pairwise Jaccard score increases with the number of 
-    common neighbors between the two vertices considered. Some researcher (**Liben-Nowell et al.**) 
-    demonstrated that this similarity metric performs worse as compared to Common Neighbors.
+    The Jaccard coefficient is defined as the probability of selection
+    of common neighbors of pairwise vertices from all the neighbors of
+    either vertex. The pairwise Jaccard score increases with the number of
+    common neighbors between the two vertices considered. Some researcher
+    (**Liben-Nowell et al.**) demonstrated that this similarity metric
+    performs worse as compared to Common Neighbors.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

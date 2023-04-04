@@ -42,9 +42,12 @@ def adamic_adar(G: nx.Graph) -&gt; csr_matrix:
     &#34;&#34;&#34;Compute the Adamic and Adar Index for all nodes in the Graph.
     Each similarity value is defined as:
 
-    \\[S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} \\frac{1}{\log k_z}\\]
+    .. math::
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)}
+        \\frac{1}{\\log k_z}
 
-    where \\(k_z\\) is the degree of node \\(z\\) and \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
+    where \\(k_z\\) is the degree of node \\(z\\)
+    and \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
     ----------
@@ -57,9 +60,11 @@ def adamic_adar(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    It is clear from the equation that more weights are assigned to the common neighbors having smaller degrees. 
-    This is also intuitive in the real-world scenario, for example, a person with more number of friends 
-    spend less time/resource with an individual friend as compared to the less number of friends.
+    It is clear from the equation that more weights are assigned to
+    the common neighbors having smaller degrees.
+    This is also intuitive in the real-world scenario, for example,
+    a person with more number of friends spend less time/resource
+    with an individual friend as compared to the less number of friends.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -88,8 +93,11 @@ def adamic_adar(G: nx.Graph) -&gt; csr_matrix:
 <dd>
 <div class="desc"><p>Compute the Adamic and Adar Index for all nodes in the Graph.
 Each similarity value is defined as:</p>
-<p><span><span class="MathJax_Preview">S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \frac{1}{\log k_z}</span><script type="math/tex; mode=display">S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} \frac{1}{\log k_z}</script></span></p>
-<p>where <span><span class="MathJax_Preview">k_z</span><script type="math/tex">k_z</script></span> is the degree of node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span> and <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)}
+\frac{1}{\log k_z} </span><script type="math/tex; mode=display"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)}
+\frac{1}{\log k_z} </script></span>
+where <span><span class="MathJax_Preview">k_z</span><script type="math/tex">k_z</script></span> is the degree of node <span><span class="MathJax_Preview">z</span><script type="math/tex">z</script></span>
+and <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -101,9 +109,11 @@ Each similarity value is defined as:</p>
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>It is clear from the equation that more weights are assigned to the common neighbors having smaller degrees.
-This is also intuitive in the real-world scenario, for example, a person with more number of friends
-spend less time/resource with an individual friend as compared to the less number of friends.</p></div>
+<p>It is clear from the equation that more weights are assigned to
+the common neighbors having smaller degrees.
+This is also intuitive in the real-world scenario, for example,
+a person with more number of friends spend less time/resource
+with an individual friend as compared to the less number of friends.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -112,9 +122,12 @@ spend less time/resource with an individual friend as compared to the less numbe
     &#34;&#34;&#34;Compute the Adamic and Adar Index for all nodes in the Graph.
     Each similarity value is defined as:
 
-    \\[S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)} \\frac{1}{\log k_z}\\]
+    .. math::
+        S(x, y) = \\sum_{z \\in \\Gamma(x) \\cap \\Gamma(y)}
+        \\frac{1}{\\log k_z}
 
-    where \\(k_z\\) is the degree of node \\(z\\) and \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
+    where \\(k_z\\) is the degree of node \\(z\\)
+    and \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
     Parameters
     ----------
@@ -127,9 +140,11 @@ spend less time/resource with an individual friend as compared to the less numbe
 
     Notes
     -----
-    It is clear from the equation that more weights are assigned to the common neighbors having smaller degrees. 
-    This is also intuitive in the real-world scenario, for example, a person with more number of friends 
-    spend less time/resource with an individual friend as compared to the less number of friends.
+    It is clear from the equation that more weights are assigned to
+    the common neighbors having smaller degrees.
+    This is also intuitive in the real-world scenario, for example,
+    a person with more number of friends spend less time/resource
+    with an individual friend as compared to the less number of friends.
     &#34;&#34;&#34;
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

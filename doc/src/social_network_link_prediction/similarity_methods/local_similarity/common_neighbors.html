@@ -43,7 +43,7 @@ def common_neighbors(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = |\Gamma(x) \cap \Gamma(y)|
+        S(x, y) = |\\Gamma(x) \\cap \\Gamma(y)|
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
@@ -58,8 +58,8 @@ def common_neighbors(G: nx.Graph) -&gt; csr_matrix:
 
     Notes
     -----
-    The likelihood of the existence of a link between \\(x\\) and \\(y\\) increases with the number 
-    of common neighbors between them.
+    The likelihood of the existence of a link between \\(x\\)
+    and \\(y\\) increases with the number of common neighbors between them.
     &#34;&#34;&#34;
 
     size = G.number_of_nodes()
@@ -102,8 +102,8 @@ where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>The likelihood of the existence of a link between <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> increases with the number
-of common neighbors between them.</p></div>
+<p>The likelihood of the existence of a link between <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> increases with the number of common neighbors between them.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -113,7 +113,7 @@ of common neighbors between them.</p></div>
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = |\Gamma(x) \cap \Gamma(y)|
+        S(x, y) = |\\Gamma(x) \\cap \\Gamma(y)|
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
@@ -128,8 +128,8 @@ of common neighbors between them.</p></div>
 
     Notes
     -----
-    The likelihood of the existence of a link between \\(x\\) and \\(y\\) increases with the number 
-    of common neighbors between them.
+    The likelihood of the existence of a link between \\(x\\)
+    and \\(y\\) increases with the number of common neighbors between them.
     &#34;&#34;&#34;
 
     size = G.number_of_nodes()

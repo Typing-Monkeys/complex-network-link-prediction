@@ -15,9 +15,10 @@ def sorensen(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{2 |\Gamma(x) \cap \Gamma(y)|}{k_x + k_y}
-    
-    where \\(\Gamma(x)\\) are the neighbors of node \\(x\\) and \\(k_x\) is the degree of the node \\(x\\).
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{k_x + k_y}
+
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
 
     Parameters
     ----------
@@ -30,8 +31,8 @@ def sorensen(G: nx.Graph) -> csr_matrix:
 
     Notes
     -----
-    It is very similar to the Jaccard index. **McCune et al.** show that it is more robust 
-    than Jaccard against the outliers.
+    It is very similar to the Jaccard index. **McCune et al.** show
+    that it is more robust than Jaccard against the outliers.
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
