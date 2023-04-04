@@ -14,6 +14,11 @@ def __t(G: nx.Graph, z) -> int:
 
 def __C(G: nx.Graph, z):
     z_degree = G.degree[z]
+
+    # avoiding 0 divition error
+    if z_degree == 1:
+        return 0
+
     return __t(G, z) / (z_degree * (z_degree - 1))
 
 
