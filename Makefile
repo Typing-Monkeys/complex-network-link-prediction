@@ -14,7 +14,7 @@ SRC = src
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
 INSTALL_DIR = requirements
-DOCS_DIR = doc
+DOCS_DIR = docs
 # --html, --pdf or blank for markdown
 DOCS_FORMAT = "--html"
 DOCS_LATEX  = True
