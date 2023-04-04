@@ -73,11 +73,11 @@ def MI(G : nx.Graph, lalla: int):
     node_num = G.number_of_nodes()
     res = np.zeros((node_num, node_num))
     edge_num = G.number_of_edges()
-    res_sparse = scipy.csr_matrix(res, shape=(node_num, node_num))
+    res_sparse = scipy.lil_matrix(res, shape=(node_num, node_num))
 
     for i,j in nx.complement(G).edges():
         I_Oxy = overlap_info(G, i, j, edge_num)
-        res_sparse[i-1,j-1] = I_Oxy
+        res_sparse[i,j] = I_Oxy
     
     return res_sparse
 
@@ -87,21 +87,12 @@ if __name__ == "__main__":
 
     G = nx.Graph()
     G.add_edges_from([(1, 2),(1, 3),(1, 4),(2, 4),(2, 5),(5, 6),(5, 7),(6, 7),(6, 8),(7, 8)])
-
+    # converte gli id dei nodi in interi affinche possano essere usati come indici
+    G_to_int = nx.convert_node_labels_to_integers(G,0)
     nx.draw(G, with_labels=True)
 
-    ranking = MI(G, 0.1)
+    ranking = MI(G_to_int, 0.1)
     # da aggiungere informazioni dei nodi che hanno fatto ottentere il 
     # ranking migliore
     print(ranking)
-    '''
-    max_ranking = max(ranking, key=lambda x: x['rank'])['rank']
-    #G.add_edge(max_ranking)
-    new_link = 0
-    for i in ranking:
-        if i["rank"] == max_ranking:
-            new_link = i["nodes"]
-    print(ranking)
-    '''
-
     plt.show()
