@@ -1,12 +1,12 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_matrix, lil_matrix
 
 def init_similarity_matrix(G:nx.Graph, n):
     #inizializzo la matrice similarity
     x = np.identity(n)
-    sim_matrix = csr_matrix(x, (n, n))
+    sim_matrix = lil_matrix(x, (n, n))
     return sim_matrix
 
 
@@ -51,13 +51,13 @@ if __name__ == "__main__":
     G = nx.convert_node_labels_to_integers(G,0)
     nodes_num = G.number_of_nodes()
     sim_matrix = init_similarity_matrix(G, nodes_num)
-    res = sim_rank(G, nodes_num = nodes_num, sim_matrix=sim_matrix)
-    print(res)
-    print(f"Il valore di similarità più alto è: {res.toarray().max()}")
-
-
-    # TODO: da trovare quale è il risultato migliore tra i nodi che non hanno un link
-
-
+    res_tmp = sim_rank(G, nodes_num = nodes_num, sim_matrix=sim_matrix)
+    tmp = np.zeros((nodes_num,nodes_num))
+    res = lil_matrix(tmp,(nodes_num,nodes_num))
+    for i,j in nx.complement(G).edges():
+        res[i,j] = res_tmp[i,j]
+        if(res[i,j] == res_tmp.toarray().max()):
+            print(f"Il link più probabile è quello tra i nodi {i} e {j}, con un valora di similarità di {res_tmp.toarray().max()}")
+        
     #nx.draw(G, with_labels=True)
     #plt.show()
