@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-from scipy.sparse import csr_matrix, lil_matrix, linalg
+from scipy.sparse import csr_matrix, lil_matrix, linalg, hstack
 from functools import partial
 from social_network_link_prediction.utils import to_adjacency_matrix
 from social_network_link_prediction.utils import nodes_to_indexes
@@ -22,17 +22,17 @@ def link_prediction_rwr(G, c = 0.05, max_iters = 10):
     random_walk_with_restart_fn = partial(random_walk_with_restart, W_normalized = W_normalized, c = c, max_iters= max_iters)
     
     #Run the function starting from each node of the graph
-    similarity = [random_walk_with_restart_fn(e) for e in np.identity(m)]
-    similarity_matrix = csr_matrix(similarity)
+    similarity = [random_walk_with_restart_fn(csr_matrix(e).transpose()) for e in np.identity(m)]
+    similarity_matrix = hstack(similarity)
     return similarity_matrix
 
-def random_walk_with_restart(e, W_normalized, c = 0.2, max_iters = 100):    
+def random_walk_with_restart(e, W_normalized, c = 0.05, max_iters = 100):    
     old_e = e
     err = 1.
 
     for i in range(max_iters):
         e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
-        err = np.linalg.norm(e - old_e, 1)
+        err = linalg.norm(e - old_e, 1)
         if err <= 1e-6:
             break
         old_e = e
