@@ -4,7 +4,9 @@ from scipy.sparse import csr_matrix
 from social_network_link_prediction.utils import to_adjacency_matrix
 
 
-def link_prediction_nmf(graph, num_features=2, num_iterations=100):
+def link_prediction_nmf(graph: nx.Graph,
+                        num_features: int = 2,
+                        num_iterations: int = 100) -> csr_matrix:
 
     adj_matrix = to_adjacency_matrix(graph, sparse=False)
 
