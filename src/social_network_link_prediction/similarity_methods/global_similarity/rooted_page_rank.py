@@ -9,7 +9,7 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = ...
+        S(x, y) = \\ldots
 
     Parameters
     ----------
