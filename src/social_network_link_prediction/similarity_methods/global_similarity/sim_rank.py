@@ -1,7 +1,8 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import csr_matrix, lil_matrix
+from scipy.sparse import lil_matrix
+
 
 def init_similarity_matrix(G:nx.Graph, n):
     #inizializzo la matrice similarity
@@ -10,6 +11,8 @@ def init_similarity_matrix(G:nx.Graph, n):
     return sim_matrix
 
 
+
+# problematiche con questo metodo, per grafi troppo grandi è lento o raggiunge la profondtà di ricorsione massima
 def compute_sim_rank(G:nx.Graph, a, b, C = 0.8, k = 5):
     #print(k)
     if(k == 0):
@@ -32,13 +35,45 @@ def compute_sim_rank(G:nx.Graph, a, b, C = 0.8, k = 5):
 
 
 
+# implementazione iterativa 
+def compute_sim_rank_iterative(G:nx.Graph, a, b, sim_matrix):
+
+    C = 0.8
+     #se i nodi sono uguali allora similarità massima
+    if(a == b):
+        return 1
+
+    a_neigh = list(G.neighbors(a))
+    b_neigh = list(G.neighbors(b))
+    len_a = len(a_neigh)
+    len_b = len(b_neigh)
+    #nodi isolati hanno similarità 0
+    if(len_a == 0 or len_b == 0):
+        return 0
+
+    #mi recupero e sommo i valori di similarità calcolati in precedenza
+    simRank_sum = 0
+    for i in a_neigh:
+        for j in b_neigh:
+            simRank_sum += sim_matrix[i, j]
+    # moltiplico secondo la definizione del paper
+    scale = C / (len_a * len_b)
+    new_SimRank = scale * simRank_sum
+    return new_SimRank
+
+
+
 def sim_rank(G:nx.Graph, nodes_num = 0, sim_matrix = None):
+    k = 5
     for a in range(nodes_num):
         for b in range(nodes_num):
-            if(a == b):
+            # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
+            #if((a == b) or (nx.shortest_path_length(G, a, b) > 3)):
+            if((nx.shortest_path_length(G, a, b) > 4)):
                 sim_matrix[a, b] = 0
             else:
-                sim_matrix[a, b] = compute_sim_rank(G, a, b) 
+                for i in range(k):
+                    sim_matrix[a, b] = compute_sim_rank_iterative(G, a, b, sim_matrix = sim_matrix)
     return sim_matrix
 
 
@@ -46,7 +81,9 @@ def sim_rank(G:nx.Graph, nodes_num = 0, sim_matrix = None):
 
 if __name__ == "__main__":
 
-    G = nx.Graph()
+
+    G = nx.karate_club_graph()
+    #G = nx.Graph()
     G.add_edges_from([(1, 2),(1, 3),(1, 4),(2, 4),(2, 5),(5, 6),(5, 7),(6, 7),(6, 8),(7, 8)])
     G = nx.convert_node_labels_to_integers(G,0)
     nodes_num = G.number_of_nodes()
@@ -56,8 +93,9 @@ if __name__ == "__main__":
     res = lil_matrix(tmp,(nodes_num,nodes_num))
     for i,j in nx.complement(G).edges():
         res[i,j] = res_tmp[i,j]
-        if(res[i,j] == res_tmp.toarray().max()):
-            print(f"Il link più probabile è quello tra i nodi {i} e {j}, con un valora di similarità di {res_tmp.toarray().max()}")
-        
+    res = res.toarray()
+    print(f"Il link più probabile è quello tra i nodi {np.where(res==res.max())} , con un valora di similarità di {res.max()}")
+    
+
     #nx.draw(G, with_labels=True)
     #plt.show()
