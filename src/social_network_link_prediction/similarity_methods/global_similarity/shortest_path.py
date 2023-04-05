@@ -4,6 +4,26 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
+    """Compute the Shortest Path Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = ...
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    cutoff: int :
+         (Default value = None)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    """
     dim = G.number_of_nodes()
     if cutoff is None:
         cutoff = dim

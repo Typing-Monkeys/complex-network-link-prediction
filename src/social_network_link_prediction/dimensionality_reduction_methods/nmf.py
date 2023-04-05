@@ -7,6 +7,28 @@ from social_network_link_prediction.utils import to_adjacency_matrix
 def link_prediction_nmf(graph: nx.Graph,
                         num_features: int = 2,
                         num_iterations: int = 100) -> csr_matrix:
+    """Compute the NMF (TODO SIGLA) Decomposition for the Graph Adjacency Matrix.
+    The similarity decinoisutuin is defined as:
+
+    .. math::
+        X_\\pm ...
+
+    Parameters
+    ----------
+    graph: nx.Graph :
+        input Graph (a networkx Graph)
+    num_features: int :
+         (Default value = 2)
+    num_iterations: int :
+         (Default value = 100)
+
+    Returns
+    -------
+    predicted_adj_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    """
 
     adj_matrix = to_adjacency_matrix(graph, sparse=False)
 

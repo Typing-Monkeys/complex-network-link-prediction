@@ -5,6 +5,26 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
+    """Compute the Rooted Page Rank for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = ...
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    alpha: float :
+         (Default value = 0.5)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    """
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
 
