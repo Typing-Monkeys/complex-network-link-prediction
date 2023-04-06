@@ -25,22 +25,27 @@ def overlap_info(G:nx.Graph, x, y, edge_num):
 
     # utilizzo delle informazioni per stimarsi la likelihood
     # con gli overlapping nodes
-    coeffZ = 0
-    zOverlap = 0
-    cnOverlap = 0
+    coeff = 0
+    overlap_info_value = 0
+    overlap = 0
+
     for z in o_nodes:
         # degree of z
         kz = G.degree(z)
-        coeffZ = 1 / (kz * (kz-1))   
+        coeff = 1 / (kz * (kz-1))   
         # sum over edges = neighbors of z
+        overlap = 0
         for m, n in itertools.combinations(G.neighbors(z), 2):
             priorInfo = -np.log2(prior(m, n, G, edge_num))
             likelihoodInfo = -np.log2(likelihood(z, G))     
+            #print(f"a = {x}, b = {y}, priorInfo = { priorInfo}, lilelihoodInfo = {likelihoodInfo}")
             # combine mutual information
-            zOverlap += 2 * (priorInfo -likelihoodInfo)
+            overlap += 2 * (priorInfo - likelihoodInfo)
+            #print(f"a = {x}, b = {y}, zOverlap = { 2*(priorInfo -likelihoodInfo)}")
+
     # add average mutual information per neighbor
-    cnOverlap += coeffZ * zOverlap 
-    s_Overlap = cnOverlap - p_prob_overlap
+    overlap_info_value += coeff * overlap 
+    s_Overlap = overlap_info_value - p_prob_overlap
     return s_Overlap
 
      
@@ -66,7 +71,7 @@ def likelihood(z, G):
 
 
 
-def MI(G : nx.Graph, lalla: int):
+def MI(G : nx.Graph):
     I_Oxy = 0
     s_xy = []
     edge_num = G.number_of_edges()
@@ -85,19 +90,20 @@ def MI(G : nx.Graph, lalla: int):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
-    G = nx.Graph()
-    G.add_edges_from([(1, 2),(1, 3),(1, 4),(2, 4),(2, 5),(5, 6),(5, 7),(6, 7),(6, 8),(7, 8)])
+    G = nx.karate_club_graph()
+    
     # converte gli id dei nodi in interi affinche possano essere usati come indici
     G_to_int = nx.convert_node_labels_to_integers(G,0)
     nx.draw(G, with_labels=True)
 
-    ranking = MI(G_to_int, 0.1)
+    ranking = MI(G_to_int)
     # da aggiungere informazioni dei nodi che hanno fatto ottentere il 
     # ranking migliore
 
     # va preso il risultato più piccolo perchè si tratta di entropia
-    print(ranking)
+    print(ranking)    
     for i,j in nx.complement(G_to_int).edges():
         if(ranking[i,j] == ranking.toarray().min()):
             print(f"Il link più probabile tra quelli possibili è tra {i} e {j}, con un valore di {ranking[i,j]}")
     plt.show()
+    
