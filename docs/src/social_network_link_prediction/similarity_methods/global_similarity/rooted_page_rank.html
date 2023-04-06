@@ -35,16 +35,21 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
     &#34;&#34;&#34;Compute the Rooted Page Rank for all nodes in the Graph.
-    Each similarity value is defined as:
+    This score is defined as:
 
     .. math::
-        S(x, y) = \\ldots
+        S = (1 - \\alpha) (I - \\alpha \\hat{N})^{-1}
+
+    where \\(\\hat{N} = D^{-1}A\\) is the normalized
+    Adjacency Matrix with the diagonal degree matrix
+    \\(D[i,i] = \\sum_j A[i,j]\\)
 
     Parameters
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
+        visit probability # TODO ricontrollare
          (Default value = 0.5)
 
     Returns
@@ -53,6 +58,17 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
 
     Notes
     -----
+    The idea of PageRank was originally proposed to rank the web pages based on
+    the importance of those pages. The algorithm is based on the assumption that
+    a random walker randomly goes to a web page with probability \\(\\alpha\\)
+    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    Chung et al. used this concept incorporated with a random walk in
+    link prediction framework. The importance of web pages, in a random walk,
+    can be replaced by stationary distribution. The similarity between two vertices
+    \\(x\\) and \\(y\\) can be measured by the stationary probability of
+    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
+    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
     &#34;&#34;&#34;
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
@@ -82,38 +98,57 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
 </code></dt>
 <dd>
 <div class="desc"><p>Compute the Rooted Page Rank for all nodes in the Graph.
-Each similarity value is defined as:</p>
-<p><span><span class="MathJax_Preview"> S(x, y) = \ldots </span><script type="math/tex; mode=display"> S(x, y) = \ldots </script></span>
-Parameters</p>
-<hr>
+This score is defined as:</p>
+<p><span><span class="MathJax_Preview"> S = (1 - \alpha) (I - \alpha \hat{N})^{-1} </span><script type="math/tex; mode=display"> S = (1 - \alpha) (I - \alpha \hat{N})^{-1} </script></span>
+where <span><span class="MathJax_Preview">\hat{N} = D^{-1}A</span><script type="math/tex">\hat{N} = D^{-1}A</script></span> is the normalized
+Adjacency Matrix with the diagonal degree matrix
+<span><span class="MathJax_Preview">D[i,i] = \sum_j A[i,j]</span><script type="math/tex">D[i,i] = \sum_j A[i,j]</script></span></p>
+<h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
 <dd>input Graph (a networkx Graph)</dd>
 <dt><strong><code>alpha</code></strong> :&ensp;<code>float :</code></dt>
-<dd>(Default value = 0.5)</dd>
+<dd>visit probability # TODO ricontrollare
+(Default value = 0.5)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
 <dd>&nbsp;</dd>
 </dl>
-<h2 id="notes">Notes</h2></div>
+<h2 id="notes">Notes</h2>
+<p>The idea of PageRank was originally proposed to rank the web pages based on
+the importance of those pages. The algorithm is based on the assumption that
+a random walker randomly goes to a web page with probability <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span>
+and follows hyper-link embedded in the page with probability <span><span class="MathJax_Preview"> (1 - \alpha ) </span><script type="math/tex"> (1 - \alpha ) </script></span>.
+Chung et al. used this concept incorporated with a random walk in
+link prediction framework. The importance of web pages, in a random walk,
+can be replaced by stationary distribution. The similarity between two vertices
+<span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> can be measured by the stationary probability of
+<span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> from <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> in a random walk where the walker moves to an
+arbitrary neighboring vertex with probability <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span>
+and returns to <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> with probability <span><span class="MathJax_Preview"> ( 1 - \alpha )</span><script type="math/tex"> ( 1 - \alpha )</script></span>.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
     &#34;&#34;&#34;Compute the Rooted Page Rank for all nodes in the Graph.
-    Each similarity value is defined as:
+    This score is defined as:
 
     .. math::
-        S(x, y) = \\ldots
+        S = (1 - \\alpha) (I - \\alpha \\hat{N})^{-1}
+
+    where \\(\\hat{N} = D^{-1}A\\) is the normalized
+    Adjacency Matrix with the diagonal degree matrix
+    \\(D[i,i] = \\sum_j A[i,j]\\)
 
     Parameters
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
+        visit probability # TODO ricontrollare
          (Default value = 0.5)
 
     Returns
@@ -122,6 +157,17 @@ Parameters</p>
 
     Notes
     -----
+    The idea of PageRank was originally proposed to rank the web pages based on
+    the importance of those pages. The algorithm is based on the assumption that
+    a random walker randomly goes to a web page with probability \\(\\alpha\\)
+    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    Chung et al. used this concept incorporated with a random walk in
+    link prediction framework. The importance of web pages, in a random walk,
+    can be replaced by stationary distribution. The similarity between two vertices
+    \\(x\\) and \\(y\\) can be measured by the stationary probability of
+    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
+    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
     &#34;&#34;&#34;
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)

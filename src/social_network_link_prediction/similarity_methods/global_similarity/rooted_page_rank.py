@@ -6,16 +6,21 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     """Compute the Rooted Page Rank for all nodes in the Graph.
-    Each similarity value is defined as:
+    This score is defined as:
 
     .. math::
-        S(x, y) = \\ldots
+        S = (1 - \\alpha) (I - \\alpha \\hat{N})^{-1}
+
+    where \\(\\hat{N} = D^{-1}A\\) is the normalized
+    Adjacency Matrix with the diagonal degree matrix
+    \\(D[i,i] = \\sum_j A[i,j]\\)
 
     Parameters
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
+        visit probability # TODO ricontrollare
          (Default value = 0.5)
 
     Returns
@@ -24,6 +29,17 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
 
     Notes
     -----
+    The idea of PageRank was originally proposed to rank the web pages based on
+    the importance of those pages. The algorithm is based on the assumption that
+    a random walker randomly goes to a web page with probability \\(\\alpha\\)
+    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    Chung et al. used this concept incorporated with a random walk in
+    link prediction framework. The importance of web pages, in a random walk,
+    can be replaced by stationary distribution. The similarity between two vertices
+    \\(x\\) and \\(y\\) can be measured by the stationary probability of
+    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
+    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
     """
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
