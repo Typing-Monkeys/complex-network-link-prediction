@@ -1,9 +1,9 @@
 import networkx as nx
-from scipy.sparse import lil_matrix, linalg, hstack, csr_array
+from scipy.sparse import lil_matrix, linalg, hstack, lil_array, csr_matrix
 from social_network_link_prediction.utils import to_adjacency_matrix
 from social_network_link_prediction.utils import nodes_to_indexes
 
-def link_prediction_rwr(G, c = 0.05, max_iters = 10):
+def link_prediction_rwr(G:nx.Graph, c:int = 0.05, max_iters:int = 10) -> csr_matrix:
     
     # Convert the graph G into an adjacency matrix A
     A = to_adjacency_matrix(G)
@@ -27,26 +27,28 @@ def link_prediction_rwr(G, c = 0.05, max_iters = 10):
     # Build the normalized transition matrix W_normalized
     W_normalized = linalg.inv(D) @ A.tocsc()
 
-    # Initialize an empty list to hold the similarities between node pairs
-    similarity = []
+    # Initialize an matrix to hold the similarities between node pairs
+    # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
+    similarity_matrix = csr_matrix((m,1))
 
     # For each node i, create a probability vector and perform the random walk with restart starting from that node
     for i in range(m):
-        e = csr_array((m,1))
+        e = lil_array((m,1))
         e[i,0] = 1
-        similarity.append(random_walk_with_restart(e = e, W_normalized = W_normalized, c = c, max_iters= max_iters))
+        # Concatenate the similarity vectors into a similarity matrix
+        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
+        # As a new column in just one line of code
+        similarity_matrix = hstack([similarity_matrix, random_walk_with_restart(e = e, W_normalized = W_normalized, c = c, max_iters= max_iters)])
 
-    # Concatenate the similarity vectors into a similarity matrix
-    similarity_matrix = hstack(similarity)
-
-    # Return the similarity matrix
-    return similarity_matrix
+    # Return the similarity matrix and remove the fisrt column
+    # In order to keep the results consistent without the added column of zeros at the beginning
+    return csr_matrix(similarity_matrix)[:,1:]
 
 
-def random_walk_with_restart(e, W_normalized, c = 0.05, max_iters = 100):
+def random_walk_with_restart(e:lil_array, W_normalized:csr_matrix, c:int = 0.05, max_iters:int = 100) -> lil_array:
     
     # Initialize the current probability vector to the initial one and the error to 1
-    old_e = e.copy()
+    old_e = e
     err = 1.
 
     # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
@@ -55,7 +57,7 @@ def random_walk_with_restart(e, W_normalized, c = 0.05, max_iters = 100):
         err = linalg.norm(e - old_e, 1)
         if err <= 1e-6:
             break
-        old_e = e.copy()
+        old_e = e
 
     # Return the current probability vector
     return e
