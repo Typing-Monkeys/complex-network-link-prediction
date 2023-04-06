@@ -6,22 +6,26 @@ from social_network_link_prediction.similarity_methods.global_similarity import 
 from social_network_link_prediction.dimensionality_reduction_methods import link_prediction_svd, link_prediction_nmf
 
 
+# G =  nx.karate_club_graph()
+G = nx.Graph() 
+G.add_nodes_from([0, 1, 2, 3])
+G.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)])
+
+
 def test_LPI():
-    graph = nx.Graph()
-    graph.add_nodes_from([0, 1, 2, 3])
-    graph.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)])
+    nx.draw(G, with_labels=True)
 
-    nx.draw(graph, with_labels=True)
-
-    print(local_path_index(graph, 0.1, 4))
+    print(local_path_index(G, 0.1, 4))
+    
+    print('\n')
 
     plt.show()
 
 
 def test_path_of_length():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(path_of_length_three(G))
+    
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -30,21 +34,14 @@ def test_path_of_length():
 # --- COMMON NEIGHBORS
 def test_common_neighbors_easy():
 
-    graph = nx.Graph()
-    graph.add_nodes_from([0, 1, 2, 3])
-    graph.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)])
-
-    nx.draw(graph, with_labels=True)
-
-    print(common_neighbors(graph))
-
+    nx.draw(G, with_labels=True)
+    print(common_neighbors(G))
+    print('\n')
     plt.show()
 
-
 def test_common_neighbors_hard():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(common_neighbors(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -52,9 +49,8 @@ def test_common_neighbors_hard():
 
 # --- Jaccard Measure
 def test_jaccard():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(jaccard(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -62,9 +58,8 @@ def test_jaccard():
 
 # --- Adamic Adar Measure
 def test_adamic_adar():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(adamic_adar(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -92,9 +87,8 @@ def test_resourceallocation():
 
 # --- Cosine Similarity
 def test_cosinesimilarity():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(cosine_similarity(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -102,9 +96,8 @@ def test_cosinesimilarity():
 
 # --- Sorensen
 def test_sorensen():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(sorensen(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
@@ -112,23 +105,19 @@ def test_sorensen():
 
 # --- Hub Promoted
 def test_hubpromoted():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(hub_promoted(G))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
-
 
 # --- Hub Depressed
 def test_hubdepressed():
-    G = nx.gnp_random_graph(1000, .01)
-
     print(hub_depressed(G))
-
+    print('\n')
+    
     nx.draw(G, with_labels=True)
     plt.show()
-
 
 # --- Node Clustering
 def test_nodeclusterintg():
@@ -139,30 +128,26 @@ def test_nodeclusterintg():
     nx.draw(G, with_labels=True)
     plt.show()
 
-
 # --- Katz Index
 def test_katz_index():
-    G = nx.gnp_random_graph(10000, .01)
-
     print(katz_index(G, 10))
+    print('\n')
 
     nx.draw(G, with_labels=True)
     plt.show()
 
 # --- Shortest Path
 def test_shortest_path():
-    G = nx.gnp_random_graph(100, .01)
-    
-    print(shortest_path(G,10))
+    print(shortest_path(G, 10))
+    print('\n')
     
     nx.draw(G, with_labels=True)
     plt.show()
     
 # --- Rooted Page Rank
 def test_rooted_page_rank():
-    G = nx.gnp_random_graph(1000, .01)
-    
     print(rooted_page_rank(G))
+    print('\n')
     
     nx.draw(G, with_labels=True)
     plt.show()
@@ -181,22 +166,86 @@ def test_link_prediction_nmf():
     G = nx.gnp_random_graph(1000, .01)
     
     print(link_prediction_nmf(G))
-    
 
-# test_path_of_length()
-# test_common_neighbors_easy()
-# test_common_neighbors_hard()
-# test_jaccard()
-# test_adamic_adar()
-# test_preferential()
-# test_resourceallocation()
-# test_cosinesimilarity()
-# test_sorensen()
-# test_hubpromoted()
-# test_hubdepressed()
-# test_nodeclusterintg()
-# test_katz_index()
-# test_svd()
-# test_shortest_path()
-# test_rooted_page_rank()
-test_link_prediction_nmf()
+
+#-----------------------------
+'''
+    Local Similarity
+'''
+
+#---OK
+'''
+test_common_neighbors_easy()
+test_common_neighbors_hard()
+test_jaccard()
+'''
+#---Result
+
+#---OK
+'''
+test_common_neighbors_easy()
+test_common_neighbors_hard()
+test_sorensen()
+test_jaccard()
+'''
+#---Result
+
+#---OK
+'''
+test_common_neighbors_easy()
+test_common_neighbors_hard()
+test_sorensen()
+test_jaccard()
+test_hubdepressed()
+test_hubpromoted()
+'''
+#---Result
+
+#---OK
+'''
+test_common_neighbors_easy()
+test_common_neighbors_hard()
+test_sorensen()
+test_jaccard()
+test_hubdepressed()
+test_hubpromoted()
+test_adamic_adar()
+test_cosinesimilarity()
+'''
+#---Result
+
+
+
+#-----------------------------
+'''
+    Global Similarity
+'''
+#---OK
+'''
+test_katz_index()
+test_shortest_path()
+'''
+#---Result
+
+#---Ricontrollare 
+'''
+test_katz_index()
+test_shortest_path()
+test_rooted_page_rank()
+'''
+#-----------------------------
+
+
+
+#-----------------------------
+'''
+    Quasi local index
+'''
+#---OK
+'''
+test_LPI()
+test_path_of_length()
+'''
+#---Result
+
+
