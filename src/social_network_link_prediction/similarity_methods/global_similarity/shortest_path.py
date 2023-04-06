@@ -8,13 +8,17 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = ...
+        S(x, y) = - |d(x,y)|
+
+    where Dijkstra algorithm  is applied to efficiently
+    compute the shortest path \\(d(x, y)\\) between the
+    node pair \\( (x, y) \\).
 
     Parameters
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
-    cutoff: int :
+    cutoff: int : # TODO
          (Default value = None)
 
     Returns
@@ -23,6 +27,11 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
 
     Notes
     -----
+    Liben-Nowell et al. provided the shortest path with its negation as a
+    metric to link prediction.
+
+    The prediction accuracy
+    of this index is low compared to most local indices.
     """
     dim = G.number_of_nodes()
     if cutoff is None:
