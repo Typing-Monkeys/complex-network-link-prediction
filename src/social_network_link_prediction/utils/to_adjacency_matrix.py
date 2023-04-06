@@ -20,4 +20,5 @@ def to_adjacency_matrix(G: nx.Graph,
     -------
     csc_matrix | np.ndarray: the Adjacency Matrix
     """
-    return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)
+    # TODO: ricontrollare se i pesi servono
+    return nx.adjacency_matrix(G, weight=None) if sparse else nx.to_numpy_array(G, weight=None)
