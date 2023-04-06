@@ -1,51 +1,71 @@
-import numpy as np
 import networkx as nx
-from scipy.sparse import csr_matrix, lil_matrix, linalg, hstack
-from functools import partial
+from scipy.sparse import lil_matrix, linalg, hstack, csr_array
 from social_network_link_prediction.utils import to_adjacency_matrix
 from social_network_link_prediction.utils import nodes_to_indexes
 
 def link_prediction_rwr(G, c = 0.05, max_iters = 10):
     
+    # Convert the graph G into an adjacency matrix A
     A = to_adjacency_matrix(G)
-    m,n = A.shape
+    
+    # Extract the number of nodes of matrix A
+    m,_ = A.shape
 
+    # Initialize the diagonal matrix D as a sparse lil_matrix
     D = lil_matrix(A.shape)
 
+    # Create a map that associates each node with a row index in matrix A
     nodes_to_indexes_map = nodes_to_indexes(G)
+
+    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
     for node in G.nodes():
         D[nodes_to_indexes_map[node], nodes_to_indexes_map[node]] = G.degree[node]
     
+    # Convert the diagonal matrix D into csc_matrix format
     D = D.tocsc()
+    
+    # Build the normalized transition matrix W_normalized
     W_normalized = linalg.inv(D) @ A.tocsc()
 
-    random_walk_with_restart_fn = partial(random_walk_with_restart, W_normalized = W_normalized, c = c, max_iters= max_iters)
-    
-    #Run the function starting from each node of the graph
-    similarity = [random_walk_with_restart_fn(csr_matrix(e).transpose()) for e in np.identity(m)]
+    # Initialize an empty list to hold the similarities between node pairs
+    similarity = []
+
+    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    for i in range(m):
+        e = csr_array((m,1))
+        e[i,0] = 1
+        similarity.append(random_walk_with_restart(e = e, W_normalized = W_normalized, c = c, max_iters= max_iters))
+
+    # Concatenate the similarity vectors into a similarity matrix
     similarity_matrix = hstack(similarity)
+
+    # Return the similarity matrix
     return similarity_matrix
 
-def random_walk_with_restart(e, W_normalized, c = 0.05, max_iters = 100):    
-    old_e = e
+
+def random_walk_with_restart(e, W_normalized, c = 0.05, max_iters = 100):
+    
+    # Initialize the current probability vector to the initial one and the error to 1
+    old_e = e.copy()
     err = 1.
 
-    for i in range(max_iters):
+    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    for _ in range(max_iters):
         e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
         err = linalg.norm(e - old_e, 1)
         if err <= 1e-6:
             break
-        old_e = e
+        old_e = e.copy()
+
+    # Return the current probability vector
     return e
-  
 
 if __name__ == '__main__':
 
     graph = nx.karate_club_graph()
     
-    # apply random walk with restart on this network
+    # Apply random walk with restart on this network
     predicted_adj_matrix = link_prediction_rwr(graph, c = 0.05, max_iters=10)
-    #predicted_adj_matrix = run_rwr(graph, R = 0.2, max_iters=1000)
 
     adj_matrix = nx.to_numpy_array(graph)
 
