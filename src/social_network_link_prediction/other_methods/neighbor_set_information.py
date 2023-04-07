@@ -31,8 +31,7 @@ def overlap_info(G: nx.Graph, x, y, edge_num: int):
         # degree of z
         kz = G.degree(z)
 
-        # preventing ZeroDivisionError
-        coeff = 1 / (kz * (kz - 1)) if kz > 1 else 0
+        coeff = 1 / (kz * (kz - 1))
 
         # sum over edges = neighbors of z
         overlap = 0
