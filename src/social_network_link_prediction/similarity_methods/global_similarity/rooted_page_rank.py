@@ -20,7 +20,7 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
-        visit probability # TODO ricontrollare
+        random walk probability
          (Default value = 0.5)
 
     Returns

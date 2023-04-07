@@ -18,7 +18,8 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
-    cutoff: int : # TODO
+    cutoff: int :
+        max path length
          (Default value = None)
 
     Returns
