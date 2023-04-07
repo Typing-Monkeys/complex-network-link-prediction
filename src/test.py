@@ -27,17 +27,16 @@ def top_five_element(result):
 def test_LPI():
     nx.draw(G, with_labels=True)
 
-    print(local_path_index(G, 0.1, 4))
+    result = local_path_index(G, 0.1, 4)
     
-    print('\n')
+    top_five_element(result)
 
     plt.show()
 
 
 def test_path_of_length():
-    print(path_of_length_three(G))
-    
-    print('\n')
+    result = test_path_of_length()
+    top_five_element(result)
 
     nx.draw(G, with_labels=True)
     plt.show()
