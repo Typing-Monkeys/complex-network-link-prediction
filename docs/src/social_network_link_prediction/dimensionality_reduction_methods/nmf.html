@@ -54,10 +54,11 @@ def link_prediction_nmf(graph: nx.Graph,
     ----------
     graph: nx.Graph :
         input Graph (a networkx Graph)
-    num_features: int : # TODO Ricontrollare
+    num_features: int :
         dimention of the latent space (must be \\(&lt; n\\))
          (Default value = 2)
-    num_iterations: int : # TODO
+    num_iterations: int :
+        max number of iteration for the algorithm convergence
          (Default value = 100)
 
     Returns
@@ -66,7 +67,6 @@ def link_prediction_nmf(graph: nx.Graph,
 
     Notes
     -----
-    # TODO ricontrollare e capire cosa metterci
     Typically, the latent features are extracted and using these features,
     each vertex is represented in latent space, and such representations are
     used in a supervised or unsupervised framework for link prediction.
@@ -159,11 +159,12 @@ the coefficient matrix; <span><span class="MathJax_Preview">k</span><script type
 <dl>
 <dt><strong><code>graph</code></strong> :&ensp;<code>nx.Graph :</code></dt>
 <dd>input Graph (a networkx Graph)</dd>
-<dt><strong><code>num_features</code></strong> :&ensp;<code>int : # TODO Ricontrollare</code></dt>
+<dt><strong><code>num_features</code></strong> :&ensp;<code>int :</code></dt>
 <dd>dimention of the latent space (must be <span><span class="MathJax_Preview">&lt; n</span><script type="math/tex">< n</script></span>)
 (Default value = 2)</dd>
-<dt><strong><code>num_iterations</code></strong> :&ensp;<code>int : # TODO</code></dt>
-<dd>(Default value = 100)</dd>
+<dt><strong><code>num_iterations</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max number of iteration for the algorithm convergence
+(Default value = 100)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -171,7 +172,6 @@ the coefficient matrix; <span><span class="MathJax_Preview">k</span><script type
 <dd>&nbsp;</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<h1 id="todo-ricontrollare-e-capire-cosa-metterci">TODO ricontrollare e capire cosa metterci</h1>
 <p>Typically, the latent features are extracted and using these features,
 each vertex is represented in latent space, and such representations are
 used in a supervised or unsupervised framework for link prediction.
@@ -204,10 +204,11 @@ Some authors also applied the singular value decomposition technique.</p></div>
     ----------
     graph: nx.Graph :
         input Graph (a networkx Graph)
-    num_features: int : # TODO Ricontrollare
+    num_features: int :
         dimention of the latent space (must be \\(&lt; n\\))
          (Default value = 2)
-    num_iterations: int : # TODO
+    num_iterations: int :
+        max number of iteration for the algorithm convergence
          (Default value = 100)
 
     Returns
@@ -216,7 +217,6 @@ Some authors also applied the singular value decomposition technique.</p></div>
 
     Notes
     -----
-    # TODO ricontrollare e capire cosa metterci
     Typically, the latent features are extracted and using these features,
     each vertex is represented in latent space, and such representations are
     used in a supervised or unsupervised framework for link prediction.

@@ -49,7 +49,7 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
-        visit probability # TODO ricontrollare
+        random walk probability
          (Default value = 0.5)
 
     Returns
@@ -108,7 +108,7 @@ Adjacency Matrix with the diagonal degree matrix
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
 <dd>input Graph (a networkx Graph)</dd>
 <dt><strong><code>alpha</code></strong> :&ensp;<code>float :</code></dt>
-<dd>visit probability # TODO ricontrollare
+<dd>random walk probability
 (Default value = 0.5)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
@@ -148,7 +148,7 @@ and returns to <span><span class="MathJax_Preview">x</span><script type="math/te
     G: nx.Graph :
         input Graph (a networkx Graph)
     alpha: float :
-        visit probability # TODO ricontrollare
+        random walk probability
          (Default value = 0.5)
 
     Returns

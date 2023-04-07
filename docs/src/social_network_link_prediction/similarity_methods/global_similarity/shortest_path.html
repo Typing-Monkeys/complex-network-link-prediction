@@ -47,7 +47,8 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -&gt; csr_matrix:
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
-    cutoff: int : # TODO
+    cutoff: int :
+        max path length
          (Default value = None)
 
     Returns
@@ -101,8 +102,9 @@ node pair <span><span class="MathJax_Preview"> (x, y) </span><script type="math/
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
 <dd>input Graph (a networkx Graph)</dd>
-<dt><strong><code>cutoff</code></strong> :&ensp;<code>int : # TODO</code></dt>
-<dd>(Default value = None)</dd>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max path length
+(Default value = None)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -133,7 +135,8 @@ of this index is low compared to most local indices.</p></div>
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
-    cutoff: int : # TODO
+    cutoff: int :
+        max path length
          (Default value = None)
 
     Returns
