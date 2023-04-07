@@ -25,10 +25,11 @@ def link_prediction_nmf(graph: nx.Graph,
     ----------
     graph: nx.Graph :
         input Graph (a networkx Graph)
-    num_features: int : # TODO Ricontrollare
+    num_features: int :
         dimention of the latent space (must be \\(< n\\))
          (Default value = 2)
-    num_iterations: int : # TODO
+    num_iterations: int :
+        max number of iteration for the algorithm convergence
          (Default value = 100)
 
     Returns
@@ -37,7 +38,6 @@ def link_prediction_nmf(graph: nx.Graph,
 
     Notes
     -----
-    # TODO ricontrollare e capire cosa metterci
     Typically, the latent features are extracted and using these features,
     each vertex is represented in latent space, and such representations are
     used in a supervised or unsupervised framework for link prediction.
