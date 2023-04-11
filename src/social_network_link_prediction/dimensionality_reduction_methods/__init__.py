@@ -6,3 +6,4 @@ Some researchers employ dimension reduction techniques
 to tackle the above problem and apply it in the link prediction scenario.
 """
 from .svd import link_prediction_svd
+from .nmf import link_prediction_nmf
