@@ -14,13 +14,16 @@ G =  nx.karate_club_graph()
 
 
 def top_five_element(result):
-    # Get the indices that would sort the array in descending order
-    sorted_indices = np.argsort(result)[::-1]
+    # Convert CSR matrix to 1D array
+    flatten_matrix = result.data
+    
+    # Sort the values in descending order
+    sorted_values = np.sort(flatten_matrix)[::-1]
 
-    # Extract the top 5 elements with the highest values
-    top_5_elements = result[sorted_indices[:5]]
+    # Get the top 5 values
+    top_5_values = sorted_values[:5]
 
-    print("Top 5 elements with the highest values:\n", top_5_elements)
+    print("Top 5 elements with the highest values:\n", top_5_values)
     print('\n')
     
 
@@ -35,7 +38,7 @@ def test_LPI():
 
 
 def test_path_of_length():
-    result = test_path_of_length()
+    result = path_of_length_three(G)
     top_five_element(result)
 
     nx.draw(G, with_labels=True)
@@ -76,9 +79,9 @@ def test_jaccard():
 
 # --- Adamic Adar Measure
 def test_adamic_adar():
-    print(adamic_adar(G))
-    print('\n')
-
+    result = adamic_adar(G)
+    top_five_element(result)
+    
     nx.draw(G, with_labels=True)
     plt.show()
 
@@ -97,9 +100,7 @@ def test_preferential():
 
 # --- Resource Allocation
 def test_resourceallocation():
-    G = nx.gnp_random_graph(1000, .01)
-
-    result = resource_allocation()
+    result = resource_allocation(G)
     
     top_five_element(result)
 
@@ -109,7 +110,7 @@ def test_resourceallocation():
 
 # --- Cosine Similarity
 def test_cosinesimilarity():
-    result = cosine_similarity()
+    result = cosine_similarity(G)
     
     top_five_element(result)
 
@@ -236,7 +237,7 @@ test_adamic_adar()
 test_cosinesimilarity()
 '''
 #---Result
-#---OK
+#---RIvedere Adamic e Nodeclustering
 '''
 test_common_neighbors_easy()
 test_common_neighbors_hard()
