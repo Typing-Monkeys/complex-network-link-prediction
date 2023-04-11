@@ -9,7 +9,7 @@ def link_prediction_rwr(G:nx.Graph, c:int = 0.05, max_iters:int = 10) -> csr_mat
     A = to_adjacency_matrix(G)
     
     # Extract the number of nodes of matrix A
-    m= A.shape[0]
+    m = A.shape[0]
 
     # Initialize the diagonal matrix D as a sparse lil_matrix
     D = lil_matrix(A.shape)
