@@ -75,7 +75,8 @@ def MI(G: nx.Graph):
     node_num = G.number_of_nodes()
     edge_num = G.number_of_edges()
     res_sparse = scipy.lil_matrix((node_num, node_num))
-
+    
+    # TODO: utilizzare mapping personalizzato
     for i, j in nx.complement(G).edges():
         I_Oxy = overlap_info(G, i, j, edge_num)
         res_sparse[i, j] = I_Oxy
