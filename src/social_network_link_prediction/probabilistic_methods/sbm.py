@@ -8,8 +8,9 @@ from typing import List, Set
 from itertools import product, combinations_with_replacement
 
 
-def __random_changes(A_0: lil_matrix, p: float = .05) -> lil_matrix:
-    A_chaos = A_0.copy()
+def __random_changes(A_0: csr_matrix, p: float = .05, seed: int = 42) -> lil_matrix:
+    np.random.seed(seed)
+    A_chaos = A_0.copy().tolil()
     num_changes = int(A_chaos.shape[0]**2 * p)
     indexes = []
 
@@ -32,14 +33,14 @@ def __random_changes(A_0: lil_matrix, p: float = .05) -> lil_matrix:
     return A_chaos
 
 
-def __generate_samples(A_0: lil_matrix,
+def __generate_samples(A_0: csr_matrix,
                        n: int,
                        p: np.float32 = .05,
                        seed: int = 42) -> List[List[Set]]:
     samples_list = []
 
     for _ in range(n):
-        A_chaos = __random_changes(A_0, p)
+        A_chaos = __random_changes(A_0, p, seed)
         G_chaos = nx.Graph(A_chaos)
         res = louvain_communities(G_chaos, seed)
         samples_list.append(res)
@@ -67,7 +68,7 @@ def __r(alpha: Set, beta: Set) -> int:
     return (len_a * len_b)
 
 
-def __H(A_0: lil_matrix, P: List[Set]) -> float:
+def __H(A_0: csr_matrix, P: List[Set]) -> float:
     res = 0
     for a, b in combinations_with_replacement(P, 2):
         r = __r(a, b)
@@ -78,7 +79,7 @@ def __H(A_0: lil_matrix, P: List[Set]) -> float:
     return res
 
 
-def __link_reliability(A_0: lil_matrix, samples_list: List[List[Set]], x: int,
+def __link_reliability(A_0: csr_matrix, samples_list: List[List[Set]], x: int,
                        y: int) -> float:
     summing_result = 0
     HP_mem = []
@@ -105,7 +106,7 @@ def stochastic_block_model(G: nx.Graph,
                            p: float = .05,
                            seed: int = 42) -> csr_matrix:
     A_0 = to_adjacency_matrix(G)
-    samples_list = __generate_samples(A_0.tolil(), n, p, seed=seed)
+    samples_list = __generate_samples(A_0, n, p, seed=seed)
 
     R = lil_matrix(A_0.shape)
 
@@ -121,7 +122,7 @@ if __name__ == "__main__":
     G = nx.karate_club_graph()
     A = to_adjacency_matrix(G)
 
-    res = stochastic_block_model(G, 3)
+    res = stochastic_block_model(G, 10)
 
     predicted_edges = []
     for u in range(res.shape[0]):
