@@ -186,6 +186,7 @@ docs:
 	@$(MAKE) clean-docs
 	mkdir -p $(DOCS_DIR)
 	pdoc $(DOCS_FORMAT) -c latex_math=$(DOCS_LATEX) -o $(DOCS_DIR) $(SRC)
+	cd $(DOCS_DIR)/ && mv $(SRC)/* ./ && rm -rf $(SRC)
 	@echo "Done ✅"
 
 
