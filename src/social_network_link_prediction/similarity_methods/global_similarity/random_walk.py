@@ -7,6 +7,50 @@ from social_network_link_prediction.utils import nodes_to_indexes
 def link_prediction_rwr(G: nx.Graph,
                         c: int = 0.05,
                         max_iters: int = 10) -> csr_matrix:
+    """Compute the Random Walk with Restart Algorithm.
+
+    The similarity between two nodes is defined as:
+
+    .. math::
+        S(x, y) = q_{xy} + q_{yx}
+    
+    where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
+    and \\(e_x\\) is the seed vector of length \\(|V|\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 10)
+
+    Returns
+    -------
+    similarity_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Let \\(\\alpha\\) be a probability that a random walker
+    iteratively moves to an arbitrary neighbor and returns to the same
+    starting vertex with probability \\( (1 - \\alpha )\\).
+    Consider \\(q_{xy}\\) to be the probability that a random walker
+    who starts walking from vertex x and located at the vertex y in steady-state.
+
+    The seed vector \\(e_x\\) consists of zeros for all components except the
+    elements \\(x\\) itself.
+
+    The transition matrix \\(P\\) can be expressed as 
+
+    .. math::
+        P_{xy} = \\begin{cases}
+                \\frac{1}{k_x} & \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
+                0 & \\text{otherwise.}
+            \\end{cases} 
+    """
 
     # Convert the graph G into an adjacency matrix A
     A = to_adjacency_matrix(G)
@@ -59,6 +103,25 @@ def random_walk_with_restart(e: lil_array,
                              W_normalized: csr_matrix,
                              c: int = 0.05,
                              max_iters: int = 100) -> lil_array:
+    """TODO
+
+    Parameters
+    ----------
+    e: lil_array :
+        input probability vector
+    W_normalized: csr_matrix :
+        TODO
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 100)
+
+    Returns
+    -------
+    e: lil_array : the updated probability vector
+    """
 
     # Initialize the current probability vector to the initial one and the error to 1
     old_e = e

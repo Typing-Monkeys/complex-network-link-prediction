@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.social_network_link_prediction.similarity_methods.global_similarity.random_walk API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.social_network_link_prediction.similarity_methods.global_similarity.random_walk</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import networkx as nx
+from scipy.sparse import lil_matrix, linalg, hstack, lil_array, csr_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import nodes_to_indexes
+
+
+def link_prediction_rwr(G: nx.Graph,
+                        c: int = 0.05,
+                        max_iters: int = 10) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Random Walk with Restart Algorithm.
+
+    The similarity between two nodes is defined as:
+
+    .. math::
+        S(x, y) = q_{xy} + q_{yx}
+    
+    where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
+    and \\(e_x\\) is the seed vector of length \\(|V|\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 10)
+
+    Returns
+    -------
+    similarity_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Let \\(\\alpha\\) be a probability that a random walker
+    iteratively moves to an arbitrary neighbor and returns to the same
+    starting vertex with probability \\( (1 - \\alpha )\\).
+    Consider \\(q_{xy}\\) to be the probability that a random walker
+    who starts walking from vertex x and located at the vertex y in steady-state.
+
+    The seed vector \\(e_x\\) consists of zeros for all components except the
+    elements \\(x\\) itself.
+
+    The transition matrix \\(P\\) can be expressed as 
+
+    .. math::
+        P_{xy} = \\begin{cases}
+                \\frac{1}{k_x} &amp; \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
+                0 &amp; \\text{otherwise.}
+            \\end{cases} 
+    &#34;&#34;&#34;
+
+    # Convert the graph G into an adjacency matrix A
+    A = to_adjacency_matrix(G)
+
+    # Extract the number of nodes of matrix A
+    m = A.shape[0]
+
+    # Initialize the diagonal matrix D as a sparse lil_matrix
+    D = lil_matrix(A.shape)
+
+    # Create a map that associates each node with a row index in matrix A
+    nodes_to_indexes_map = nodes_to_indexes(G)
+
+    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    # Convert the diagonal matrix D into csc_matrix format
+    D = D.tocsc()
+
+    # Build the normalized transition matrix W_normalized
+    W_normalized = linalg.inv(D) @ A.tocsc()
+
+    # Initialize an matrix to hold the similarities between node pairs
+    # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
+    similarity_matrix = csr_matrix((m, 1))
+
+    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    for i in range(m):
+        e = lil_array((m, 1))
+        e[i, 0] = 1
+        # Concatenate the similarity vectors into a similarity matrix
+        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
+        # As a new column in just one line of code
+        similarity_matrix = hstack([
+            similarity_matrix,
+            random_walk_with_restart(e=e,
+                                     W_normalized=W_normalized,
+                                     c=c,
+                                     max_iters=max_iters)
+        ])
+
+    # Return the similarity matrix and remove the fisrt column
+    # In order to keep the results consistent without the added column of zeros at the beginning
+    return csr_matrix(similarity_matrix)[:, 1:]
+
+
+def random_walk_with_restart(e: lil_array,
+                             W_normalized: csr_matrix,
+                             c: int = 0.05,
+                             max_iters: int = 100) -&gt; lil_array:
+    &#34;&#34;&#34;TODO
+
+    Parameters
+    ----------
+    e: lil_array :
+        input probability vector
+    W_normalized: csr_matrix :
+        TODO
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 100)
+
+    Returns
+    -------
+    e: lil_array : the updated probability vector
+    &#34;&#34;&#34;
+
+    # Initialize the current probability vector to the initial one and the error to 1
+    old_e = e
+    err = 1.
+
+    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    for _ in range(max_iters):
+        e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
+        err = linalg.norm(e - old_e, 1)
+        if err &lt;= 1e-6:
+            break
+        old_e = e
+
+    # Return the current probability vector
+    return e
+
+
+if __name__ == &#39;__main__&#39;:
+
+    graph = nx.karate_club_graph()
+
+    # Apply random walk with restart on this network
+    predicted_adj_matrix = link_prediction_rwr(graph, c=0.05, max_iters=10)
+
+    adj_matrix = nx.to_numpy_array(graph)
+
+    # Initialize the feature and coefficient matrices randomly
+    num_nodes = adj_matrix.shape[0]
+    # Get the predicted edges
+    predicted_edges = []
+    for u in range(adj_matrix.shape[0]):
+        for v in range(u + 1, adj_matrix.shape[1]):
+            if graph.has_edge(u, v):
+                continue
+            w = predicted_adj_matrix[u, v]
+            predicted_edges.append((u, v, w))
+
+    # Sort the predicted edges by weight in descending order
+    predicted_edges.sort(key=lambda x: x[2], reverse=True)
+
+    # Print the predicted edges with their weight score
+    print(&#34;Top Predicted edges:&#34;)
+    for edge in predicted_edges[:10]:
+        print(f&#34;({edge[0]}, {edge[1]}): {edge[2]}&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.link_prediction_rwr"><code class="name flex">
+<span>def <span class="ident">link_prediction_rwr</span></span>(<span>G: networkx.classes.graph.Graph, c: int = 0.05, max_iters: int = 10) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Random Walk with Restart Algorithm.</p>
+<p>The similarity between two nodes is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = q_{xy} + q_{yx} </span><script type="math/tex; mode=display"> S(x, y) = q_{xy} + q_{yx} </script></span>
+where <span><span class="MathJax_Preview">q_x</span><script type="math/tex">q_x</script></span> is defined as <span><span class="MathJax_Preview"> (1-\alpha) (I - \alpha P^T)^{-1} e_x</span><script type="math/tex"> (1-\alpha) (I - \alpha P^T)^{-1} e_x</script></span>
+and <span><span class="MathJax_Preview">e_x</span><script type="math/tex">e_x</script></span> is the seed vector of length <span><span class="MathJax_Preview">|V|</span><script type="math/tex">|V|</script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>c</code></strong> :&ensp;<code>int :</code></dt>
+<dd>TODO
+(Default value = 0.05)</dd>
+<dt><strong><code>max_iters</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max number of iteration for the algorithm convergence
+(Default value = 10)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>similarity_matrix</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Let <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span> be a probability that a random walker
+iteratively moves to an arbitrary neighbor and returns to the same
+starting vertex with probability <span><span class="MathJax_Preview"> (1 - \alpha )</span><script type="math/tex"> (1 - \alpha )</script></span>.
+Consider <span><span class="MathJax_Preview">q_{xy}</span><script type="math/tex">q_{xy}</script></span> to be the probability that a random walker
+who starts walking from vertex x and located at the vertex y in steady-state.</p>
+<p>The seed vector <span><span class="MathJax_Preview">e_x</span><script type="math/tex">e_x</script></span> consists of zeros for all components except the
+elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> itself.</p>
+<p>The transition matrix <span><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> can be expressed as </p>
+<p><span><span class="MathJax_Preview"> P_{xy} = \begin{cases}
+\frac{1}{k_x} &amp; \text{if } x \text{ and } y \text{ are connected,} \\
+0 &amp; \text{otherwise.}
+\end{cases} </span><script type="math/tex; mode=display"> P_{xy} = \begin{cases}
+\frac{1}{k_x} & \text{if } x \text{ and } y \text{ are connected,} \\
+0 & \text{otherwise.}
+\end{cases} </script></span></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def link_prediction_rwr(G: nx.Graph,
+                        c: int = 0.05,
+                        max_iters: int = 10) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Random Walk with Restart Algorithm.
+
+    The similarity between two nodes is defined as:
+
+    .. math::
+        S(x, y) = q_{xy} + q_{yx}
+    
+    where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
+    and \\(e_x\\) is the seed vector of length \\(|V|\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 10)
+
+    Returns
+    -------
+    similarity_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Let \\(\\alpha\\) be a probability that a random walker
+    iteratively moves to an arbitrary neighbor and returns to the same
+    starting vertex with probability \\( (1 - \\alpha )\\).
+    Consider \\(q_{xy}\\) to be the probability that a random walker
+    who starts walking from vertex x and located at the vertex y in steady-state.
+
+    The seed vector \\(e_x\\) consists of zeros for all components except the
+    elements \\(x\\) itself.
+
+    The transition matrix \\(P\\) can be expressed as 
+
+    .. math::
+        P_{xy} = \\begin{cases}
+                \\frac{1}{k_x} &amp; \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
+                0 &amp; \\text{otherwise.}
+            \\end{cases} 
+    &#34;&#34;&#34;
+
+    # Convert the graph G into an adjacency matrix A
+    A = to_adjacency_matrix(G)
+
+    # Extract the number of nodes of matrix A
+    m = A.shape[0]
+
+    # Initialize the diagonal matrix D as a sparse lil_matrix
+    D = lil_matrix(A.shape)
+
+    # Create a map that associates each node with a row index in matrix A
+    nodes_to_indexes_map = nodes_to_indexes(G)
+
+    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    # Convert the diagonal matrix D into csc_matrix format
+    D = D.tocsc()
+
+    # Build the normalized transition matrix W_normalized
+    W_normalized = linalg.inv(D) @ A.tocsc()
+
+    # Initialize an matrix to hold the similarities between node pairs
+    # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
+    similarity_matrix = csr_matrix((m, 1))
+
+    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    for i in range(m):
+        e = lil_array((m, 1))
+        e[i, 0] = 1
+        # Concatenate the similarity vectors into a similarity matrix
+        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
+        # As a new column in just one line of code
+        similarity_matrix = hstack([
+            similarity_matrix,
+            random_walk_with_restart(e=e,
+                                     W_normalized=W_normalized,
+                                     c=c,
+                                     max_iters=max_iters)
+        ])
+
+    # Return the similarity matrix and remove the fisrt column
+    # In order to keep the results consistent without the added column of zeros at the beginning
+    return csr_matrix(similarity_matrix)[:, 1:]</code></pre>
+</details>
+</dd>
+<dt id="src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.random_walk_with_restart"><code class="name flex">
+<span>def <span class="ident">random_walk_with_restart</span></span>(<span>e: scipy.sparse._arrays.lil_array, W_normalized: scipy.sparse._csr.csr_matrix, c: int = 0.05, max_iters: int = 100) ‑> scipy.sparse._arrays.lil_array</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>e</code></strong> :&ensp;<code>lil_array :</code></dt>
+<dd>input probability vector</dd>
+<dt><strong><code>W_normalized</code></strong> :&ensp;<code>csr_matrix :</code></dt>
+<dd>TODO</dd>
+<dt><strong><code>c</code></strong> :&ensp;<code>int :</code></dt>
+<dd>TODO
+(Default value = 0.05)</dd>
+<dt><strong><code>max_iters</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max number of iteration for the algorithm convergence
+(Default value = 100)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>e</code></strong> :&ensp;<code>lil_array : the updated probability vector</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def random_walk_with_restart(e: lil_array,
+                             W_normalized: csr_matrix,
+                             c: int = 0.05,
+                             max_iters: int = 100) -&gt; lil_array:
+    &#34;&#34;&#34;TODO
+
+    Parameters
+    ----------
+    e: lil_array :
+        input probability vector
+    W_normalized: csr_matrix :
+        TODO
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 100)
+
+    Returns
+    -------
+    e: lil_array : the updated probability vector
+    &#34;&#34;&#34;
+
+    # Initialize the current probability vector to the initial one and the error to 1
+    old_e = e
+    err = 1.
+
+    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    for _ in range(max_iters):
+        e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
+        err = linalg.norm(e - old_e, 1)
+        if err &lt;= 1e-6:
+            break
+        old_e = e
+
+    # Return the current probability vector
+    return e</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.social_network_link_prediction.similarity_methods.global_similarity" href="index.html">src.social_network_link_prediction.similarity_methods.global_similarity</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.link_prediction_rwr" href="#src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.link_prediction_rwr">link_prediction_rwr</a></code></li>
+<li><code><a title="src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.random_walk_with_restart" href="#src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.random_walk_with_restart">random_walk_with_restart</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
