@@ -39,7 +39,7 @@ def compute_sim_rank(G:nx.Graph, a, b, sim_matrix, C = 0.8):
 
 
 
-def sim_rank(G:nx.Graph, k = 5):
+def sim_rank(G:nx.Graph, k = 5, cutoff = 4, c = 0.8):
 
     nodes_num = G.number_of_nodes()
     sim_matrix = init_similarity_matrix(G, nodes_num)
@@ -47,12 +47,12 @@ def sim_rank(G:nx.Graph, k = 5):
     for a in range(nodes_num):
         for b in range(nodes_num):
             # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
-            if((nx.shortest_path_length(G, a, b) > 4)):
+            if((nx.shortest_path_length(G, a, b) > cutoff)):
                 sim_matrix[a, b] = 0
             else:
                 # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
                 for i in range(k):
-                    sim_matrix[a, b] = compute_sim_rank(G, a, b, sim_matrix = sim_matrix, C = 0.8)
+                    sim_matrix[a, b] = compute_sim_rank(G, a, b, sim_matrix = sim_matrix, C = c)
     return sim_matrix
 
 
