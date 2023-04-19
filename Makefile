@@ -11,6 +11,7 @@ REQUIREMENTS	+=	git
 REQUIREMENTS	+=	virtualenv
 
 SRC = src
+TEST_DIR = tests
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
 INSTALL_DIR = requirements
@@ -139,8 +140,7 @@ clean: clean-env clean-build clean-docs clean-docstrings
 # -- Runs Section
 tests:
 	@echo "🟡 Running unit tests..."
-
-	$(VENV_PYTHON) -m unittest discover -v -s tests/
+	$(VENV_PYTHON) -m unittest discover -v -s $(TEST_DIR) -t .
 
 
 # Code cheking & autoformatting
