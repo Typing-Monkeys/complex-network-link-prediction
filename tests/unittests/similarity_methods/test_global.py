@@ -7,95 +7,59 @@ import numpy as np
 
 class TestGlobalSimilarityMethods(unittest.TestCase):
 
+    def __perform_test(self, g, fun, params: dict = {}, debug = False):
+        res = fun(g, **params)
+
+        if debug:
+            print(res)
+            print(type(res))
+        
+        self.assertIsNotNone(res, "None result is returned")
+        self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray, "Wrong return type")
+        
+        return res
+
     def test_katz_nolabels(self):
         g = Configs.load_normal_dataset()
-        beta = .001
 
-        res = global_similarity.katz_index(g, beta=beta)
+        self.__perform_test(g, global_similarity.katz_index, {'beta': .001})
         
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
 
     def test_katz_labels(self):
         g = Configs.load_labels_dataset()
-        beta = .001
 
-        res = global_similarity.katz_index(g, beta=beta)
-        
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
+        self.__perform_test(g, global_similarity.katz_index, {'beta': .001})
 
     def test_randwalk_nolabels(self):
         g = Configs.load_normal_dataset()
-        c = .05
-        max_iters = 10
 
-        res = global_similarity.link_prediction_rwr(g, c = c, max_iters=max_iters)
+        self.__perform_test(g, global_similarity.link_prediction_rwr, {'c': .05, 'max_iters': 10})
 
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
-            
     def test_randwalk_labels(self):
         g = Configs.load_labels_dataset()
-        c = .05
-        max_iters = 10
-
-        res = global_similarity.link_prediction_rwr(g, c = c, max_iters=max_iters)
         
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
+        self.__perform_test(g, global_similarity.link_prediction_rwr, {'c': .05, 'max_iters': 10})
 
     def test_rootedpage_nolabels(self):
         g = Configs.load_normal_dataset()
-        alpha = .5
 
-        res = global_similarity.rooted_page_rank(g, alpha=alpha)
-        
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
+        self.__perform_test(g, global_similarity.rooted_page_rank, {'alpha': .5})
 
     def test_rootedpage_labels(self):
         g = Configs.load_labels_dataset()
-        alpha = .5
 
-        res = global_similarity.rooted_page_rank(g, alpha=alpha)
-        
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
+        self.__perform_test(g, global_similarity.rooted_page_rank, {'alpha': .5})
     
     def test_shortestpath_nolabels(self):
         g = Configs.load_normal_dataset()
-        cutoff = None
 
-        res = global_similarity.shortest_path(g, cutoff=cutoff)
+        self.__perform_test(g, global_similarity.shortest_path, {'cutoff': None})
         
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
-
     def test_shortestpath_labels(self):
         g = Configs.load_labels_dataset()
-        cutoff = None
+    
+        self.__perform_test(g, global_similarity.shortest_path, {'cutoff': None})
 
-        res = global_similarity.shortest_path(g, cutoff=cutoff)
-        
-        with self.subTest():
-            self.assertIsNotNone(res)
-        with self.subTest():
-            self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
     # @timeout(Configs.timeout)
     # def test_katz_time(self):
     #     g, adjacency = Configs.load_hard_dataset()
