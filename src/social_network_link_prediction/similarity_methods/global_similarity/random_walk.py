@@ -64,7 +64,8 @@ def link_prediction_rwr(G: nx.Graph,
     # Create a map that associates each node with a row index in matrix A
     nodes_to_indexes_map = nodes_to_indexes(G)
 
-    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
+    # Build the diagonal matrix D so that the elements on the diagonal
+    # are equal to the degree of the corresponding node
     for node in G.nodes():
         D[nodes_to_indexes_map[node],
           nodes_to_indexes_map[node]] = G.degree[node]
@@ -79,13 +80,15 @@ def link_prediction_rwr(G: nx.Graph,
     # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
     similarity_matrix = csr_matrix((m, 1))
 
-    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    # For each node i, create a probability vector and perform the
+    # random walk with restart starting from that node
     for i in range(m):
         e = lil_array((m, 1))
         e[i, 0] = 1
         # Concatenate the similarity vectors into a similarity matrix
-        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
-        # As a new column in just one line of code
+        # The use of hstack allows the lil_array returned from the
+        # random walk function to be transposed and added to the
+        # similarity matrix as a new column in just one line of code
         similarity_matrix = hstack([
             similarity_matrix,
             random_walk_with_restart(e=e,
@@ -127,7 +130,8 @@ def random_walk_with_restart(e: lil_array,
     old_e = e
     err = 1.
 
-    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    # Perform the random walk with restart until the maximum number
+    # of iterations is reached or the error becomes less than 1e-6
     for _ in range(max_iters):
         e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
         err = linalg.norm(e - old_e, 1)
