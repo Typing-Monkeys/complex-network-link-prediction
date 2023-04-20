@@ -40,7 +40,7 @@ def __generate_samples(A_0: csr_matrix,
     samples_list = []
 
     for _ in range(n):
-        A_chaos = __random_changes(A_0, p, seed)
+        A_chaos = __random_changes(A_0, p)
         G_chaos = nx.Graph(A_chaos)
         res = louvain_communities(G_chaos, seed)
         samples_list.append(res)
@@ -108,7 +108,7 @@ def stochastic_block_model(G: nx.Graph,
     np.random.seed(seed)
 
     A_0 = to_adjacency_matrix(G)
-    samples_list = __generate_samples(A_0, n, p)
+    samples_list = __generate_samples(A_0, n, p, seed=seed)
     nodes_to_indexes_map = nodes_to_indexes(G)
     
     R = lil_matrix(A_0.shape)
