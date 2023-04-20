@@ -6,6 +6,19 @@ from typing import Generator, List
 
 
 def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    max_path: int :
+         (Default value = 3)
+
+    Returns
+    -------
+
+    """
 
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
@@ -27,6 +40,19 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
 # vuole fare link prediction
 # paths è un generator ritornato dalla funzione nx.all_simple_paths()
 def simple_path_entropy(paths: Generator[List], G: nx.Graph) -> float:
+    """
+
+    Parameters
+    ----------
+    paths: Generator[List] :
+        
+    G: nx.Graph :
+        
+
+    Returns
+    -------
+
+    """
     tmp = .0
     for path in paths:
         for a, b in list(nx.utils.pairwise(path)):
@@ -37,6 +63,21 @@ def simple_path_entropy(paths: Generator[List], G: nx.Graph) -> float:
 # Calcola l'entropia basata sulla probabilità a priori della creazione del link diretto
 # tra le coppie di noti senza link diretti
 def new_link_entropy(G: nx.Graph, a, b) -> float:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    a :
+        
+    b :
+        
+
+    Returns
+    -------
+
+    """
     deg_a = G.degree(a)
     deg_b = G.degree(b)
     M = G.number_of_edges()

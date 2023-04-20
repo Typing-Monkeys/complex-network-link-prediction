@@ -5,6 +5,19 @@ from scipy.sparse import lil_matrix, csr_matrix, identity
 
 
 def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    n: int :
+        
+
+    Returns
+    -------
+
+    """
     # inizializzo la matrice similarity
     # gli elementi con loro stessi (lungo la diagonale) hanno similarità massima
     sim_matrix = identity(n).tolil()
@@ -17,6 +30,25 @@ def compute_sim_rank(G: nx.Graph,
                      b,
                      sim_matrix: lil_matrix,
                      C: int = 0.8) -> float:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    a :
+        
+    b :
+        
+    sim_matrix: lil_matrix :
+        
+    C: int :
+         (Default value = 0.8)
+
+    Returns
+    -------
+
+    """
 
     # se i nodi sono uguali allora similarità massima
     if (a == b):
@@ -45,6 +77,23 @@ def sim_rank(G: nx.Graph,
              k: int = 5,
              cutoff: int = 4,
              c: int = 0.8) -> csr_matrix:
+    """
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        
+    k: int :
+         (Default value = 5)
+    cutoff: int :
+         (Default value = 4)
+    c: int :
+         (Default value = 0.8)
+
+    Returns
+    -------
+
+    """
 
     nodes_num = G.number_of_nodes()
     sim_matrix = init_similarity_matrix(G, nodes_num)
