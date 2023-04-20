@@ -6,10 +6,10 @@ from scipy.sparse import csr_matrix, lil_matrix
 from scipy.special import comb
 from typing import List, Set
 from itertools import product, combinations_with_replacement
+from social_network_link_prediction.utils import nodes_to_indexes
 
 
-def __random_changes(A_0: csr_matrix, p: float = .05, seed: int = 42) -> lil_matrix:
-    np.random.seed(seed)
+def __random_changes(A_0: csr_matrix, p: float = .05) -> lil_matrix:
     A_chaos = A_0.copy().tolil()
     num_changes = int(A_chaos.shape[0]**2 * p)
     indexes = []
@@ -105,13 +105,19 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: float = .05,
                            seed: int = 42) -> csr_matrix:
-    A_0 = to_adjacency_matrix(G)
-    samples_list = __generate_samples(A_0, n, p, seed=seed)
+    np.random.seed(seed)
 
+    A_0 = to_adjacency_matrix(G)
+    samples_list = __generate_samples(A_0, n, p)
+    nodes_to_indexes_map = nodes_to_indexes(G)
+    
     R = lil_matrix(A_0.shape)
 
     for x, y in nx.complement(G).edges():
-        R[x, y] = __link_reliability(A_0, samples_list, x, y)
+        _x = nodes_to_indexes_map[x]
+        _y = nodes_to_indexes_map[y]
+
+        R[_x, _y] = __link_reliability(A_0, samples_list, _x, _y)
 
     return R.tocsr()
 

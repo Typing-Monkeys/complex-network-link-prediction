@@ -1,1 +1,1 @@
-from .sbm import sbm
+from .sbm import stochastic_block_model
