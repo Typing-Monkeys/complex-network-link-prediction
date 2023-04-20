@@ -4,28 +4,6 @@ import scipy.sparse as scipy
 import math
 import itertools
 from social_network_link_prediction.utils import nodes_to_indexes
-'''
-Il modello di link prediction basato su information theory che
-sfrutta la neighbor set information è un approccio utilizzato
-per prevedere la probabilità di esistenza di un link tra due
-nodi in una rete. In questo modello, l'informazione contenuta
-nei neighbor set dei due nodi in questione viene utilizzata per stimare
-la probabilità di connessione.
-
-L'idea alla base di questo modello è che i nodi che hanno molti
-neighbor in comune sono più propensi a essere connessi tra loro
-rispetto a nodi con neighbor set diversi. Questo perché i nodi con
-neighbor set simili tendono a essere coinvolti in attività simili
-all'interno della rete, come ad esempio partecipare agli stessi gruppi
-o condividere gli stessi interessi.
-
-Per utilizzare questa informazione per prevedere la probabilità di
-connessione tra due nodi, il modello utilizza l'entropia di Shannon,
-una misura dell'incertezza di una distribuzione di probabilità.
-In particolare, l'entropia viene calcolata sui neighbor set dei due nodi,
-e la differenza tra le entropie dei due set viene utilizzata per stimare
-la probabilità di connessione.
-'''
 
 
 def overlap_info(G: nx.Graph, x, y, edge_num: int) -> float:
