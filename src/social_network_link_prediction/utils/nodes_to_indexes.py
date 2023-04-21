@@ -10,7 +10,7 @@ def nodes_to_indexes(G: nx.Graph) -> Dict[Any, int]:
     Parameters
     ----------
     G: nx.Graph :
-        grafo di cui ottenere la mappatura Nodo-indice
+        the graph from which you want the node-to-index mapping
 
     Returns
     -------

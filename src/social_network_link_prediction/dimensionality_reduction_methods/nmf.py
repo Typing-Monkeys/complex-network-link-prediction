@@ -1,12 +1,13 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import csr_matrix
-from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 
 
 def link_prediction_nmf(graph: nx.Graph,
                         num_features: int = 2,
-                        num_iterations: int = 100) -> csr_matrix:
+                        num_iterations: int = 100,
+                        seed: int = 69) -> csr_matrix:
     """Compute the _Non-negative Matrix Factorization_ Decomposition for the Graph Adjacency Matrix.
     The similarity decinoisutuin is defined as:
 
@@ -31,6 +32,9 @@ def link_prediction_nmf(graph: nx.Graph,
     num_iterations: int :
         max number of iteration for the algorithm convergence
          (Default value = 100)
+    sedd: int :
+        the seed for the random initialization
+         (Default value = 69)
 
     Returns
     -------
@@ -52,6 +56,8 @@ def link_prediction_nmf(graph: nx.Graph,
 
     # Initialize the feature and coefficient matrices randomly
     num_nodes = adj_matrix.shape[0]
+
+    np.random.seed(seed)
 
     feature_matrix = np.random.rand(num_nodes, num_features)
 
@@ -75,7 +81,7 @@ def link_prediction_nmf(graph: nx.Graph,
     # Compute the predicted adjacency matrix
     predicted_adj_matrix = feature_matrix @ coefficient_matrix
 
-    return csr_matrix(predicted_adj_matrix)
+    return only_unconnected(graph, csr_matrix(predicted_adj_matrix))
 
 
 if __name__ == "__main__":
