@@ -51,4 +51,4 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
         A = A @ A
         S += np.power(epsilon, i) * (A)
 
-    return only_unconnected(G, S.tocsr())
+    return only_unconnected(G, csr_matrix(S))
