@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix, spdiags
 from scipy.sparse.linalg import svds
-from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 
 
 def link_prediction_svd(G: nx.Graph,
@@ -69,7 +69,7 @@ def link_prediction_svd(G: nx.Graph,
         for i in range(len(rows)):
             predicted_adj_matrix[rows[i], cols[i]] /= max_weight
 
-    return predicted_adj_matrix
+    return only_unconnected(G, csr_matrix(predicted_adj_matrix))
 
 
 if __name__ == "__main__":

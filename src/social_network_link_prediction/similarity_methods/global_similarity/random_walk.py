@@ -1,7 +1,6 @@
 import networkx as nx
 from scipy.sparse import lil_matrix, linalg, hstack, lil_array, csr_matrix
-from social_network_link_prediction.utils import to_adjacency_matrix
-from social_network_link_prediction.utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes, only_unconnected, to_adjacency_matrix
 
 def link_prediction_rwr(G:nx.Graph, c:int = 0.05, max_iters:int = 10) -> csr_matrix:
     
@@ -42,7 +41,7 @@ def link_prediction_rwr(G:nx.Graph, c:int = 0.05, max_iters:int = 10) -> csr_mat
 
     # Return the similarity matrix and remove the fisrt column
     # In order to keep the results consistent without the added column of zeros at the beginning
-    return csr_matrix(similarity_matrix)[:,1:]
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:,1:])
 
 
 def random_walk_with_restart(e:lil_array, W_normalized:csr_matrix, c:int = 0.05, max_iters:int = 100) -> lil_array:
