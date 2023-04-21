@@ -1,10 +1,11 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import csc_matrix
+from typing import Union
 
 
 def to_adjacency_matrix(G: nx.Graph,
-                        sparse: bool = True) -> csc_matrix | np.ndarray:
+                        sparse: bool = True) -> Union[csc_matrix, np.ndarray]:
     """Convert a ginven Graph in to its Adjacency Matrix
 
     Parameters

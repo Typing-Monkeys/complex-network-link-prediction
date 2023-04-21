@@ -1,8 +1,7 @@
 import networkx as nx
-from typing import Dict, Any
 
 
-def nodes_to_indexes(G: nx.Graph) -> Dict[Any, int]:
+def nodes_to_indexes(G: nx.Graph) -> dict[any, int]:
     """Node Label - Index encoder
 
     Associate, for each node label, and index starting from 0.
