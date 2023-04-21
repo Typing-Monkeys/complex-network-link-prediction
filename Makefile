@@ -118,8 +118,10 @@ clean-docs: $(DOCS_DIR)/
 
 clean-build:
 	@echo "🟡 Cleaning build files ..."
-	# TODO
 	
+	find . -iname "__pycache__" |xargs rm -rf
+	find . -iname "*.egg-info" |xargs rm -rf
+
 	@echo "Buildfiles cleaned ✅"
 
 clean-env: $(VENV)
