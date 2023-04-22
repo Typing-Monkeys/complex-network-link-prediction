@@ -121,6 +121,7 @@ clean-build:
 	
 	find . -iname "__pycache__" |xargs rm -rf
 	find . -iname "*.egg-info" |xargs rm -rf
+	rm -rf build/ dist/
 
 	@echo "Buildfiles cleaned ✅"
 
@@ -192,15 +193,27 @@ docs:
 
 
 build:
-	# TODO
-	@echo "BUILD"
+	@echo "🟡 Building progect ..."
+
+	$(VENV_PYTHON) setup.py sdist
+
+	@echo "Done ✅"
 
 
 # -- Publish Section --
-publish-release:
+publish-release: dist/
 	# TODO
-	@echo "RELEASE"
+	@echo "🟡 Pushing build to production ..."
+	
+	twine upload dist/*
 
-publish-testing:
+	@echo "Done ✅"
+
+
+publish-testing: dist/
 	# TODO
-	@echo "TESTING"
+	@echo "🟡 Pushing build to testing ..."
+
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+	@echo "Done ✅"
