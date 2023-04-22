@@ -15,6 +15,8 @@ TEST_DIR = tests
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
 INSTALL_DIR = requirements
+# with '-e' enable install in edit mode
+INSTALL_FLG = 
 DOCS_DIR = docs
 # --html, --pdf or blank for markdown
 DOCS_FORMAT = "--html"
@@ -80,8 +82,7 @@ check:
 install:
 	@echo "🟡 Installing library ..."
 
-	# TODO: install requirements ?
-	$(SYSTEM_PYTHON) -m pip install -e . 
+	$(SYSTEM_PYTHON) -m pip install $(INSTALL_FLG) . 
 
 	@echo "Library installed ✅"
 	@echo ""
@@ -95,6 +96,10 @@ install-dev: check
 	
 	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements.txt 
 	@echo "dev dependencies installed ✅"
+	@echo ""
+
+	$(VENV_PYTHON) -m pip install -e . 
+	@echo "installed library in edit mode ✅"
 	@echo ""
 
 install-doc:
