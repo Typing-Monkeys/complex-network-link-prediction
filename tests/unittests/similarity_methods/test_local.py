@@ -11,13 +11,20 @@ from sknetwork.linkpred import AdamicAdar
 from sknetwork.linkpred import ResourceAllocation
 from sknetwork.linkpred import PreferentialAttachment
 from tests import Configs
-
+from scipy import sparse
+import numpy as np
 
 class TestLocalSimilarityMethods(unittest.TestCase):
 
-    def __perform_test(self, g, func):
+    def __perform_test(self, g, func, debug = False):
         sim = func(g)
-        self.assertIsNotNone(sim)
+        
+        if debug:
+            print(sim)
+            print(type(sim))
+        
+        self.assertIsNotNone(sim, "None result is returned")
+        self.assertTrue(type(sim) is sparse.csr_matrix or type(sim) is np.ndarray, "Wrong return type")
 
     def test_common_neighbors_nolabels(self):
         g = Configs.load_normal_dataset()
