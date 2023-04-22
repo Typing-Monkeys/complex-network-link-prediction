@@ -1,7 +1,6 @@
 import networkx as nx
 from scipy.sparse import csr_matrix, lil_matrix, linalg, identity
-from social_network_link_prediction.utils import to_adjacency_matrix
-from social_network_link_prediction.utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes, to_adjacency_matrix, only_unconnected
 
 
 def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
@@ -54,4 +53,4 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     eye = identity(A.shape[0], format='csc')
     S = (1 - alpha) * linalg.inv(eye - alpha * N_hat)
 
-    return S.tocsr()
+    return only_unconnected(G, S.tocsr())
