@@ -2,6 +2,7 @@ import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import lil_matrix, identity
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 
 
 def init_similarity_matrix(G:nx.Graph, n):
@@ -53,7 +54,8 @@ def sim_rank(G:nx.Graph, k = 5, cutoff = 4, c = 0.8):
                 # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
                 for i in range(k):
                     sim_matrix[a, b] = compute_sim_rank(G, a, b, sim_matrix = sim_matrix, C = c)
-    return sim_matrix
+    return only_unconnected(G, csr_matrix(S)[:,1:])
+
 
 
 

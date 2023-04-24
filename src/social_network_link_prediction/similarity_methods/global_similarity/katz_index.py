@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 from scipy.sparse import csr_matrix, linalg, identity
-from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 
 
 def __power_method(A: csr_matrix,
@@ -81,4 +81,4 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
     eye = identity(A.shape[0], format='csc')
     S = linalg.inv((eye - beta * A.tocsc())) - eye
 
-    return S.tocsr()
+    return only_unconnected(G, csr_matrix(S)[:,1:])
