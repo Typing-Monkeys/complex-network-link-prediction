@@ -80,10 +80,9 @@ def MI(G: nx.Graph):
     nodes_to_indexes_map = nodes_to_indexes(G)
     for i, j in nx.complement(G).edges():
         I_Oxy = overlap_info(G, i, j, edge_num)
-        res_sparse[nodes_to_indexes_map[i],
-          nodes_to_indexes_map[j]] = I_Oxy
+        res_sparse[nodes_to_indexes_map[i], nodes_to_indexes_map[j]] = I_Oxy
 
-    return res_sparse
+    return res_sparse.tocsr()
 
 
 if __name__ == "__main__":
