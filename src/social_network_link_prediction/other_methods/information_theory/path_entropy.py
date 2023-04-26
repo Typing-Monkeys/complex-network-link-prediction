@@ -11,13 +11,13 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
     Parameters
     ----------
     G: nx.Graph :
-        
+        input Graph (a networkx Graph)
     max_path: int :
          (Default value = 3)
 
     Returns
     -------
-
+    similarity_matrix: csr_matix: the Similarity Matrix (in sparse format)
     """
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
@@ -34,23 +34,22 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
     return similarity_matrix.tocsr()
 
 
-# Calcola l'entropia data dalla probabilità che si vengano a creare
-# i vari simple paths tra i nodi tra cui si
-# vuole fare link prediction
-# paths è un generator ritornato dalla funzione nx.all_simple_paths()
 def simple_path_entropy(paths: Generator[List], G: nx.Graph) -> float:
-    """
+    """Calcola l'entropia data dalla probabilità che si vengano a creare
+    i vari simple paths tra i nodi tra cui si
+    vuole fare link prediction
 
     Parameters
     ----------
     paths: Generator[List] :
-        
+        generator ritornato dalla funzione nx.all_simple_paths()
+
     G: nx.Graph :
-        
+        input graph
 
     Returns
     -------
-
+    float: simple path entropy
     """
     tmp = .0
     for path in paths:
@@ -59,23 +58,23 @@ def simple_path_entropy(paths: Generator[List], G: nx.Graph) -> float:
     return tmp
 
 
-# Calcola l'entropia basata sulla probabilità a priori della creazione del link diretto
-# tra le coppie di noti senza link diretti
 def new_link_entropy(G: nx.Graph, a, b) -> float:
-    """
+    """Calcola l'entropia basata sulla probabilità
+    a priori della creazione del link diretto
+    tra le coppie di noti senza link diretti
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        input graph
     a :
-        
+        first node
     b :
-        
+        second node
 
     Returns
     -------
-
+    float: entropy between node A and B
     """
     deg_a = G.degree(a)
     deg_b = G.degree(b)
@@ -83,6 +82,7 @@ def new_link_entropy(G: nx.Graph, a, b) -> float:
 
     return -1 * math.log2(1 -
                           (math.comb(M - deg_a, deg_b) / math.comb(M, deg_b)))
+
 
 if __name__ == "__main__":
 
