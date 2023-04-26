@@ -81,4 +81,4 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
     eye = identity(A.shape[0], format='csc')
     S = linalg.inv((eye - beta * A.tocsc())) - eye
 
-    return only_unconnected(G, csr_matrix(S)[:,1:])
+    return only_unconnected(G, S.tocsr())
