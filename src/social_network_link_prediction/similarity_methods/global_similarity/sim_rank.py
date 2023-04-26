@@ -1,8 +1,7 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import lil_matrix, identity
-from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
+from scipy.sparse import lil_matrix, identity, csr_matrix
 
 
 def init_similarity_matrix(G:nx.Graph, n):
@@ -54,7 +53,7 @@ def sim_rank(G:nx.Graph, k = 5, cutoff = 4, c = 0.8):
                 # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
                 for i in range(k):
                     sim_matrix[a, b] = compute_sim_rank(G, a, b, sim_matrix = sim_matrix, C = c)
-    return only_unconnected(G, csr_matrix(S)[:,1:])
+    return sim_matrix
 
 
 
@@ -73,9 +72,9 @@ if __name__ == "__main__":
     # crea una nuova matrice di similarità contenente solo le coppie di nodi che non hanno già un cammino
     for i,j in nx.complement(G).edges():
         res[i,j] = res_tmp[i,j]
-    res = res.toarray()
+    res_sparse = csr_matrix(res)
     # stampa il cammino che è considerato più probabile
-    print(f"Il link più probabile è quello tra i nodi {np.where(res==res.max())} , con un valora di similarità di {res.max()}")
-    
+    #print(f"Il link più probabile è quello tra i nodi {np.where(res_sparse==res_sparse.max())} , con un valora di similarità di {res_sparse.max()}")
+    print(res_sparse)
     nx.draw(G, with_labels=True)
     plt.show()
