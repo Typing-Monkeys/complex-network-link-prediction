@@ -19,7 +19,6 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
     -------
 
     """
-
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
     missing_edges = list(nx.complement(G).edges())
@@ -84,7 +83,6 @@ def new_link_entropy(G: nx.Graph, a, b) -> float:
 
     return -1 * math.log2(1 -
                           (math.comb(M - deg_a, deg_b) / math.comb(M, deg_b)))
-
 
 if __name__ == "__main__":
 

@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 from scipy.sparse import csr_matrix
 
 
@@ -51,4 +51,4 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
         A = A @ A
         S += np.power(epsilon, i) * (A)
 
-    return S.tocsr()
+    return only_unconnected(G, csr_matrix(S))

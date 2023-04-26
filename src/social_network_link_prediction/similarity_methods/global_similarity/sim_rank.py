@@ -1,7 +1,8 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.sparse import lil_matrix, csr_matrix, identity
+from scipy.sparse import lil_matrix, identity, csr_matrix
+from social_network_link_prediction.utils import only_unconnected
 
 
 def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
@@ -23,8 +24,7 @@ def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
     sim_matrix = identity(n).tolil()
     return sim_matrix
 
-
-# implementazione iterativa
+ 
 def compute_sim_rank(G: nx.Graph,
                      a,
                      b,
@@ -58,6 +58,7 @@ def compute_sim_rank(G: nx.Graph,
     b_neigh = list(G.neighbors(b))
     len_a = len(a_neigh)
     len_b = len(b_neigh)
+
     # nodi isolati hanno similarità 0
     if (len_a == 0 or len_b == 0):
         return 0
@@ -94,6 +95,7 @@ def sim_rank(G: nx.Graph,
     -------
 
     """
+    G = nx.convert_node_labels_to_integers(G, 0)
 
     nodes_num = G.number_of_nodes()
     sim_matrix = init_similarity_matrix(G, nodes_num)
@@ -101,7 +103,8 @@ def sim_rank(G: nx.Graph,
     for a in range(nodes_num):
         for b in range(nodes_num):
             # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
-            if ((nx.shortest_path_length(G, a, b) > cutoff)):
+            if (nx.has_path(G, a, b)
+                    and (nx.shortest_path_length(G, a, b) > cutoff)):
                 sim_matrix[a, b] = 0
             else:
                 # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
@@ -111,27 +114,22 @@ def sim_rank(G: nx.Graph,
                                                         b,
                                                         sim_matrix=sim_matrix,
                                                         C=c)
-    return sim_matrix.tocsr()
+
+    # imposta a 0 gli elementi della diagonale che prima avevano similarità uguale ad 1
+    for a in range(nodes_num):
+        sim_matrix[a, a] = 0
+    return only_unconnected(G, csr_matrix(sim_matrix))
 
 
 if __name__ == "__main__":
 
-    G = nx.karate_club_graph()
+    # G = nx.karate_club_graph()
+    G = nx.gnp_random_graph(150, .01)
+
     # converte gli id dei nodi in interi che partono da 0
-    G = nx.convert_node_labels_to_integers(G, 0)
-
-    res_tmp = sim_rank(G, k=5)
-    tmp = np.zeros((G.number_of_nodes(), G.number_of_nodes()))
-    res = lil_matrix(tmp, (G.number_of_nodes(), G.number_of_nodes()))
-    # crea una nuova matrice di similarità contenente solo
-    # le coppie di nodi che non hanno già un cammino
-    for i, j in nx.complement(G).edges():
-        res[i, j] = res_tmp[i, j]
-    res = res.toarray()
+    res = sim_rank(G, k=5)
     # stampa il cammino che è considerato più probabile
-    print(
-        f"Il link più probabile è quello tra i nodi {np.where(res==res.max())} , con un valora di similarità di {res.max()}"
-    )
-
+    # print(f"Il link più probabile è quello tra i nodi {np.where(res_sparse==res_sparse.max())} , con un valora di similarità di {res_sparse.max()}")
+    print(res)
     nx.draw(G, with_labels=True)
     plt.show()

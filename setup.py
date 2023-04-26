@@ -11,7 +11,8 @@ setup(
     url='https://github.com/Typing-Monkeys/social-network-link-prediction',
     keywords='Link Prediction, Social Network, Complex Network Analisys',
     install_requires=[
-          'numpy',
-      ],
-
+        'networkx',
+        'scipy',
+        'numpy',
+    ],
 )

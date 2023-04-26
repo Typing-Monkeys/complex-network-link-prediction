@@ -50,13 +50,13 @@ def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
-    name_index_map = list(nodes_to_indexes(G).items())
+    node_index_map = nodes_to_indexes(G)
 
-    for x, y in zip(*np.triu_indices(size)):
-        x_node = name_index_map[x][0]
-        y_node = name_index_map[y][0]
+    for x, y in nx.complement(G).edges():
+        _x = node_index_map[x]
+        _y = node_index_map[y]
 
-        S[x, y] = __preferential_attachment(G, x_node, y_node, sum=sum)
-        S[y, x] = S[x, y]
+        S[_x, _y] = __preferential_attachment(G, x, y, sum=sum)
+        # S[y, x] = S[x, y]
 
     return S.tocsr()
