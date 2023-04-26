@@ -9,3 +9,4 @@ from .katz_index import katz_index
 from .rooted_page_rank import rooted_page_rank
 from .shortest_path import shortest_path
 from .random_walk import link_prediction_rwr
+from .sim_rank import sim_rank

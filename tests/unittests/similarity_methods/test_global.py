@@ -7,23 +7,26 @@ import numpy as np
 
 class TestGlobalSimilarityMethods(unittest.TestCase):
 
-    def __perform_test(self, g, fun, params: dict = {}, debug = False):
+    def __perform_test(self, g, fun, params: dict = {}, debug=False):
         res = fun(g, **params)
 
         if debug:
             print(res)
             print(type(res))
-        
+
         self.assertIsNotNone(res, "None result is returned")
-        self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray, "Wrong return type")
-        
+        self.assertTrue(
+            type(res) is sparse.csr_matrix or type(res) is np.ndarray,
+            "Wrong return type")
+
         return res
 
     def test_katz_nolabels(self):
         g = Configs.load_normal_dataset()
 
-        self.__perform_test(g, global_similarity.katz_index, {'beta': .001})
-        
+        self.__perform_test(g,
+                            global_similarity.katz_index, {'beta': .001},
+                            debug=True)
 
     def test_katz_labels(self):
         g = Configs.load_labels_dataset()
@@ -33,32 +36,52 @@ class TestGlobalSimilarityMethods(unittest.TestCase):
     def test_randwalk_nolabels(self):
         g = Configs.load_normal_dataset()
 
-        self.__perform_test(g, global_similarity.link_prediction_rwr, {'c': .05, 'max_iters': 10})
+        self.__perform_test(g, global_similarity.link_prediction_rwr, {
+            'c': .05,
+            'max_iters': 10
+        })
 
     def test_randwalk_labels(self):
         g = Configs.load_labels_dataset()
-        
-        self.__perform_test(g, global_similarity.link_prediction_rwr, {'c': .05, 'max_iters': 10})
+
+        self.__perform_test(g, global_similarity.link_prediction_rwr, {
+            'c': .05,
+            'max_iters': 10
+        })
 
     def test_rootedpage_nolabels(self):
         g = Configs.load_normal_dataset()
 
-        self.__perform_test(g, global_similarity.rooted_page_rank, {'alpha': .5})
+        self.__perform_test(g, global_similarity.rooted_page_rank,
+                            {'alpha': .5})
 
     def test_rootedpage_labels(self):
         g = Configs.load_labels_dataset()
 
-        self.__perform_test(g, global_similarity.rooted_page_rank, {'alpha': .5})
-    
+        self.__perform_test(g, global_similarity.rooted_page_rank,
+                            {'alpha': .5})
+
     def test_shortestpath_nolabels(self):
         g = Configs.load_normal_dataset()
 
-        self.__perform_test(g, global_similarity.shortest_path, {'cutoff': None})
-        
+        self.__perform_test(g, global_similarity.shortest_path,
+                            {'cutoff': None})
+
     def test_shortestpath_labels(self):
         g = Configs.load_labels_dataset()
-    
-        self.__perform_test(g, global_similarity.shortest_path, {'cutoff': None})
+
+        self.__perform_test(g, global_similarity.shortest_path,
+                            {'cutoff': None})
+
+    def test_simrank_nolabels(self):
+        g = Configs.load_normal_dataset()
+
+        self.__perform_test(g, global_similarity.sim_rank, {'cutoff': None})
+
+    def test_simrank_labels(self):
+        g = Configs.load_labels_dataset()
+
+        self.__perform_test(g, global_similarity.sim_rank, {'cutoff': None})
 
     # @timeout(Configs.timeout)
     # def test_katz_time(self):
