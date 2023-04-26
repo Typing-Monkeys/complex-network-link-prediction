@@ -15,6 +15,8 @@ TEST_DIR = tests
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
 INSTALL_DIR = requirements
+# with '-e' enable install in edit mode
+INSTALL_FLG = 
 DOCS_DIR = docs
 # --html, --pdf or blank for markdown
 DOCS_FORMAT = "--html"
@@ -80,8 +82,7 @@ check:
 install:
 	@echo "🟡 Installing library ..."
 
-	# TODO: install requirements ?
-	$(SYSTEM_PYTHON) -m pip install -e . 
+	$(SYSTEM_PYTHON) -m pip install $(INSTALL_FLG) . 
 
 	@echo "Library installed ✅"
 	@echo ""
@@ -95,6 +96,10 @@ install-dev: check
 	
 	$(VENV_PYTHON) -m pip install -r $(INSTALL_DIR)/requirements.txt 
 	@echo "dev dependencies installed ✅"
+	@echo ""
+
+	$(VENV_PYTHON) -m pip install -e . 
+	@echo "installed library in edit mode ✅"
 	@echo ""
 
 install-doc:
@@ -118,8 +123,11 @@ clean-docs: $(DOCS_DIR)/
 
 clean-build:
 	@echo "🟡 Cleaning build files ..."
-	# TODO
 	
+	find . -iname "__pycache__" |xargs rm -rf
+	find . -iname "*.egg-info" |xargs rm -rf
+	rm -rf build/ dist/
+
 	@echo "Buildfiles cleaned ✅"
 
 clean-env: $(VENV)
@@ -190,15 +198,27 @@ docs:
 
 
 build:
-	# TODO
-	@echo "BUILD"
+	@echo "🟡 Building progect ..."
+
+	$(VENV_PYTHON) setup.py sdist
+
+	@echo "Done ✅"
 
 
 # -- Publish Section --
-publish-release:
+publish-release: dist/
 	# TODO
-	@echo "RELEASE"
+	@echo "🟡 Pushing build to production ..."
+	
+	twine upload dist/*
 
-publish-testing:
+	@echo "Done ✅"
+
+
+publish-testing: dist/
 	# TODO
-	@echo "TESTING"
+	@echo "🟡 Pushing build to testing ..."
+
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+	@echo "Done ✅"
