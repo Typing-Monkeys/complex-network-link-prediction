@@ -18,6 +18,7 @@ jobs:
       - name: unittests
         run: |
             python -m pip install -e .
+            python -m pip install -r requirements/requirements.txt
             python -m pip install -r requirements/requirements-test.txt
             python -m unittest discover -v -s tests/ -t .
   
