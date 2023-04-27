@@ -46,9 +46,10 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
     for source_node in lengths.keys():
         for dest_node in lengths[source_node].keys():
             # If the link already exists in the starting graph the computation is skipped
-            if (nodes_to_indexes_map[source_node], nodes_to_indexes_map[dest_node]) not in prexisting_links:
+            if (nodes_to_indexes_map[source_node],
+                    nodes_to_indexes_map[dest_node]) not in prexisting_links:
                 S[nodes_to_indexes_map[source_node],
-                nodes_to_indexes_map[dest_node]] = -lengths[source_node][
-                    dest_node]
+                  nodes_to_indexes_map[dest_node]] = -lengths[source_node][
+                      dest_node]
 
     return S.tocsr()
