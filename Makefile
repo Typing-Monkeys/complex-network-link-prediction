@@ -118,7 +118,7 @@ install-test:
 # -- Clean Section --
 clean-docs: $(DOCS_DIR)/
 	@echo "🟡 Cleaning documentation files ..."
-	if [ -d $(DOCS_DIR)/* ]; then rm -r $(DOCS_DIR)/*; fi
+	rm -rf $(DOCS_DIR)/*
 	@echo "Documentation files cleaned ✅"
 
 clean-build:
@@ -194,6 +194,7 @@ docs:
 	@$(MAKE) clean-docs
 	mkdir -p $(DOCS_DIR)
 	pdoc $(DOCS_FORMAT) -c latex_math=$(DOCS_LATEX) -o $(DOCS_DIR) $(SRC)
+	cd $(DOCS_DIR)/ && mv $(SRC)/* ./ && rm -rf $(SRC)
 	@echo "Done ✅"
 
 

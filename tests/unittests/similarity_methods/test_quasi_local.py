@@ -7,7 +7,7 @@ import numpy as np
 
 class TestQuasiGlobalSimilarityMethods(unittest.TestCase):
 
-    def __perform_test(self, g, fun, params: dict = {}, debug=False):
+    def __perform_test(self, g, fun, params: dict = {}, debug: bool = False):
         res = fun(g, **params)
 
         if debug:
@@ -23,14 +23,11 @@ class TestQuasiGlobalSimilarityMethods(unittest.TestCase):
     def test_LPI_nolabels(self):
         g = Configs.load_normal_dataset()
 
-        self.__perform_test(g, quasi_local_similarity.local_path_index, {
-            'epsilon': .1,
-            'n': 10
-        })
+        self.__perform_test(g, quasi_local_similarity.local_path_index, {'epsilon': .1, 'n': 10})
 
     def test_LPI_labels(self):
         g = Configs.load_labels_dataset()
-
+   
         self.__perform_test(g, quasi_local_similarity.local_path_index, {
             'epsilon': .1,
             'n': 10

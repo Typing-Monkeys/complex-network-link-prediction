@@ -7,7 +7,7 @@ from scipy import sparse
 
 class TestDimensionalityReductionMethods(unittest.TestCase):
 
-    def __perform_test(self, g, fun, params: dict = {}, debug=False):
+    def __perform_test(self, g, fun, params: dict = {}, debug: bool = False):
         res = fun(g, **params)
 
         if debug:

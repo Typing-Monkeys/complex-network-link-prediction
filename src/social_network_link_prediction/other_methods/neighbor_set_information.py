@@ -4,20 +4,28 @@ import scipy.sparse as scipy
 import math
 import itertools
 from social_network_link_prediction.utils import nodes_to_indexes
-'''
-Il modello di link prediction basato su information theory che sfrutta la neighbor set information è un approccio utilizzato per prevedere la probabilità di esistenza di un link tra due nodi in una rete. In questo modello, l'informazione contenuta nei neighbor set dei due nodi in questione viene utilizzata per stimare la probabilità di connessione.
-
-L'idea alla base di questo modello è che i nodi che hanno molti neighbor in comune sono più propensi a essere connessi tra loro rispetto a nodi con neighbor set diversi. Questo perché i nodi con neighbor set simili tendono a essere coinvolti in attività simili all'interno della rete, come ad esempio partecipare agli stessi gruppi o condividere gli stessi interessi.
-
-Per utilizzare questa informazione per prevedere la probabilità di connessione tra due nodi, il modello utilizza l'entropia di Shannon, una misura dell'incertezza di una distribuzione di probabilità. In particolare, l'entropia viene calcolata sui neighbor set dei due nodi, e la differenza tra le entropie dei due set viene utilizzata per stimare la probabilità di connessione.
-
-'''
 
 
-# definition of the 2 indormation used in this information theory approach: overlapping nodes of different sets and
-# the exsistence of link across different sets
-#
-def overlap_info(G: nx.Graph, x, y, edge_num: int):
+def overlap_info(G: nx.Graph, x, y, edge_num: int) -> float:
+    """Two Information Definition.
+    Overlapping nodes of different sets and
+    the existence of link across different sets
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input graph
+    x :
+        first node
+    y :
+        second node
+    edge_num: int :
+        TODO !
+
+    Returns
+    -------
+    s_Overlap: float : TODO
+    """
     # ottenimento dei dati da cui ottenere le informazioni
     o_nodes = nx.common_neighbors(G, x, y)
     p_prob_overlap = -np.log2(prior(x, y, G, edge_num))
@@ -39,7 +47,8 @@ def overlap_info(G: nx.Graph, x, y, edge_num: int):
         for m, n in itertools.combinations(G.neighbors(z), 2):
             priorInfo = -np.log2(prior(m, n, G, edge_num))
             likelihoodInfo = -np.log2(likelihood(z, G))
-            # print(f"a = {x}, b = {y}, priorInfo = { priorInfo}, lilelihoodInfo = {likelihoodInfo}")
+            # print(f"a = {x}, b = {y}, priorInfo = { priorInfo},
+            #   lilelihoodInfo = {likelihoodInfo}")
             # combine mutual information
             overlap += 2 * (priorInfo - likelihoodInfo)
             # print(f"a = {x}, b = {y}, zOverlap = { 2*(priorInfo -likelihoodInfo)}")
@@ -50,19 +59,47 @@ def overlap_info(G: nx.Graph, x, y, edge_num: int):
     return s_Overlap
 
 
-# funzione che calcola la probabilità a priori dati due nodi e
-# un grafo riferita alla probabilità con cui non si forma un cammino
-# tra i due nodi
-def prior(m, n, G: nx.Graph, edge_num: int):
+def prior(m, n, G: nx.Graph, edge_num: int) -> float:
+    """Calcola la probabilità a priori dati due nodi e
+    un grafo riferita alla probabilità con cui non si forma un cammino
+    tra i due nodi
+
+    Parameters
+    ----------
+    m :
+        first node
+    n :
+        second node
+    G: nx.Graph :
+        input graph
+    edge_num: int :
+        TODO
+
+    Returns
+    -------
+    float: the prior probability
+    """
     kn = G.degree(n)
     km = G.degree(m)
 
     return 1 - math.comb(edge_num - kn, km) / math.comb(edge_num, km)
 
 
-# probabilità condizionata che in questo caso è definita come il clustering
-# coefficient dei common neighbor dei nodi x e y
-def likelihood(z, G: nx.Graph):
+def likelihood(z, G: nx.Graph) -> float:
+    """probabilità condizionata che in questo caso è definita come il clustering
+    coefficient dei common neighbor dei nodi x e y
+
+    Parameters
+    ----------
+    z :
+        input node
+    G: nx.Graph :
+        input graph
+
+    Returns
+    -------
+    float: TODO
+    """
     kz = G.degree(z)
     N_triangles = nx.triangles(G, z)
     N_triads = math.comb(kz, 2)
@@ -70,7 +107,37 @@ def likelihood(z, G: nx.Graph):
     return N_triangles / N_triads
 
 
-def MI(G: nx.Graph):
+# TODO: @romani @ncvescera rivedere descrizione del metodo
+def MI(G: nx.Graph) -> scipy.csr_matrix:
+    """Neighbor Set Information
+
+    Il modello di link prediction basato su information theory che sfrutta la neighbor
+    set information è un approccio utilizzato per prevedere la probabilità di esistenza
+    di un link tra due nodi in una rete. In questo modello, l'informazione contenuta nei
+    neighbor set dei due nodi in questione viene utilizzata per stimare la probabilità
+    di connessione.
+
+    L'idea alla base di questo modello è che i nodi che hanno molti neighbor in comune
+    sono più propensi a essere connessi tra loro rispetto a nodi con neighbor set diversi.
+    Questo perché i nodi con neighbor set simili tendono a essere coinvolti in attività
+    simili all'interno della rete, come ad esempio
+    partecipare agli stessi gruppi o condividere gli stessi interessi.
+
+    Per utilizzare questa informazione per prevedere la probabilità di connessione tra due nodi,
+    il modello utilizza l'entropia di Shannon, una misura dell'incertezza di una
+    distribuzione di probabilità.
+    In particolare, l'entropia viene calcolata sui neighbor set dei due nodi, e la differenza tra le
+    entropie dei due set viene utilizzata per stimare la probabilità di connessione.
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+
+    Returns
+    -------
+    res_sparse: csr_matrix : the Similarity Matrix (in sparse format)
+    """
     I_Oxy = 0
     edge_num = G.number_of_edges()
     node_num = G.number_of_nodes()
