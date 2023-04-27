@@ -6,48 +6,51 @@ from social_network_link_prediction.utils import only_unconnected
 
 
 def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
-    """
+    """Generate an Identity matrix: the starting Similarity
+    Matrix.
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        input Graph (a networkx Graph)
     n: int :
-        
+       the new matrix size
 
     Returns
     -------
-
+    sim_matrix: lil_matrix : the starting Similarity Matrix
     """
     # inizializzo la matrice similarity
     # gli elementi con loro stessi (lungo la diagonale) hanno similarità massima
     sim_matrix = identity(n).tolil()
     return sim_matrix
 
- 
+
 def compute_sim_rank(G: nx.Graph,
                      a,
                      b,
                      sim_matrix: lil_matrix,
                      C: int = 0.8) -> float:
-    """
+    """Compute the Sim Rank method between the given
+    nodes a and b.
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        input Graph (a networkx Graph)
     a :
-        
+       first node
     b :
-        
+       second node
     sim_matrix: lil_matrix :
-        
+        the similarity matrix
     C: int :
+        free parameter
          (Default value = 0.8)
 
     Returns
     -------
-
+    new_SimRank: float : the SimRank value between a and b
     """
 
     # se i nodi sono uguali allora similarità massima
@@ -78,12 +81,24 @@ def sim_rank(G: nx.Graph,
              k: int = 5,
              cutoff: int = 4,
              c: int = 0.8) -> csr_matrix:
-    """
+    """Compute the SimRank index for all the nodes in the Graph.
+
+    This method is defined as:
+
+    .. math::
+        S(x, y) = \\begin{cases}
+                \\frac{\\alpha}{k_x k_y} \\sum_{i=1}^{k_x} \\sum_{j=1}^{k_y}
+                    S( \\Gamma_i(x), \\Gamma_j(y)) & x \\neq y \\\\
+                1 & x = y
+            \\end{cases}
+
+    where \\( \\alpha \\in (0,1) \\) is a constant. \\(\\Gamma_i(x)\\) and \\( \\Gamma_j(y) \\)
+    are the ith and jth elements in the neighborhood sets.
 
     Parameters
     ----------
     G: nx.Graph :
-        
+        input Graph (a networkx Graph)
     k: int :
          (Default value = 5)
     cutoff: int :
@@ -93,7 +108,7 @@ def sim_rank(G: nx.Graph,
 
     Returns
     -------
-
+    sim_matrix: csr_matrix : the Similarity Matrix (in sparse format)
     """
     G = nx.convert_node_labels_to_integers(G, 0)
 
