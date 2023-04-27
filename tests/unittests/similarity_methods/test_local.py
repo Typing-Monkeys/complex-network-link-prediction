@@ -7,95 +7,76 @@ import numpy as np
 
 class TestLocalSimilarityMethods(unittest.TestCase):
 
-    def __perform_test(self, g, func, debug = False):
-        sim = func(g)
-        
-        if debug:
-            print(sim)
-            print(type(sim))
-        
-        self.assertIsNotNone(sim, "None result is returned")
-        self.assertTrue(type(sim) is sparse.csr_matrix or type(sim) is np.ndarray, "Wrong return type")
-
-    def test_common_neighbors_nolabels(self):
+    def __perform_test(self, fun, params: dict = {}, debug: bool = False):
         g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.common_neighbors)
+        g_labels = Configs.load_labels_dataset()
 
-    def test_common_neighbors_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.common_neighbors)
-   
-    def test_adamicadar_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.adamic_adar)
+        res = None
+        res_labels = None
 
-    def test_adamicadar_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.adamic_adar)
+        with self.subTest('Int Labels'):
+            res = fun(g, **params)
 
-    def test_jaccard_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.jaccard)
+            if debug:
+                print(res)
+                print(type(res))
 
-    def test_jaccard_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.jaccard)
+            self.assertIsNotNone(res, "None result is returned")
+            self.assertTrue(
+                type(res) is sparse.csr_matrix or type(res) is np.ndarray,
+                "Wrong return type")
 
-    def test_sorensen_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.sorensen)
+        with self.subTest('String Labels'):
+            res_labels = fun(g_labels, **params)
 
-    def test_sorensen_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.sorensen)
+            if debug:
+                print(res_labels)
+                print(type(res_labels))
 
-    def test_hubpromoted_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.hub_promoted)
+            self.assertIsNotNone(res_labels, "None result is returned")
+            self.assertTrue(
+                type(res_labels) is sparse.csr_matrix
+                or type(res_labels) is np.ndarray, "Wrong return type")
 
-    def test_hubpromoted_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.hub_promoted)
+        with self.subTest('CMP Results'):
+            try:
+                self.assertTrue(
+                    (res.__round__(4) != res_labels.__round__(4)).nnz == 0,
+                    "Results are different !")
+            except AssertionError as e:
+                print(e)
 
-    def test_hubdepressed_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.hub_depressed)
+        return res
 
-    def test_hubdepressed_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.hub_depressed)
+    def test_common_neighbors(self):
+        self.__perform_test(local_similarity.common_neighbors)
 
-    def test_resourceallocation_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.resource_allocation)
+    def test_adamicadar(self):
+        self.__perform_test(local_similarity.adamic_adar)
 
-    def test_resourceallocation_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.resource_allocation)
+    def test_jaccard(self):
+        self.__perform_test(local_similarity.jaccard)
 
-    def test_prefattachment_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.preferential_attachment)
+    def test_sorensen(self):
+        self.__perform_test(local_similarity.sorensen)
 
-    def test_prefattachment_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.preferential_attachment)
+    def test_hubpromoted(self):
+        self.__perform_test(local_similarity.hub_promoted)
 
-    def test_cosine_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.cosine_similarity)
+    def test_hubdepressed(self):
+        self.__perform_test(local_similarity.hub_depressed)
 
-    def test_cosine_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.cosine_similarity)
+    def test_resourceallocation(self):
+        self.__perform_test(local_similarity.resource_allocation)
 
-    def test_nodeclustering_nolabels(self):
-        g = Configs.load_normal_dataset()
-        self.__perform_test(g, local_similarity.node_clustering)
+    def test_prefattachment(self):
+        self.__perform_test(local_similarity.preferential_attachment)
 
-    def test_nodeclustering_labels(self):
-        g = Configs.load_labels_dataset()
-        self.__perform_test(g, local_similarity.node_clustering)
+    def test_cosine(self):
+        self.__perform_test(local_similarity.cosine_similarity)
+
+    def test_nodeclustering(self):
+        self.__perform_test(local_similarity.node_clustering)
 
     # def setUp(self):
     #     self.start_time = time()
