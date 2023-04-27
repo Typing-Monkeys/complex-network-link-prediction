@@ -4,6 +4,9 @@ on:
     branches: 
       - main
       - develop
+    path:
+      - tests/**
+      - src/**
 
 jobs:
   test:
