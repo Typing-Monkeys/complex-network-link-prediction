@@ -5,8 +5,8 @@ on:
       - main
       - develop
     path:
-      - tests/**
-      - src/**
+      - 'tests/**'
+      - 'src/**'
 
 jobs:
   test:
