@@ -6,7 +6,7 @@ on:
       - develop
     path:
       - 'tests/**'
-      - 'src/**'
+      - 'cnlp/**'
 
 jobs:
   test:
