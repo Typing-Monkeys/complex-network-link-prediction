@@ -10,7 +10,7 @@ REQUIREMENTS	=	gh
 REQUIREMENTS	+=	git
 REQUIREMENTS	+=	virtualenv
 
-SRC = src
+SRC = cnlp
 TEST_DIR = tests
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""

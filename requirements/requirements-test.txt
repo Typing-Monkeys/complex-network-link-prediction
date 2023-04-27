@@ -1,2 +1,2 @@
-scikit-network==0.28
-timeout-decorator
+scikit-network
+pandas

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>cnlp API documentation</title>
+<title>cnlp.similarity_methods.local_similarity.hub_depressed API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -20,48 +20,146 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>cnlp</code></h1>
+<h1 class="title">Module <code>cnlp.similarity_methods.local_similarity.hub_depressed</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import cnlp.dimensionality_reduction_methods
-import cnlp.other_methods
-import cnlp.probabilistic_methods
-import cnlp.similarity_methods
-import cnlp.utils</code></pre>
+<pre><code class="python">import networkx as nx
+import numpy as np
+from .common_neighbors import __common_neighbors
+from cnlp.utils import nodes_to_indexes
+from scipy.sparse import lil_matrix, csr_matrix
+
+
+def __hub_depressed(G: nx.Graph, x, y) -&gt; float:
+    &#34;&#34;&#34;Compute the Hub Depressed Index for 2 given nodes.&#34;&#34;&#34;
+    return __common_neighbors(G, x, y) / max(G.degree[x], G.degree[y])
+
+
+def hub_depressed(G: nx.Graph) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Hub Depressed Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\max(k_x, k_y)}
+
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
+
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This index is the same as the previous one but with the
+    opposite goal as it avoids the formation of
+    links between hubs and low degree nodes in the networks.
+    The Hub depressed index promotes the links evolution
+    between the hubs as well as the low degree nodes.
+    &#34;&#34;&#34;
+    size = G.number_of_nodes()
+    S = lil_matrix((size, size))
+    node_index_map = nodes_to_indexes(G)
+
+    for x, y in nx.complement(G).edges():
+        _x = node_index_map[x]
+        _y = node_index_map[y]
+
+        S[_x, _y] = __hub_depressed(G, x, y)
+        # S[y, x] = S[x, y]
+
+    return S.tocsr()</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="cnlp.dimensionality_reduction_methods" href="dimensionality_reduction_methods/index.html">cnlp.dimensionality_reduction_methods</a></code></dt>
+<dt id="cnlp.similarity_methods.local_similarity.hub_depressed.hub_depressed"><code class="name flex">
+<span>def <span class="ident">hub_depressed</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
 <dd>
-<div class="desc"><p>Dimentionality Reduction based Methods for Link Prediction …</p></div>
-</dd>
-<dt><code class="name"><a title="cnlp.other_methods" href="other_methods/index.html">cnlp.other_methods</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="cnlp.probabilistic_methods" href="probabilistic_methods/index.html">cnlp.probabilistic_methods</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="cnlp.similarity_methods" href="similarity_methods/index.html">cnlp.similarity_methods</a></code></dt>
-<dd>
-<div class="desc"><p>Similarity based Methods for Link Prediction …</p></div>
-</dd>
-<dt><code class="name"><a title="cnlp.utils" href="utils/index.html">cnlp.utils</a></code></dt>
-<dd>
-<div class="desc"><p>Some utilities functions.</p></div>
+<div class="desc"><p>Compute the Hub Depressed Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)} </span><script type="math/tex; mode=display"> S(x, y) = \frac{2 |\Gamma(x) \cap \Gamma(y)|}{\max(k_x, k_y)} </script></span>
+where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>
+and <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This index is the same as the previous one but with the
+opposite goal as it avoids the formation of
+links between hubs and low degree nodes in the networks.
+The Hub depressed index promotes the links evolution
+between the hubs as well as the low degree nodes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hub_depressed(G: nx.Graph) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Hub Depressed Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\frac{2 |\\Gamma(x) \\cap \\Gamma(y)|}{\\max(k_x, k_y)}
+
+    where \\(\\Gamma(x)\\) are the neighbors of node \\(x\\)
+    and \\(k_x\\) is the degree of the node \\(x\\).
+
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    This index is the same as the previous one but with the
+    opposite goal as it avoids the formation of
+    links between hubs and low degree nodes in the networks.
+    The Hub depressed index promotes the links evolution
+    between the hubs as well as the low degree nodes.
+    &#34;&#34;&#34;
+    size = G.number_of_nodes()
+    S = lil_matrix((size, size))
+    node_index_map = nodes_to_indexes(G)
+
+    for x, y in nx.complement(G).edges():
+        _x = node_index_map[x]
+        _y = node_index_map[y]
+
+        S[_x, _y] = __hub_depressed(G, x, y)
+        # S[y, x] = S[x, y]
+
+    return S.tocsr()</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -72,13 +170,14 @@ import cnlp.utils</code></pre>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="cnlp.dimensionality_reduction_methods" href="dimensionality_reduction_methods/index.html">cnlp.dimensionality_reduction_methods</a></code></li>
-<li><code><a title="cnlp.other_methods" href="other_methods/index.html">cnlp.other_methods</a></code></li>
-<li><code><a title="cnlp.probabilistic_methods" href="probabilistic_methods/index.html">cnlp.probabilistic_methods</a></code></li>
-<li><code><a title="cnlp.similarity_methods" href="similarity_methods/index.html">cnlp.similarity_methods</a></code></li>
-<li><code><a title="cnlp.utils" href="utils/index.html">cnlp.utils</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity" href="index.html">cnlp.similarity_methods.local_similarity</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="cnlp.similarity_methods.local_similarity.hub_depressed.hub_depressed" href="#cnlp.similarity_methods.local_similarity.hub_depressed.hub_depressed">hub_depressed</a></code></li>
 </ul>
 </li>
 </ul>

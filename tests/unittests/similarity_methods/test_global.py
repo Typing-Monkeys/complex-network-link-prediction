@@ -1,5 +1,5 @@
 import unittest
-from social_network_link_prediction.similarity_methods import global_similarity
+from cnlp.similarity_methods import global_similarity
 from tests import Configs
 from scipy import sparse
 import numpy as np

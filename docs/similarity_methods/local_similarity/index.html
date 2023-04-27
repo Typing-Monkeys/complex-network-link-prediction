@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>cnlp API documentation</title>
-<meta name="description" content="" />
+<title>cnlp.similarity_methods.local_similarity API documentation</title>
+<meta name="description" content="Collection of Local Similarity Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -20,42 +20,77 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>cnlp</code></h1>
+<h1 class="title">Module <code>cnlp.similarity_methods.local_similarity</code></h1>
 </header>
 <section id="section-intro">
+<p>Collection of Local Similarity Methods for Link Prediction.</p>
+<p>Local indices are generally calculated using information about
+common neighbors and node degree.
+These indices <strong>consider immediate neighbors of a node</strong>.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import cnlp.dimensionality_reduction_methods
-import cnlp.other_methods
-import cnlp.probabilistic_methods
-import cnlp.similarity_methods
-import cnlp.utils</code></pre>
+<pre><code class="python">&#34;&#34;&#34;Collection of Local Similarity Methods for Link Prediction.
+
+Local indices are generally calculated using information about
+common neighbors and node degree.
+These indices **consider immediate neighbors of a node**.
+&#34;&#34;&#34;
+from .common_neighbors import common_neighbors
+from .jaccard import jaccard
+from .admic_adar import adamic_adar
+from .preferential_attachment import preferential_attachment
+from .cosine_similarity import cosine_similarity
+from .hub_promoted import hub_promoted
+from .hub_depressed import hub_depressed
+from .sorensen import sorensen
+from .node_clustering import node_clustering
+from .resource_allocation import resource_allocation</code></pre>
 </details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt><code class="name"><a title="cnlp.dimensionality_reduction_methods" href="dimensionality_reduction_methods/index.html">cnlp.dimensionality_reduction_methods</a></code></dt>
-<dd>
-<div class="desc"><p>Dimentionality Reduction based Methods for Link Prediction …</p></div>
-</dd>
-<dt><code class="name"><a title="cnlp.other_methods" href="other_methods/index.html">cnlp.other_methods</a></code></dt>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.admic_adar" href="admic_adar.html">cnlp.similarity_methods.local_similarity.admic_adar</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="cnlp.probabilistic_methods" href="probabilistic_methods/index.html">cnlp.probabilistic_methods</a></code></dt>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.common_neighbors" href="common_neighbors.html">cnlp.similarity_methods.local_similarity.common_neighbors</a></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="cnlp.similarity_methods" href="similarity_methods/index.html">cnlp.similarity_methods</a></code></dt>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.cosine_similarity" href="cosine_similarity.html">cnlp.similarity_methods.local_similarity.cosine_similarity</a></code></dt>
 <dd>
-<div class="desc"><p>Similarity based Methods for Link Prediction …</p></div>
+<div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="cnlp.utils" href="utils/index.html">cnlp.utils</a></code></dt>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.hub_depressed" href="hub_depressed.html">cnlp.similarity_methods.local_similarity.hub_depressed</a></code></dt>
 <dd>
-<div class="desc"><p>Some utilities functions.</p></div>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.hub_promoted" href="hub_promoted.html">cnlp.similarity_methods.local_similarity.hub_promoted</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.jaccard" href="jaccard.html">cnlp.similarity_methods.local_similarity.jaccard</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.node_clustering" href="node_clustering.html">cnlp.similarity_methods.local_similarity.node_clustering</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.preferential_attachment" href="preferential_attachment.html">cnlp.similarity_methods.local_similarity.preferential_attachment</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.resource_allocation" href="resource_allocation.html">cnlp.similarity_methods.local_similarity.resource_allocation</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="cnlp.similarity_methods.local_similarity.sorensen" href="sorensen.html">cnlp.similarity_methods.local_similarity.sorensen</a></code></dt>
+<dd>
+<div class="desc"></div>
 </dd>
 </dl>
 </section>
@@ -72,13 +107,23 @@ import cnlp.utils</code></pre>
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cnlp.similarity_methods" href="../index.html">cnlp.similarity_methods</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li><code><a title="cnlp.dimensionality_reduction_methods" href="dimensionality_reduction_methods/index.html">cnlp.dimensionality_reduction_methods</a></code></li>
-<li><code><a title="cnlp.other_methods" href="other_methods/index.html">cnlp.other_methods</a></code></li>
-<li><code><a title="cnlp.probabilistic_methods" href="probabilistic_methods/index.html">cnlp.probabilistic_methods</a></code></li>
-<li><code><a title="cnlp.similarity_methods" href="similarity_methods/index.html">cnlp.similarity_methods</a></code></li>
-<li><code><a title="cnlp.utils" href="utils/index.html">cnlp.utils</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.admic_adar" href="admic_adar.html">cnlp.similarity_methods.local_similarity.admic_adar</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.common_neighbors" href="common_neighbors.html">cnlp.similarity_methods.local_similarity.common_neighbors</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.cosine_similarity" href="cosine_similarity.html">cnlp.similarity_methods.local_similarity.cosine_similarity</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.hub_depressed" href="hub_depressed.html">cnlp.similarity_methods.local_similarity.hub_depressed</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.hub_promoted" href="hub_promoted.html">cnlp.similarity_methods.local_similarity.hub_promoted</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.jaccard" href="jaccard.html">cnlp.similarity_methods.local_similarity.jaccard</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.node_clustering" href="node_clustering.html">cnlp.similarity_methods.local_similarity.node_clustering</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.preferential_attachment" href="preferential_attachment.html">cnlp.similarity_methods.local_similarity.preferential_attachment</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.resource_allocation" href="resource_allocation.html">cnlp.similarity_methods.local_similarity.resource_allocation</a></code></li>
+<li><code><a title="cnlp.similarity_methods.local_similarity.sorensen" href="sorensen.html">cnlp.similarity_methods.local_similarity.sorensen</a></code></li>
 </ul>
 </li>
 </ul>
