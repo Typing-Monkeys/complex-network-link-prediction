@@ -30,7 +30,7 @@
 <pre><code class="python">import networkx as nx
 import numpy as np
 from scipy.sparse import csr_matrix, linalg, identity
-from social_network_link_prediction.utils import to_adjacency_matrix
+from social_network_link_prediction.utils import to_adjacency_matrix, only_unconnected
 
 
 def __power_method(A: csr_matrix,
@@ -110,7 +110,7 @@ def katz_index(G: nx.Graph, beta: int = 1) -&gt; csr_matrix:
     eye = identity(A.shape[0], format=&#39;csc&#39;)
     S = linalg.inv((eye - beta * A.tocsc())) - eye
 
-    return S.tocsr()</code></pre>
+    return only_unconnected(G, csr_matrix(S))</code></pre>
 </details>
 </section>
 <section>
@@ -198,7 +198,7 @@ which is not feasible for a large network.</p></div>
     eye = identity(A.shape[0], format=&#39;csc&#39;)
     S = linalg.inv((eye - beta * A.tocsc())) - eye
 
-    return S.tocsr()</code></pre>
+    return only_unconnected(G, csr_matrix(S))</code></pre>
 </details>
 </dd>
 </dl>

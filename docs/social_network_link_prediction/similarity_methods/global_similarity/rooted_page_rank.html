@@ -29,8 +29,7 @@
 </summary>
 <pre><code class="python">import networkx as nx
 from scipy.sparse import csr_matrix, lil_matrix, linalg, identity
-from social_network_link_prediction.utils import to_adjacency_matrix
-from social_network_link_prediction.utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes, to_adjacency_matrix, only_unconnected
 
 
 def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
@@ -83,7 +82,7 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
     eye = identity(A.shape[0], format=&#39;csc&#39;)
     S = (1 - alpha) * linalg.inv(eye - alpha * N_hat)
 
-    return S.tocsr()</code></pre>
+    return only_unconnected(G, S.tocsr())</code></pre>
 </details>
 </section>
 <section>
@@ -182,7 +181,7 @@ and returns to <span><span class="MathJax_Preview">x</span><script type="math/te
     eye = identity(A.shape[0], format=&#39;csc&#39;)
     S = (1 - alpha) * linalg.inv(eye - alpha * N_hat)
 
-    return S.tocsr()</code></pre>
+    return only_unconnected(G, S.tocsr())</code></pre>
 </details>
 </dd>
 </dl>

@@ -29,8 +29,7 @@
 </summary>
 <pre><code class="python">import networkx as nx
 from scipy.sparse import lil_matrix, linalg, hstack, lil_array, csr_matrix
-from social_network_link_prediction.utils import to_adjacency_matrix
-from social_network_link_prediction.utils import nodes_to_indexes
+from social_network_link_prediction.utils import nodes_to_indexes, only_unconnected, to_adjacency_matrix
 
 
 def link_prediction_rwr(G: nx.Graph,
@@ -93,7 +92,8 @@ def link_prediction_rwr(G: nx.Graph,
     # Create a map that associates each node with a row index in matrix A
     nodes_to_indexes_map = nodes_to_indexes(G)
 
-    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
+    # Build the diagonal matrix D so that the elements on the diagonal
+    # are equal to the degree of the corresponding node
     for node in G.nodes():
         D[nodes_to_indexes_map[node],
           nodes_to_indexes_map[node]] = G.degree[node]
@@ -108,13 +108,15 @@ def link_prediction_rwr(G: nx.Graph,
     # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
     similarity_matrix = csr_matrix((m, 1))
 
-    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    # For each node i, create a probability vector and perform the
+    # random walk with restart starting from that node
     for i in range(m):
         e = lil_array((m, 1))
         e[i, 0] = 1
         # Concatenate the similarity vectors into a similarity matrix
-        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
-        # As a new column in just one line of code
+        # The use of hstack allows the lil_array returned from the
+        # random walk function to be transposed and added to the
+        # similarity matrix as a new column in just one line of code
         similarity_matrix = hstack([
             similarity_matrix,
             random_walk_with_restart(e=e,
@@ -125,7 +127,7 @@ def link_prediction_rwr(G: nx.Graph,
 
     # Return the similarity matrix and remove the fisrt column
     # In order to keep the results consistent without the added column of zeros at the beginning
-    return csr_matrix(similarity_matrix)[:, 1:]
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:,1:])
 
 
 def random_walk_with_restart(e: lil_array,
@@ -151,12 +153,12 @@ def random_walk_with_restart(e: lil_array,
     -------
     e: lil_array : the updated probability vector
     &#34;&#34;&#34;
-
     # Initialize the current probability vector to the initial one and the error to 1
     old_e = e
     err = 1.
 
-    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    # Perform the random walk with restart until the maximum number
+    # of iterations is reached or the error becomes less than 1e-6
     for _ in range(max_iters):
         e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
         err = linalg.norm(e - old_e, 1)
@@ -309,7 +311,8 @@ elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</
     # Create a map that associates each node with a row index in matrix A
     nodes_to_indexes_map = nodes_to_indexes(G)
 
-    # Build the diagonal matrix D so that the elements on the diagonal are equal to the degree of the corresponding node
+    # Build the diagonal matrix D so that the elements on the diagonal
+    # are equal to the degree of the corresponding node
     for node in G.nodes():
         D[nodes_to_indexes_map[node],
           nodes_to_indexes_map[node]] = G.degree[node]
@@ -324,13 +327,15 @@ elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</
     # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
     similarity_matrix = csr_matrix((m, 1))
 
-    # For each node i, create a probability vector and perform the random walk with restart starting from that node
+    # For each node i, create a probability vector and perform the
+    # random walk with restart starting from that node
     for i in range(m):
         e = lil_array((m, 1))
         e[i, 0] = 1
         # Concatenate the similarity vectors into a similarity matrix
-        # The use of hstack allows the lil_array returned from the random walk fuction to be trasposed and added to the similarity matrix
-        # As a new column in just one line of code
+        # The use of hstack allows the lil_array returned from the
+        # random walk function to be transposed and added to the
+        # similarity matrix as a new column in just one line of code
         similarity_matrix = hstack([
             similarity_matrix,
             random_walk_with_restart(e=e,
@@ -341,7 +346,7 @@ elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</
 
     # Return the similarity matrix and remove the fisrt column
     # In order to keep the results consistent without the added column of zeros at the beginning
-    return csr_matrix(similarity_matrix)[:, 1:]</code></pre>
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:,1:])</code></pre>
 </details>
 </dd>
 <dt id="src.social_network_link_prediction.similarity_methods.global_similarity.random_walk.random_walk_with_restart"><code class="name flex">
@@ -394,12 +399,12 @@ elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</
     -------
     e: lil_array : the updated probability vector
     &#34;&#34;&#34;
-
     # Initialize the current probability vector to the initial one and the error to 1
     old_e = e
     err = 1.
 
-    # Perform the random walk with restart until the maximum number of iterations is reached or the error becomes less than 1e-6
+    # Perform the random walk with restart until the maximum number
+    # of iterations is reached or the error becomes less than 1e-6
     for _ in range(max_iters):
         e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
         err = linalg.norm(e - old_e, 1)

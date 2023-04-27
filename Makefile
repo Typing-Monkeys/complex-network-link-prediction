@@ -118,7 +118,7 @@ install-test:
 # -- Clean Section --
 clean-docs: $(DOCS_DIR)/
 	@echo "🟡 Cleaning documentation files ..."
-	if [ -d $(DOCS_DIR)/* ]; then rm -r $(DOCS_DIR)/*; fi
+	rm -rf $(DOCS_DIR)/*
 	@echo "Documentation files cleaned ✅"
 
 clean-build:

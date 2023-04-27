@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>src.social_network_link_prediction.similarity_methods.local_similarity.preferential_attachment API documentation</title>
+<title>src.social_network_link_prediction.utils.only_unconnected API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -20,7 +20,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>src.social_network_link_prediction.similarity_methods.local_similarity.preferential_attachment</code></h1>
+<h1 class="title">Module <code>src.social_network_link_prediction.utils.only_unconnected</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -28,67 +28,33 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import networkx as nx
-import numpy as np
-from scipy.sparse import lil_matrix, csr_matrix
-from social_network_link_prediction.utils import nodes_to_indexes
+from scipy.sparse import csr_matrix
+from .nodes_to_indexes import nodes_to_indexes
 
-
-def __preferential_attachment(G: nx.Graph, x, y, sum: bool = False) -&gt; float:
-    &#34;&#34;&#34;Compute the Preferential Attachment Index for 2 given nodes.&#34;&#34;&#34;
-    return G.degree[x] * G.degree[y] if not sum else G.degree[x] + G.degree[y]
-
-
-def preferential_attachment(G: nx.Graph, sum: bool = False) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Preferential Attachment Index for all nodes in the Graph.
-    Each similarity value is defined as:
-
-    .. math::
-        S(x, y) = k_x k_y
-
-    where \\(k_x\\) is the degree of the node \\(x\\).
+def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -&gt; csr_matrix:
+    &#34;&#34;&#34;Filter the given matrix and return only previously unconnected
+    nodes &#34;similarity&#34; values
 
     Parameters
     ----------
-    G: nx.Graph :
-        input Graph (a networkx Graph)
-    sum: bool :
-        Replace multiplication with summation when computing the index.
-         (Default value = False)
+    graph: nx.Graph :
+        input graph
+    sim_matrix: csr_matrix :
+        similarity matrix
 
     Returns
     -------
-    S: csr_matrix : the Similarity Matrix (in sparse format)
-
-    Notes
-    -----
-    The idea of preferential attachment is applied to generate a growing
-    scale-free network. The term growing represents the incremental nature
-    of nodes over time in the network. The likelihood incrementing new
-    connection associated with a node \\(x\\) is proportional to
-    \\(k_x\\), the degree of the node.
-
-    This index shows the worst performance on most networks.
-    The **simplicity** (as it requires the least information
-    for the score calculation) and the computational time of this metric
-    are the main advantages. PA shows better results if larger
-    degree nodes are densely connected,
-    and lower degree nodes are rarely connected.
-
-    In the above equation, summation can also be used instead of
-    multiplication as an aggregate function (`sum = True`).
+    sim_matrix: csr_matrix : the similarity matrix without the previously
+    connected nodes similarity
     &#34;&#34;&#34;
-    size = G.number_of_nodes()
-    S = lil_matrix((size, size))
-    node_index_map = nodes_to_indexes(G)
+    node_idexies_map = nodes_to_indexes(graph)
 
-    for x, y in nx.complement(G).edges():
-        _x = node_index_map[x]
-        _y = node_index_map[y]
+    for x, y in graph.edges():
+        sim_matrix[node_idexies_map[x], node_idexies_map[y]] = 0
 
-        S[_x, _y] = __preferential_attachment(G, x, y, sum=sum)
-        # S[y, x] = S[x, y]
+    sim_matrix.eliminate_zeros()
 
-    return S.tocsr()</code></pre>
+    return sim_matrix.tocsr()</code></pre>
 </details>
 </section>
 <section>
@@ -98,96 +64,54 @@ def preferential_attachment(G: nx.Graph, sum: bool = False) -&gt; csr_matrix:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="src.social_network_link_prediction.similarity_methods.local_similarity.preferential_attachment.preferential_attachment"><code class="name flex">
-<span>def <span class="ident">preferential_attachment</span></span>(<span>G: networkx.classes.graph.Graph, sum: bool = False) ‑> scipy.sparse._csr.csr_matrix</span>
+<dt id="src.social_network_link_prediction.utils.only_unconnected.only_unconnected"><code class="name flex">
+<span>def <span class="ident">only_unconnected</span></span>(<span>graph: networkx.classes.graph.Graph, sim_matrix: scipy.sparse._csr.csr_matrix) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Compute the Preferential Attachment Index for all nodes in the Graph.
-Each similarity value is defined as:</p>
-<p><span><span class="MathJax_Preview"> S(x, y) = k_x k_y </span><script type="math/tex; mode=display"> S(x, y) = k_x k_y </script></span>
-where <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+<div class="desc"><p>Filter the given matrix and return only previously unconnected
+nodes "similarity" values</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>input Graph (a networkx Graph)</dd>
-<dt><strong><code>sum</code></strong> :&ensp;<code>bool :</code></dt>
-<dd>Replace multiplication with summation when computing the index.
-(Default value = False)</dd>
+<dt><strong><code>graph</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input graph</dd>
+<dt><strong><code>sim_matrix</code></strong> :&ensp;<code>csr_matrix :</code></dt>
+<dd>similarity matrix</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dt><strong><code>sim_matrix</code></strong> :&ensp;<code>csr_matrix : the similarity matrix without the previously</code></dt>
 <dd>&nbsp;</dd>
-</dl>
-<h2 id="notes">Notes</h2>
-<p>The idea of preferential attachment is applied to generate a growing
-scale-free network. The term growing represents the incremental nature
-of nodes over time in the network. The likelihood incrementing new
-connection associated with a node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> is proportional to
-<span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span>, the degree of the node.</p>
-<p>This index shows the worst performance on most networks.
-The <strong>simplicity</strong> (as it requires the least information
-for the score calculation) and the computational time of this metric
-are the main advantages. PA shows better results if larger
-degree nodes are densely connected,
-and lower degree nodes are rarely connected.</p>
-<p>In the above equation, summation can also be used instead of
-multiplication as an aggregate function (<code>sum = True</code>).</p></div>
+<dt><code>connected nodes similarity</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def preferential_attachment(G: nx.Graph, sum: bool = False) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Preferential Attachment Index for all nodes in the Graph.
-    Each similarity value is defined as:
-
-    .. math::
-        S(x, y) = k_x k_y
-
-    where \\(k_x\\) is the degree of the node \\(x\\).
+<pre><code class="python">def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -&gt; csr_matrix:
+    &#34;&#34;&#34;Filter the given matrix and return only previously unconnected
+    nodes &#34;similarity&#34; values
 
     Parameters
     ----------
-    G: nx.Graph :
-        input Graph (a networkx Graph)
-    sum: bool :
-        Replace multiplication with summation when computing the index.
-         (Default value = False)
+    graph: nx.Graph :
+        input graph
+    sim_matrix: csr_matrix :
+        similarity matrix
 
     Returns
     -------
-    S: csr_matrix : the Similarity Matrix (in sparse format)
-
-    Notes
-    -----
-    The idea of preferential attachment is applied to generate a growing
-    scale-free network. The term growing represents the incremental nature
-    of nodes over time in the network. The likelihood incrementing new
-    connection associated with a node \\(x\\) is proportional to
-    \\(k_x\\), the degree of the node.
-
-    This index shows the worst performance on most networks.
-    The **simplicity** (as it requires the least information
-    for the score calculation) and the computational time of this metric
-    are the main advantages. PA shows better results if larger
-    degree nodes are densely connected,
-    and lower degree nodes are rarely connected.
-
-    In the above equation, summation can also be used instead of
-    multiplication as an aggregate function (`sum = True`).
+    sim_matrix: csr_matrix : the similarity matrix without the previously
+    connected nodes similarity
     &#34;&#34;&#34;
-    size = G.number_of_nodes()
-    S = lil_matrix((size, size))
-    node_index_map = nodes_to_indexes(G)
+    node_idexies_map = nodes_to_indexes(graph)
 
-    for x, y in nx.complement(G).edges():
-        _x = node_index_map[x]
-        _y = node_index_map[y]
+    for x, y in graph.edges():
+        sim_matrix[node_idexies_map[x], node_idexies_map[y]] = 0
 
-        S[_x, _y] = __preferential_attachment(G, x, y, sum=sum)
-        # S[y, x] = S[x, y]
+    sim_matrix.eliminate_zeros()
 
-    return S.tocsr()</code></pre>
+    return sim_matrix.tocsr()</code></pre>
 </details>
 </dd>
 </dl>
@@ -203,12 +127,12 @@ multiplication as an aggregate function (<code>sum = True</code>).</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="src.social_network_link_prediction.similarity_methods.local_similarity" href="index.html">src.social_network_link_prediction.similarity_methods.local_similarity</a></code></li>
+<li><code><a title="src.social_network_link_prediction.utils" href="index.html">src.social_network_link_prediction.utils</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="src.social_network_link_prediction.similarity_methods.local_similarity.preferential_attachment.preferential_attachment" href="#src.social_network_link_prediction.similarity_methods.local_similarity.preferential_attachment.preferential_attachment">preferential_attachment</a></code></li>
+<li><code><a title="src.social_network_link_prediction.utils.only_unconnected.only_unconnected" href="#src.social_network_link_prediction.utils.only_unconnected.only_unconnected">only_unconnected</a></code></li>
 </ul>
 </li>
 </ul>

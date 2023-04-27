@@ -30,10 +30,11 @@
 <pre><code class="python">import networkx as nx
 import numpy as np
 from scipy.sparse import csc_matrix
+from typing import Union
 
 
 def to_adjacency_matrix(G: nx.Graph,
-                        sparse: bool = True) -&gt; csc_matrix | np.ndarray:
+                        sparse: bool = True) -&gt; Union[csc_matrix, np.ndarray]:
     &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
 
     Parameters
@@ -49,7 +50,8 @@ def to_adjacency_matrix(G: nx.Graph,
     -------
     csc_matrix | np.ndarray: the Adjacency Matrix
     &#34;&#34;&#34;
-    return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)</code></pre>
+    # TODO: ricontrollare se i pesi servono
+    return nx.adjacency_matrix(G, weight=None) if sparse else nx.to_numpy_array(G, weight=None)</code></pre>
 </details>
 </section>
 <section>
@@ -60,7 +62,7 @@ def to_adjacency_matrix(G: nx.Graph,
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="src.social_network_link_prediction.utils.to_adjacency_matrix.to_adjacency_matrix"><code class="name flex">
-<span>def <span class="ident">to_adjacency_matrix</span></span>(<span>G: networkx.classes.graph.Graph, sparse: bool = True) ‑> scipy.sparse._csc.csc_matrix | numpy.ndarray</span>
+<span>def <span class="ident">to_adjacency_matrix</span></span>(<span>G: networkx.classes.graph.Graph, sparse: bool = True) ‑> Union[scipy.sparse._csc.csc_matrix, numpy.ndarray]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Convert a ginven Graph in to its Adjacency Matrix</p>
@@ -83,7 +85,7 @@ otherwise in full format.
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def to_adjacency_matrix(G: nx.Graph,
-                        sparse: bool = True) -&gt; csc_matrix | np.ndarray:
+                        sparse: bool = True) -&gt; Union[csc_matrix, np.ndarray]:
     &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
 
     Parameters
@@ -99,7 +101,8 @@ otherwise in full format.
     -------
     csc_matrix | np.ndarray: the Adjacency Matrix
     &#34;&#34;&#34;
-    return nx.adjacency_matrix(G) if sparse else nx.to_numpy_array(G)</code></pre>
+    # TODO: ricontrollare se i pesi servono
+    return nx.adjacency_matrix(G, weight=None) if sparse else nx.to_numpy_array(G, weight=None)</code></pre>
 </details>
 </dd>
 </dl>

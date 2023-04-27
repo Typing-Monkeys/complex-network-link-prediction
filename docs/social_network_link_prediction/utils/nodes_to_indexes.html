@@ -28,10 +28,9 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import networkx as nx
-from typing import Dict, Any
 
 
-def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
+def nodes_to_indexes(G: nx.Graph) -&gt; dict[any, int]:
     &#34;&#34;&#34;Node Label - Index encoder
 
     Associate, for each node label, and index starting from 0.
@@ -39,7 +38,7 @@ def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
     Parameters
     ----------
     G: nx.Graph :
-        grafo di cui ottenere la mappatura Nodo-indice
+        the graph from which you want the node-to-index mapping
 
     Returns
     -------
@@ -63,7 +62,7 @@ def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="src.social_network_link_prediction.utils.nodes_to_indexes.nodes_to_indexes"><code class="name flex">
-<span>def <span class="ident">nodes_to_indexes</span></span>(<span>G: networkx.classes.graph.Graph) ‑> Dict[Any, int]</span>
+<span>def <span class="ident">nodes_to_indexes</span></span>(<span>G: networkx.classes.graph.Graph) ‑> dict[any, int]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Node Label - Index encoder</p>
@@ -71,7 +70,7 @@ def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
-<dd>grafo di cui ottenere la mappatura Nodo-indice</dd>
+<dd>the graph from which you want the node-to-index mapping</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -87,7 +86,7 @@ obtained with the method <code>Graph.to_adjacency_matrix</code> or
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def nodes_to_indexes(G: nx.Graph) -&gt; Dict[Any, int]:
+<pre><code class="python">def nodes_to_indexes(G: nx.Graph) -&gt; dict[any, int]:
     &#34;&#34;&#34;Node Label - Index encoder
 
     Associate, for each node label, and index starting from 0.
@@ -95,7 +94,7 @@ obtained with the method <code>Graph.to_adjacency_matrix</code> or
     Parameters
     ----------
     G: nx.Graph :
-        grafo di cui ottenere la mappatura Nodo-indice
+        the graph from which you want the node-to-index mapping
 
     Returns
     -------

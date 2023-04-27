@@ -45,7 +45,8 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
     return similarity_matrix.tocsr()
 
 
-def simple_path_entropy(paths: Generator[List], G: nx.Graph) -> float:
+def simple_path_entropy(paths: Generator[list, None, None],
+                        G: nx.Graph) -> float:
     """Calcola l'entropia data dalla probabilità che si vengano a creare
     i vari simple paths tra i nodi tra cui si
     vuole fare link prediction

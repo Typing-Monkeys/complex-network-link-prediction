@@ -76,7 +76,8 @@ def overlap_info(G: nx.Graph, x, y, edge_num: int) -&gt; float:
         for m, n in itertools.combinations(G.neighbors(z), 2):
             priorInfo = -np.log2(prior(m, n, G, edge_num))
             likelihoodInfo = -np.log2(likelihood(z, G))
-            # print(f&#34;a = {x}, b = {y}, priorInfo = { priorInfo}, lilelihoodInfo = {likelihoodInfo}&#34;)
+            # print(f&#34;a = {x}, b = {y}, priorInfo = { priorInfo},
+            #   lilelihoodInfo = {likelihoodInfo}&#34;)
             # combine mutual information
             overlap += 2 * (priorInfo - likelihoodInfo)
             # print(f&#34;a = {x}, b = {y}, zOverlap = { 2*(priorInfo -likelihoodInfo)}&#34;)
@@ -400,7 +401,8 @@ the existence of link across different sets</p>
         for m, n in itertools.combinations(G.neighbors(z), 2):
             priorInfo = -np.log2(prior(m, n, G, edge_num))
             likelihoodInfo = -np.log2(likelihood(z, G))
-            # print(f&#34;a = {x}, b = {y}, priorInfo = { priorInfo}, lilelihoodInfo = {likelihoodInfo}&#34;)
+            # print(f&#34;a = {x}, b = {y}, priorInfo = { priorInfo},
+            #   lilelihoodInfo = {likelihoodInfo}&#34;)
             # combine mutual information
             overlap += 2 * (priorInfo - likelihoodInfo)
             # print(f&#34;a = {x}, b = {y}, zOverlap = { 2*(priorInfo -likelihoodInfo)}&#34;)
