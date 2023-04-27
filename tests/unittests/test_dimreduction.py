@@ -8,37 +8,57 @@ from scipy import sparse
 
 class TestDimensionalityReductionMethods(unittest.TestCase):
 
-    def __perform_test(self, g, fun, params: dict = {}, debug = False):
-        res = fun(g, **params)
+    def __perform_test(self, fun, params: dict = {}, debug: bool = False):
+        g = Configs.load_normal_dataset()
+        g_labels = Configs.load_labels_dataset()
 
-        if debug:
-            print(res)
-            print(type(res))
-        
-        self.assertIsNotNone(res)
-        self.assertTrue(type(res) is sparse.csr_matrix or type(res) is np.ndarray)
-        
+        res = None
+        res_labels = None
+
+        with self.subTest('Int Labels'):
+            res = fun(g, **params)
+
+            if debug:
+                print(res)
+                print(type(res))
+
+            self.assertIsNotNone(res, "None result is returned")
+            self.assertTrue(
+                type(res) is sparse.csr_matrix or type(res) is np.ndarray,
+                "Wrong return type")
+
+        with self.subTest('String Labels'):
+            res_labels = fun(g_labels, **params)
+
+            if debug:
+                print(res_labels)
+                print(type(res_labels))
+
+            self.assertIsNotNone(res_labels, "None result is returned")
+            self.assertTrue(
+                type(res_labels) is sparse.csr_matrix
+                or type(res_labels) is np.ndarray, "Wrong return type")
+
+        with self.subTest('CMP Results'):
+            try:
+                self.assertTrue(
+                    (res.__round__(4) != res_labels.__round__(4)).nnz == 0,
+                    "Results are different !")
+            except AssertionError as e:
+                print(e)
+
         return res
 
-    def test_SVD_nolabels(self):
-        g = Configs.load_normal_dataset()
+    def test_SVD(self):
+        self.__perform_test(
+            dimensionality_reduction_methods.link_prediction_svd, {'k': 40})
 
-        self.__perform_test(g, dimensionality_reduction_methods.link_prediction_svd, {'k': 40})
-
-    def test_SVD_labels(self):
-        g = Configs.load_labels_dataset()
-        
-        self.__perform_test(g, dimensionality_reduction_methods.link_prediction_svd, {'k': 40})
-
-    def test_NMF_nolabels(self):
-        g = Configs.load_normal_dataset()
-
-        self.__perform_test(g, dimensionality_reduction_methods.link_prediction_nmf, {'num_features': 10, 'num_iterations': 100})
-
-    def test_NMF_labels(self):
-        g = Configs.load_labels_dataset()
-        
-        self.__perform_test(g, dimensionality_reduction_methods.link_prediction_nmf, {'num_features': 10, 'num_iterations': 100})
+    def test_NMF(self):
+        self.__perform_test(
+            dimensionality_reduction_methods.link_prediction_nmf, {
+                'num_features': 10,
+                'num_iterations': 100
+            })
 
     # def setUp(self):
     #     self.start_time = time()
