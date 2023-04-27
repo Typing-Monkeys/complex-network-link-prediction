@@ -39,6 +39,24 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __random_changes(A_0: csr_matrix, p: float = .05) -&gt; lil_matrix:
+    &#34;&#34;&#34;Perform random changes in the Adjacency Matrix
+
+    This function is used to generate chaos in the network
+    for the sample (blocks) collection.
+
+    Parameters
+    ----------
+    A_0: csr_matrix :
+        the original Adjacency Matrix
+    p: float :
+        chaos probability, higher means more
+        chaos
+         (Default value = 0.05)
+
+    Returns
+    -------
+    A_chaos: lil_matrix : the new chaos matrix
+    &#34;&#34;&#34;
     A_chaos = A_0.copy().tolil()
     num_changes = int(A_chaos.shape[0]**2 * p)
     indexes = []
@@ -66,6 +84,27 @@ def __generate_samples(A_0: csr_matrix,
                        n: int,
                        p: np.float32 = .05,
                        seed: int = 42) -&gt; List[List[Set]]:
+    &#34;&#34;&#34;Generate the samples (block) given the orginal
+    adjacecy matrix.
+
+    Parameters
+    ----------
+    A_0: csr_matrix :
+        the original Adjacency Matrix
+    n: int :
+        number of samples
+    p: float :
+        chaos probability, higher means more
+        chaos
+         (Default value = 0.05)
+    seed: int :
+        seed for random generated values
+         (Default values = 42)
+
+    Returns
+    -------
+    samples_list: List[List[Set]] : all the samples
+    &#34;&#34;&#34;
     samples_list = []
 
     for _ in range(n):
@@ -78,16 +117,31 @@ def __generate_samples(A_0: csr_matrix,
 
 
 def __get_node_block(sample: List[Set], x: int) -&gt; Set:
+    &#34;&#34;&#34;Return the block that node X belongs to
+
+    Parameters
+    ----------
+    samole: List[Set] :
+        current sample to analize
+    x: int :
+        node
+
+    Returns
+    -------
+    Set : the block
+    &#34;&#34;&#34;
     for i in sample:
         if x in i:
             return i
 
 
 def __l(A_0: lil_matrix, alpha: Set, beta: Set) -&gt; int:
+    &#34;&#34;&#34;Number of links between groups Alpha and Beta&#34;&#34;&#34;
     return np.sum([A_0[x, y] for x, y in product(alpha, beta)])
 
 
 def __r(alpha: Set, beta: Set) -&gt; int:
+    &#34;&#34;&#34;Maxmimum possible links between groups Alpha and Beta&#34;&#34;&#34;
     len_a = len(alpha)
     len_b = len(beta)
 
@@ -134,12 +188,47 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: float = .05,
                            seed: int = 42) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Sotchastic Block Model Similarity for
+    all the nodes in the network.
+
+    This similarity is defined as:
+
+    .. math::
+        R_{xy} = \\frac{1}{Z} \\sum_{P \\in P^*}
+            ( \\frac{l^1_{\\sigma_x \\sigma_y}+1}{r^0_{\\sigma_x \\sigma_y} +2}) exp[-H(P)]
+
+    where the sum is over all possible partitions \\(P^*\\) of the network
+    into groups, \\( \\sigma_x \\) and \\( \\sigma_y \\) are vertices \\(x\\) and \\(y\\)
+    groups in partition \\(P\\) respectively.
+    Moreover, \\(l^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    and \\(r^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    are the number of links and maximum possible links in the observed network between
+    groups \\( \\alpha \\) and \\( \\beta \\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    n: int :
+        number of samples
+    p: float :
+        chaos probability, higher means more chaos in
+        the matrix
+         (Default value = .05)
+    seed: int :
+        seed for the random generated values
+         (Default value = 42)
+
+    Returns
+    -------
+    R: csr_matrix : the Similarity Matrix (in sparse format)
+    &#34;&#34;&#34;
     np.random.seed(seed)
 
     A_0 = to_adjacency_matrix(G)
     samples_list = __generate_samples(A_0, n, p, seed=seed)
     nodes_to_indexes_map = nodes_to_indexes(G)
-    
+
     R = lil_matrix(A_0.shape)
 
     for x, y in nx.complement(G).edges():
@@ -190,7 +279,38 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">stochastic_block_model</span></span>(<span>G: networkx.classes.graph.Graph, n: int, p: float = 0.05, seed: int = 42) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Compute the Sotchastic Block Model Similarity for
+all the nodes in the network.</p>
+<p>This similarity is defined as:</p>
+<p><span><span class="MathJax_Preview"> R_{xy} = \frac{1}{Z} \sum_{P \in P^*}
+( \frac{l^1_{\sigma_x \sigma_y}+1}{r^0_{\sigma_x \sigma_y} +2}) exp[-H(P)] </span><script type="math/tex; mode=display"> R_{xy} = \frac{1}{Z} \sum_{P \in P^*}
+( \frac{l^1_{\sigma_x \sigma_y}+1}{r^0_{\sigma_x \sigma_y} +2}) exp[-H(P)] </script></span>
+where the sum is over all possible partitions <span><span class="MathJax_Preview">P^*</span><script type="math/tex">P^*</script></span> of the network
+into groups, <span><span class="MathJax_Preview"> \sigma_x </span><script type="math/tex"> \sigma_x </script></span> and <span><span class="MathJax_Preview"> \sigma_y </span><script type="math/tex"> \sigma_y </script></span> are vertices <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span>
+groups in partition <span><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> respectively.
+Moreover, <span><span class="MathJax_Preview">l^0_{ \sigma_{\alpha} \sigma_{\beta}} </span><script type="math/tex">l^0_{ \sigma_{\alpha} \sigma_{\beta}} </script></span>
+and <span><span class="MathJax_Preview">r^0_{ \sigma_{\alpha} \sigma_{\beta}} </span><script type="math/tex">r^0_{ \sigma_{\alpha} \sigma_{\beta}} </script></span>
+are the number of links and maximum possible links in the observed network between
+groups <span><span class="MathJax_Preview"> \alpha </span><script type="math/tex"> \alpha </script></span> and <span><span class="MathJax_Preview"> \beta </span><script type="math/tex"> \beta </script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>n</code></strong> :&ensp;<code>int :</code></dt>
+<dd>number of samples</dd>
+<dt><strong><code>p</code></strong> :&ensp;<code>float :</code></dt>
+<dd>chaos probability, higher means more chaos in
+the matrix
+(Default value = .05)</dd>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int :</code></dt>
+<dd>seed for the random generated values
+(Default value = 42)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>R</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -199,12 +319,47 @@ if __name__ == &#34;__main__&#34;:
                            n: int,
                            p: float = .05,
                            seed: int = 42) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Sotchastic Block Model Similarity for
+    all the nodes in the network.
+
+    This similarity is defined as:
+
+    .. math::
+        R_{xy} = \\frac{1}{Z} \\sum_{P \\in P^*}
+            ( \\frac{l^1_{\\sigma_x \\sigma_y}+1}{r^0_{\\sigma_x \\sigma_y} +2}) exp[-H(P)]
+
+    where the sum is over all possible partitions \\(P^*\\) of the network
+    into groups, \\( \\sigma_x \\) and \\( \\sigma_y \\) are vertices \\(x\\) and \\(y\\)
+    groups in partition \\(P\\) respectively.
+    Moreover, \\(l^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    and \\(r^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    are the number of links and maximum possible links in the observed network between
+    groups \\( \\alpha \\) and \\( \\beta \\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    n: int :
+        number of samples
+    p: float :
+        chaos probability, higher means more chaos in
+        the matrix
+         (Default value = .05)
+    seed: int :
+        seed for the random generated values
+         (Default value = 42)
+
+    Returns
+    -------
+    R: csr_matrix : the Similarity Matrix (in sparse format)
+    &#34;&#34;&#34;
     np.random.seed(seed)
 
     A_0 = to_adjacency_matrix(G)
     samples_list = __generate_samples(A_0, n, p, seed=seed)
     nodes_to_indexes_map = nodes_to_indexes(G)
-    
+
     R = lil_matrix(A_0.shape)
 
     for x, y in nx.complement(G).edges():

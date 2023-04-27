@@ -10,6 +10,24 @@ from social_network_link_prediction.utils import nodes_to_indexes
 
 
 def __random_changes(A_0: csr_matrix, p: float = .05) -> lil_matrix:
+    """Perform random changes in the Adjacency Matrix
+
+    This function is used to generate chaos in the network
+    for the sample (blocks) collection.
+
+    Parameters
+    ----------
+    A_0: csr_matrix :
+        the original Adjacency Matrix
+    p: float :
+        chaos probability, higher means more
+        chaos
+         (Default value = 0.05)
+
+    Returns
+    -------
+    A_chaos: lil_matrix : the new chaos matrix
+    """
     A_chaos = A_0.copy().tolil()
     num_changes = int(A_chaos.shape[0]**2 * p)
     indexes = []
@@ -37,6 +55,27 @@ def __generate_samples(A_0: csr_matrix,
                        n: int,
                        p: np.float32 = .05,
                        seed: int = 42) -> List[List[Set]]:
+    """Generate the samples (block) given the orginal
+    adjacecy matrix.
+
+    Parameters
+    ----------
+    A_0: csr_matrix :
+        the original Adjacency Matrix
+    n: int :
+        number of samples
+    p: float :
+        chaos probability, higher means more
+        chaos
+         (Default value = 0.05)
+    seed: int :
+        seed for random generated values
+         (Default values = 42)
+
+    Returns
+    -------
+    samples_list: List[List[Set]] : all the samples
+    """
     samples_list = []
 
     for _ in range(n):
@@ -49,16 +88,31 @@ def __generate_samples(A_0: csr_matrix,
 
 
 def __get_node_block(sample: List[Set], x: int) -> Set:
+    """Return the block that node X belongs to
+
+    Parameters
+    ----------
+    samole: List[Set] :
+        current sample to analize
+    x: int :
+        node
+
+    Returns
+    -------
+    Set : the block
+    """
     for i in sample:
         if x in i:
             return i
 
 
 def __l(A_0: lil_matrix, alpha: Set, beta: Set) -> int:
+    """Number of links between groups Alpha and Beta"""
     return np.sum([A_0[x, y] for x, y in product(alpha, beta)])
 
 
 def __r(alpha: Set, beta: Set) -> int:
+    """Maxmimum possible links between groups Alpha and Beta"""
     len_a = len(alpha)
     len_b = len(beta)
 
@@ -105,12 +159,47 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: float = .05,
                            seed: int = 42) -> csr_matrix:
+    """Compute the Sotchastic Block Model Similarity for
+    all the nodes in the network.
+
+    This similarity is defined as:
+
+    .. math::
+        R_{xy} = \\frac{1}{Z} \\sum_{P \\in P^*}
+            ( \\frac{l^1_{\\sigma_x \\sigma_y}+1}{r^0_{\\sigma_x \\sigma_y} +2}) exp[-H(P)]
+
+    where the sum is over all possible partitions \\(P^*\\) of the network
+    into groups, \\( \\sigma_x \\) and \\( \\sigma_y \\) are vertices \\(x\\) and \\(y\\)
+    groups in partition \\(P\\) respectively.
+    Moreover, \\(l^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    and \\(r^0_{ \\sigma_{\\alpha} \\sigma_{\\beta}} \\)
+    are the number of links and maximum possible links in the observed network between
+    groups \\( \\alpha \\) and \\( \\beta \\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    n: int :
+        number of samples
+    p: float :
+        chaos probability, higher means more chaos in
+        the matrix
+         (Default value = .05)
+    seed: int :
+        seed for the random generated values
+         (Default value = 42)
+
+    Returns
+    -------
+    R: csr_matrix : the Similarity Matrix (in sparse format)
+    """
     np.random.seed(seed)
 
     A_0 = to_adjacency_matrix(G)
     samples_list = __generate_samples(A_0, n, p, seed=seed)
     nodes_to_indexes_map = nodes_to_indexes(G)
-    
+
     R = lil_matrix(A_0.shape)
 
     for x, y in nx.complement(G).edges():
