@@ -6,13 +6,24 @@ from typing import Generator, List
 
 
 def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
-    """
+    """Compute the Path Entropy Measure for all nodes in the Graph.
+
+    This Similarity measure between two nodes \\(X\\) and \\(Y\\)
+    is calculated with:
+
+    .. math::
+        S_{x,y} = -I(L^1_{xy}|U_{i=2}^{maxlen} D_{xy}^i)
+
+    where \\(D^i_{xy}\\) represents the set consisting of all simple
+    paths of length i between the two vertices and maxlen is the maximum
+    length of simple path of the network.
 
     Parameters
     ----------
     G: nx.Graph :
         input Graph (a networkx Graph)
     max_path: int :
+        maximal path length
          (Default value = 3)
 
     Returns
