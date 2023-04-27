@@ -12,7 +12,7 @@ def link_prediction_rwr(G: nx.Graph,
 
     .. math::
         S(x, y) = q_{xy} + q_{yx}
-    
+
     where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
     and \\(e_x\\) is the seed vector of length \\(|V|\\).
 
@@ -42,13 +42,13 @@ def link_prediction_rwr(G: nx.Graph,
     The seed vector \\(e_x\\) consists of zeros for all components except the
     elements \\(x\\) itself.
 
-    The transition matrix \\(P\\) can be expressed as 
+    The transition matrix \\(P\\) can be expressed as
 
     .. math::
         P_{xy} = \\begin{cases}
                 \\frac{1}{k_x} & \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
                 0 & \\text{otherwise.}
-            \\end{cases} 
+            \\end{cases}
     """
 
     # Convert the graph G into an adjacency matrix A
@@ -76,7 +76,8 @@ def link_prediction_rwr(G: nx.Graph,
     W_normalized = linalg.inv(D) @ A.tocsc()
 
     # Initialize an matrix to hold the similarities between node pairs
-    # We put an initial column made of Zeros so we can use the hstack method later on and keep the code more clean
+    # We put an initial column made of Zeros so we can use the hstack
+    # method later on and keep the code more clean
     similarity_matrix = csr_matrix((m, 1))
 
     # For each node i, create a probability vector and perform the
@@ -98,14 +99,14 @@ def link_prediction_rwr(G: nx.Graph,
 
     # Return the similarity matrix and remove the fisrt column
     # In order to keep the results consistent without the added column of zeros at the beginning
-    return only_unconnected(G, csr_matrix(similarity_matrix)[:,1:])
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])
 
 
 def random_walk_with_restart(e: lil_array,
                              W_normalized: csr_matrix,
                              c: int = 0.05,
                              max_iters: int = 100) -> lil_array:
-    """TODO
+    """Generates the probability vector
 
     Parameters
     ----------
