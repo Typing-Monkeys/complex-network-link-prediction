@@ -1,1 +1,1 @@
-from . import information_theory
+import cnlp.other_methods.information_theory
