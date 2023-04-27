@@ -49,7 +49,10 @@ class TestDimensionalityReductionMethods(unittest.TestCase):
         return res
 
     def test_MI(self):
-        self.__perform_test(other_methods.MI)
+        self.__perform_test(other_methods.information_theory.MI)
+
+    def test_pathentropy(self):
+        self.__perform_test(other_methods.information_theory.path_entropy)
 
 
 if __name__ == '__main__':

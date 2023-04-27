@@ -1,1 +1,1 @@
-from .neighbor_set_information import MI
+from . import information_theory
