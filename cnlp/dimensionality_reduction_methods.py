@@ -1,7 +1,81 @@
+"""Dimentionality Reduction based Methods for Link Prediction.
+
+The curse of dimensionality is a well-known
+problem in machine learning.
+Some researchers employ dimension reduction techniques
+to tackle the above problem and apply it in the link prediction scenario.
+"""
 import networkx as nx
 import numpy as np
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_matrix, spdiags
 from cnlp.utils import to_adjacency_matrix, only_unconnected
+from scipy.sparse.linalg import svds
+
+
+def link_prediction_svd(G: nx.Graph,
+                        k: int = 5,
+                        normalize: bool = False) -> csr_matrix:
+    """Compute the SVD Decomposition for the Graph Adjacency Matrix.
+    The similarity decinoisutuin is defined as:
+
+    .. math::
+        X_\\pm \\approx F G^T
+
+    where \\(F \\in \\mathbb{R}^{p \\times k}\\) contains
+    the bases of the latent space and is called the basis matrix;
+    \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
+    of the bases for reconstructing the matrix \\(X\\), and is called
+    the coefficient matrix; \\(k\\) is the dimention of the latent space
+    (\\(k<n\\)) and \\(n\\) is the nunber of data vector
+    (as columns) in \\(X\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    k: int :
+        dimention of the latent space (must be \\(< n\\))
+         (Default value = 5)
+    normalize: bool :
+        if True, normalize the output values
+         (Default value = False)
+
+    Returns
+    -------
+    predicted_adj_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Typically, the latent features are extracted and using these features,
+    each vertex is represented in latent space, and such representations are
+    used in a supervised or unsupervised framework for link prediction.
+    To further improve the prediction results, some additional node/link or
+    other attribute information can be used.
+
+    In most of the works, non-negative matrix factorization has been used.
+    Some authors also applied the singular value decomposition technique.
+    """
+
+    # Create the adjacency matrix of the graph
+    adj_matrix = to_adjacency_matrix(G)
+
+    # Perform the singular value decomposition
+    U, S, Vt = svds(csr_matrix(adj_matrix).astype(float), k=k)
+
+    # Make the diagonal matrix sparse
+    S = spdiags(S, [0], k, k)
+
+    # Compute the predicted adj_matrix
+    predicted_adj_matrix = ((U @ S) @ Vt)
+
+    if normalize:
+        # Normalize the predicted edge weights to the range [0, 1]
+        rows, cols = np.nonzero(predicted_adj_matrix)
+        max_weight = np.max(predicted_adj_matrix[rows, cols])
+        for i in range(len(rows)):
+            predicted_adj_matrix[rows[i], cols[i]] /= max_weight
+
+    return only_unconnected(G, csr_matrix(predicted_adj_matrix))
 
 
 def link_prediction_nmf(graph: nx.Graph,
