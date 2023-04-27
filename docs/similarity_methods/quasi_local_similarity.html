@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>cnlp.similarity_methods.quasi_local_similarity.LPI API documentation</title>
-<meta name="description" content="" />
+<title>cnlp.similarity_methods.quasi_local_similarity API documentation</title>
+<meta name="description" content="Collection of Quasi-local Similarity Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -20,17 +20,36 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>cnlp.similarity_methods.quasi_local_similarity.LPI</code></h1>
+<h1 class="title">Module <code>cnlp.similarity_methods.quasi_local_similarity</code></h1>
 </header>
 <section id="section-intro">
+<p>Collection of Quasi-local Similarity Methods for Link Prediction.</p>
+<p>Quasi-local indices have been introduced as a trade-off between
+local and global approaches or performance and complexity.
+These metrics are as efficient to compute as local indices.
+Some of these indices extract the entire topological information
+of the network.</p>
+<p>The time complexities of these indices are still below compared
+to the global approaches.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import networkx as nx
+<pre><code class="python">&#34;&#34;&#34;Collection of Quasi-local Similarity Methods for Link Prediction.
+
+Quasi-local indices have been introduced as a trade-off between
+local and global approaches or performance and complexity.
+These metrics are as efficient to compute as local indices.
+Some of these indices extract the entire topological information
+of the network.
+
+The time complexities of these indices are still below compared
+to the global approaches.
+&#34;&#34;&#34;
+import networkx as nx
 import numpy as np
-from cnlp.utils import to_adjacency_matrix, only_unconnected
-from scipy.sparse import csr_matrix
+from cnlp.utils import to_adjacency_matrix, nodes_to_indexes, only_unconnected
+from scipy.sparse import csr_matrix, lil_matrix
 
 
 def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
@@ -80,7 +99,82 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
         A = A @ A
         S += np.power(epsilon, i) * (A)
 
-    return only_unconnected(G, csr_matrix(S))</code></pre>
+    return only_unconnected(G, csr_matrix(S))
+
+
+def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Path of Length Three Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\sum \\frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v}
+
+    where \\(k_x\\) is the degree of node \\(x\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        grafo da analizzare
+
+    Returns
+    -------
+    S: csr_matrix : matrice di Similarità
+
+    Notes
+    -----
+    Georg Simmel, a German sociologist, first coined the concept
+    “triadic closure” and made popular by Mark Granovetter in his work
+    “The Strength of Weak Ties”. The authors proposed a similarity index
+    in protein-protein interaction (PPI) network,
+    called path of length 3 (or L3) published in the
+    Nature Communication. They experimentally show that the triadic closure
+    principle (TCP) does not work well with PPI networks. They showed the
+    paradoxical behavior of the TCP (i.e., the path of length 2),
+    which does not follow the structural and evolutionary mechanism that
+    governs protein interaction. The TCP predicts well to the interaction of
+    self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+    and fails in prediction between SIP and non SIP that amounts to 96%.
+    &#34;&#34;&#34;
+
+    def __path_of_length_three_iter(G: nx.Graph, x, y) -&gt; float:
+        &#34;&#34;&#34;Compute the Path of Length Three Index for 2 given nodes.&#34;&#34;&#34;
+        k_x = G.degree(x)
+        k_y = G.degree(y)
+
+        score = 0
+
+        # Enroll all neighbors
+        for u in G[x]:
+            for v in G[y]:
+                # Base case
+                if u == v:
+                    continue
+
+                # Calcolate the score with the multiply of
+                # value of node and divide for degree
+                if G.has_edge(u, v):
+                    a_xu = G[x][u].get(
+                        &#39;weight&#39;,
+                        1)  # prende il &#39;peso&#39; dell&#39;arco (1 se non ha peso)
+                    a_uv = G[u][v].get(&#39;weight&#39;, 1)
+                    a_vy = G[v][y].get(&#39;weight&#39;, 1)
+
+                    score += (a_xu * a_uv * a_vy) / (k_x * k_y)
+
+        return score
+
+    size = G.number_of_nodes()
+    S = lil_matrix((size, size))
+    name_index_map = nodes_to_indexes(G)
+
+    for x, y in nx.complement(G).edges():
+        _x = name_index_map[x]
+        _y = name_index_map[y]
+
+        S[_x, _y] = __path_of_length_three_iter(G, x, y)
+        S[_y, _x] = S[_x, _y]
+
+    return S.tocsr()</code></pre>
 </details>
 </section>
 <section>
@@ -90,7 +184,7 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -&gt; csr_matrix:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="cnlp.similarity_methods.quasi_local_similarity.LPI.local_path_index"><code class="name flex">
+<dt id="cnlp.similarity_methods.quasi_local_similarity.local_path_index"><code class="name flex">
 <span>def <span class="ident">local_path_index</span></span>(<span>G: networkx.classes.graph.Graph, epsilon: float, n: int) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
@@ -180,6 +274,116 @@ such as RA, AA, and CN.</p></div>
     return only_unconnected(G, csr_matrix(S))</code></pre>
 </details>
 </dd>
+<dt id="cnlp.similarity_methods.quasi_local_similarity.path_of_length_three"><code class="name flex">
+<span>def <span class="ident">path_of_length_three</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Path of Length Three Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \sum \frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v} </span><script type="math/tex; mode=display"> S(x, y) = \sum \frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v} </script></span>
+where <span><span class="MathJax_Preview">k_x</span><script type="math/tex">k_x</script></span> is the degree of node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>grafo da analizzare</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : matrice di Similarità</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Georg Simmel, a German sociologist, first coined the concept
+“triadic closure” and made popular by Mark Granovetter in his work
+“The Strength of Weak Ties”. The authors proposed a similarity index
+in protein-protein interaction (PPI) network,
+called path of length 3 (or L3) published in the
+Nature Communication. They experimentally show that the triadic closure
+principle (TCP) does not work well with PPI networks. They showed the
+paradoxical behavior of the TCP (i.e., the path of length 2),
+which does not follow the structural and evolutionary mechanism that
+governs protein interaction. The TCP predicts well to the interaction of
+self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+and fails in prediction between SIP and non SIP that amounts to 96%.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def path_of_length_three(G: nx.Graph) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Path of Length Three Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = \\sum \\frac{a_{x,u}a_{u,v}a_{v,y}}{k_u k_v}
+
+    where \\(k_x\\) is the degree of node \\(x\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        grafo da analizzare
+
+    Returns
+    -------
+    S: csr_matrix : matrice di Similarità
+
+    Notes
+    -----
+    Georg Simmel, a German sociologist, first coined the concept
+    “triadic closure” and made popular by Mark Granovetter in his work
+    “The Strength of Weak Ties”. The authors proposed a similarity index
+    in protein-protein interaction (PPI) network,
+    called path of length 3 (or L3) published in the
+    Nature Communication. They experimentally show that the triadic closure
+    principle (TCP) does not work well with PPI networks. They showed the
+    paradoxical behavior of the TCP (i.e., the path of length 2),
+    which does not follow the structural and evolutionary mechanism that
+    governs protein interaction. The TCP predicts well to the interaction of
+    self-interaction proteins (SIPs), which are very small (4%) in PPI networks
+    and fails in prediction between SIP and non SIP that amounts to 96%.
+    &#34;&#34;&#34;
+
+    def __path_of_length_three_iter(G: nx.Graph, x, y) -&gt; float:
+        &#34;&#34;&#34;Compute the Path of Length Three Index for 2 given nodes.&#34;&#34;&#34;
+        k_x = G.degree(x)
+        k_y = G.degree(y)
+
+        score = 0
+
+        # Enroll all neighbors
+        for u in G[x]:
+            for v in G[y]:
+                # Base case
+                if u == v:
+                    continue
+
+                # Calcolate the score with the multiply of
+                # value of node and divide for degree
+                if G.has_edge(u, v):
+                    a_xu = G[x][u].get(
+                        &#39;weight&#39;,
+                        1)  # prende il &#39;peso&#39; dell&#39;arco (1 se non ha peso)
+                    a_uv = G[u][v].get(&#39;weight&#39;, 1)
+                    a_vy = G[v][y].get(&#39;weight&#39;, 1)
+
+                    score += (a_xu * a_uv * a_vy) / (k_x * k_y)
+
+        return score
+
+    size = G.number_of_nodes()
+    S = lil_matrix((size, size))
+    name_index_map = nodes_to_indexes(G)
+
+    for x, y in nx.complement(G).edges():
+        _x = name_index_map[x]
+        _y = name_index_map[y]
+
+        S[_x, _y] = __path_of_length_three_iter(G, x, y)
+        S[_y, _x] = S[_x, _y]
+
+    return S.tocsr()</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -193,12 +397,13 @@ such as RA, AA, and CN.</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="cnlp.similarity_methods.quasi_local_similarity" href="index.html">cnlp.similarity_methods.quasi_local_similarity</a></code></li>
+<li><code><a title="cnlp.similarity_methods" href="index.html">cnlp.similarity_methods</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="cnlp.similarity_methods.quasi_local_similarity.LPI.local_path_index" href="#cnlp.similarity_methods.quasi_local_similarity.LPI.local_path_index">local_path_index</a></code></li>
+<li><code><a title="cnlp.similarity_methods.quasi_local_similarity.local_path_index" href="#cnlp.similarity_methods.quasi_local_similarity.local_path_index">local_path_index</a></code></li>
+<li><code><a title="cnlp.similarity_methods.quasi_local_similarity.path_of_length_three" href="#cnlp.similarity_methods.quasi_local_similarity.path_of_length_three">path_of_length_three</a></code></li>
 </ul>
 </li>
 </ul>

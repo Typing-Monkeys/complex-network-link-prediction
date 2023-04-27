@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>cnlp.similarity_methods.global_similarity API documentation</title>
+<meta name="description" content="Collection of Global Similarity Methods for Link Prediction …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>cnlp.similarity_methods.global_similarity</code></h1>
+</header>
+<section id="section-intro">
+<p>Collection of Global Similarity Methods for Link Prediction.</p>
+<p>Global indices are computed using entire
+topological information of a network.
+The computational complexities of such methods
+are higher and seem to be infeasible for large networks.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Collection of Global Similarity Methods for Link Prediction.
+
+Global indices are computed using entire
+topological information of a network.
+The computational complexities of such methods
+are higher and seem to be infeasible for large networks.
+&#34;&#34;&#34;
+import networkx as nx
+import numpy as np
+from scipy.sparse import csr_matrix, linalg, identity, lil_matrix, hstack, lil_array
+from cnlp.utils import nodes_to_indexes, only_unconnected, to_adjacency_matrix
+
+
+def katz_index(G: nx.Graph, beta: int = 1) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Katz Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = (I - \\beta A)^{-1} - I
+
+    where \\(I\\) is the Identity Matrix,
+    \\(\\beta\\) is a dumping factor that controls the path weights
+    and \\(A\\) is the Adjacency Matrix
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    beta: int :
+        Dumping Factor
+         (Default value = 1)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    For the convergence of above equation,
+
+    .. math::
+        \\beta &lt; \\frac{1}{\\lambda_1}
+
+    where \\(\\lambda_1\\) is the maximum eighenvalue of the matrix \\(A\\).
+
+    The computational complexity of the given metric is high,
+    and it can be roughly estimated to be cubic complexity
+    which is not feasible for a large network.
+    &#34;&#34;&#34;
+
+    def __power_method(A: csr_matrix,
+                       max_iterations: int = 100,
+                       tol: float = 1e-12,
+                       verbose: bool = False):
+        &#34;&#34;&#34;Perfome the Power Method&#34;&#34;&#34;
+        n = A.shape[0]
+        x = np.ones(n) / np.sqrt(n)  # initialize a vector x
+        # r = A @ x - np.dot(A @ x, x) * x # residual initialization
+        r = A @ x - ((A @ x) @ x) * x
+        eigenvalue = x @ (A @ x)  # residual eigenvalue
+        # eigenvalue = np.dot(x, A @ x) # residual eigenvalue
+
+        for i in range(max_iterations):
+            # Compute the new vector x
+            x = A @ x
+            # vector normalization
+            x = x / np.linalg.norm(x)
+
+            # Residual and eigenvalue computation
+            r = A @ x - ((A @ x) @ x) * x
+            eigenvalue = x @ (A @ x)
+            # r = A @ x - np.dot(A @ x, x) * x
+            # eigenvalue = np.dot(x, A @ x)
+
+            # If the norm of r is less than the tolerance, break out of the loop.
+            if np.linalg.norm(r) &lt; tol:
+                if verbose:
+                    print(&#39;Computation done after {i} steps&#39;)
+                break
+
+        return eigenvalue, x
+
+    A = to_adjacency_matrix(G)
+    largest_eigenvalue = __power_method(A)  # lambda_1
+    if beta &gt;= (1 / largest_eigenvalue[0]):
+        print(&#39;Warning, Beta should be less than {largest_eigenvalue}&#39;)
+
+    eye = identity(A.shape[0], format=&#39;csc&#39;)
+    S = linalg.inv((eye - beta * A.tocsc())) - eye
+
+    return only_unconnected(G, csr_matrix(S))
+
+
+def link_prediction_rwr(G: nx.Graph,
+                        c: int = 0.05,
+                        max_iters: int = 10) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Random Walk with Restart Algorithm.
+
+    The similarity between two nodes is defined as:
+
+    .. math::
+        S(x, y) = q_{xy} + q_{yx}
+
+    where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
+    and \\(e_x\\) is the seed vector of length \\(|V|\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 10)
+
+    Returns
+    -------
+    similarity_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Let \\(\\alpha\\) be a probability that a random walker
+    iteratively moves to an arbitrary neighbor and returns to the same
+    starting vertex with probability \\( (1 - \\alpha )\\).
+    Consider \\(q_{xy}\\) to be the probability that a random walker
+    who starts walking from vertex x and located at the vertex y in steady-state.
+
+    The seed vector \\(e_x\\) consists of zeros for all components except the
+    elements \\(x\\) itself.
+
+    The transition matrix \\(P\\) can be expressed as
+
+    .. math::
+        P_{xy} = \\begin{cases}
+                \\frac{1}{k_x} &amp; \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
+                0 &amp; \\text{otherwise.}
+            \\end{cases}
+    &#34;&#34;&#34;
+
+    def random_walk_with_restart(e: lil_array,
+                                 W_normalized: csr_matrix,
+                                 c: int = 0.05,
+                                 max_iters: int = 100) -&gt; lil_array:
+        &#34;&#34;&#34;Generates the probability vector
+
+        Parameters
+        ----------
+        e: lil_array :
+            input probability vector
+        W_normalized: csr_matrix :
+            TODO
+        c: int :
+            TODO
+             (Default value = 0.05)
+        max_iters: int :
+            max number of iteration for the algorithm convergence
+             (Default value = 100)
+
+        Returns
+        -------
+        e: lil_array : the updated probability vector
+        &#34;&#34;&#34;
+        # Initialize the current probability vector to the initial one and the error to 1
+        old_e = e
+        err = 1.
+
+        # Perform the random walk with restart until the maximum number
+        # of iterations is reached or the error becomes less than 1e-6
+        for _ in range(max_iters):
+            e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
+            err = linalg.norm(e - old_e, 1)
+            if err &lt;= 1e-6:
+                break
+            old_e = e
+
+        # Return the current probability vector
+        return e
+
+    # Convert the graph G into an adjacency matrix A
+    A = to_adjacency_matrix(G)
+
+    # Extract the number of nodes of matrix A
+    m = A.shape[0]
+
+    # Initialize the diagonal matrix D as a sparse lil_matrix
+    D = lil_matrix(A.shape)
+
+    # Create a map that associates each node with a row index in matrix A
+    nodes_to_indexes_map = nodes_to_indexes(G)
+
+    # Build the diagonal matrix D so that the elements on the diagonal
+    # are equal to the degree of the corresponding node
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    # Convert the diagonal matrix D into csc_matrix format
+    D = D.tocsc()
+
+    # Build the normalized transition matrix W_normalized
+    W_normalized = linalg.inv(D) @ A.tocsc()
+
+    # Initialize an matrix to hold the similarities between node pairs
+    # We put an initial column made of Zeros so we can use the hstack
+    # method later on and keep the code more clean
+    similarity_matrix = csr_matrix((m, 1))
+
+    # For each node i, create a probability vector and perform the
+    # random walk with restart starting from that node
+    for i in range(m):
+        e = lil_array((m, 1))
+        e[i, 0] = 1
+        # Concatenate the similarity vectors into a similarity matrix
+        # The use of hstack allows the lil_array returned from the
+        # random walk function to be transposed and added to the
+        # similarity matrix as a new column in just one line of code
+        similarity_matrix = hstack([
+            similarity_matrix,
+            random_walk_with_restart(e=e,
+                                     W_normalized=W_normalized,
+                                     c=c,
+                                     max_iters=max_iters)
+        ])
+
+    # Return the similarity matrix and remove the fisrt column
+    # In order to keep the results consistent without the added column of zeros at the beginning
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])
+
+
+def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Rooted Page Rank for all nodes in the Graph.
+    This score is defined as:
+
+    .. math::
+        S = (1 - \\alpha) (I - \\alpha \\hat{N})^{-1}
+
+    where \\(\\hat{N} = D^{-1}A\\) is the normalized
+    Adjacency Matrix with the diagonal degree matrix
+    \\(D[i,i] = \\sum_j A[i,j]\\)
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    alpha: float :
+        random walk probability
+         (Default value = 0.5)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    The idea of PageRank was originally proposed to rank the web pages based on
+    the importance of those pages. The algorithm is based on the assumption that
+    a random walker randomly goes to a web page with probability \\(\\alpha\\)
+    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    Chung et al. used this concept incorporated with a random walk in
+    link prediction framework. The importance of web pages, in a random walk,
+    can be replaced by stationary distribution. The similarity between two vertices
+    \\(x\\) and \\(y\\) can be measured by the stationary probability of
+    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
+    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
+    &#34;&#34;&#34;
+    A = to_adjacency_matrix(G)
+    D = lil_matrix(A.shape)
+
+    nodes_to_indexes_map = nodes_to_indexes(G)
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    D = D.tocsc()
+    N_hat = linalg.inv(D) @ A.tocsc()
+    eye = identity(A.shape[0], format=&#39;csc&#39;)
+    S = (1 - alpha) * linalg.inv(eye - alpha * N_hat)
+
+    return only_unconnected(G, S.tocsr())
+
+
+def shortest_path(G: nx.Graph, cutoff: int = None) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Shortest Path Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = - |d(x,y)|
+
+    where Dijkstra algorithm  is applied to efficiently
+    compute the shortest path \\(d(x, y)\\) between the
+    node pair \\( (x, y) \\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    cutoff: int :
+        max path length
+         (Default value = None)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Liben-Nowell et al. provided the shortest path with its negation as a
+    metric to link prediction.
+
+    The prediction accuracy
+    of this index is low compared to most local indices.
+    &#34;&#34;&#34;
+    dim = G.number_of_nodes()
+    if cutoff is None:
+        cutoff = dim
+
+    lengths = dict(nx.all_pairs_shortest_path_length(G, cutoff))
+    nodes_to_indexes_map = nodes_to_indexes(G)
+    prexisting_links = list(G.edges())
+
+    S = lil_matrix((dim, dim))
+    for source_node in lengths.keys():
+        for dest_node in lengths[source_node].keys():
+            # If the link already exists in the starting graph the computation is skipped
+            if (nodes_to_indexes_map[source_node],
+                    nodes_to_indexes_map[dest_node]) not in prexisting_links:
+                S[nodes_to_indexes_map[source_node],
+                  nodes_to_indexes_map[dest_node]] = -lengths[source_node][
+                      dest_node]
+
+    return S.tocsr()
+
+
+def sim_rank(G: nx.Graph,
+             k: int = 5,
+             cutoff: int = 4,
+             c: int = 0.8) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the SimRank index for all the nodes in the Graph.
+
+    This method is defined as:
+
+    .. math::
+        S(x, y) = \\begin{cases}
+                \\frac{\\alpha}{k_x k_y} \\sum_{i=1}^{k_x} \\sum_{j=1}^{k_y}
+                    S( \\Gamma_i(x), \\Gamma_j(y)) &amp; x \\neq y \\\\
+                1 &amp; x = y
+            \\end{cases}
+
+    where \\( \\alpha \\in (0,1) \\) is a constant. \\(\\Gamma_i(x)\\) and \\( \\Gamma_j(y) \\)
+    are the ith and jth elements in the neighborhood sets.
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    k: int :
+         (Default value = 5)
+    cutoff: int :
+         (Default value = 4)
+    c: int :
+         (Default value = 0.8)
+
+    Returns
+    -------
+    sim_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+    &#34;&#34;&#34;
+
+    def init_similarity_matrix(G: nx.Graph, n: int) -&gt; lil_matrix:
+        &#34;&#34;&#34;Generate an Identity matrix: the starting Similarity
+        Matrix.
+
+        Parameters
+        ----------
+        G: nx.Graph :
+            input Graph (a networkx Graph)
+        n: int :
+           the new matrix size
+
+        Returns
+        -------
+        sim_matrix: lil_matrix : the starting Similarity Matrix
+        &#34;&#34;&#34;
+        # inizializzo la matrice similarity
+        # gli elementi con loro stessi (lungo la diagonale) hanno similarità massima
+        sim_matrix = identity(n).tolil()
+        return sim_matrix
+
+    def compute_sim_rank(G: nx.Graph,
+                         a,
+                         b,
+                         sim_matrix: lil_matrix,
+                         C: int = 0.8) -&gt; float:
+        &#34;&#34;&#34;Compute the Sim Rank method between the given
+        nodes a and b.
+
+        Parameters
+        ----------
+        G: nx.Graph :
+            input Graph (a networkx Graph)
+        a :
+           first node
+        b :
+           second node
+        sim_matrix: lil_matrix :
+            the similarity matrix
+        C: int :
+            free parameter
+             (Default value = 0.8)
+
+        Returns
+        -------
+        new_SimRank: float : the SimRank value between a and b
+        &#34;&#34;&#34;
+
+        # se i nodi sono uguali allora similarità massima
+        if (a == b):
+            return 1
+
+        a_neigh = list(G.neighbors(a))
+        b_neigh = list(G.neighbors(b))
+        len_a = len(a_neigh)
+        len_b = len(b_neigh)
+
+        # nodi isolati hanno similarità 0
+        if (len_a == 0 or len_b == 0):
+            return 0
+
+        # mi recupero e sommo i valori di similarità calcolati in precedenza
+        simRank_sum = 0
+        for i in a_neigh:
+            for j in b_neigh:
+                simRank_sum += sim_matrix[i, j]
+        # moltiplico secondo la definizione del paper
+        scale = C / (len_a * len_b)
+        new_SimRank = scale * simRank_sum
+        return new_SimRank
+
+    G = nx.convert_node_labels_to_integers(G, 0)
+
+    nodes_num = G.number_of_nodes()
+    sim_matrix = init_similarity_matrix(G, nodes_num)
+
+    for a in range(nodes_num):
+        for b in range(nodes_num):
+            # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
+            if (nx.has_path(G, a, b)
+                    and (nx.shortest_path_length(G, a, b) &gt; cutoff)):
+                sim_matrix[a, b] = 0
+            else:
+                # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
+                for i in range(k):
+                    sim_matrix[a, b] = compute_sim_rank(G,
+                                                        a,
+                                                        b,
+                                                        sim_matrix=sim_matrix,
+                                                        C=c)
+
+    # imposta a 0 gli elementi della diagonale che prima avevano similarità uguale ad 1
+    for a in range(nodes_num):
+        sim_matrix[a, a] = 0
+    return only_unconnected(G, csr_matrix(sim_matrix))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="cnlp.similarity_methods.global_similarity.katz_index"><code class="name flex">
+<span>def <span class="ident">katz_index</span></span>(<span>G: networkx.classes.graph.Graph, beta: int = 1) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Katz Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = (I - \beta A)^{-1} - I </span><script type="math/tex; mode=display"> S(x, y) = (I - \beta A)^{-1} - I </script></span>
+where <span><span class="MathJax_Preview">I</span><script type="math/tex">I</script></span> is the Identity Matrix,
+<span><span class="MathJax_Preview">\beta</span><script type="math/tex">\beta</script></span> is a dumping factor that controls the path weights
+and <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span> is the Adjacency Matrix</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>beta</code></strong> :&ensp;<code>int :</code></dt>
+<dd>Dumping Factor
+(Default value = 1)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>For the convergence of above equation,</p>
+<p><span><span class="MathJax_Preview"> \beta &lt; \frac{1}{\lambda_1} </span><script type="math/tex; mode=display"> \beta < \frac{1}{\lambda_1} </script></span>
+where <span><span class="MathJax_Preview">\lambda_1</span><script type="math/tex">\lambda_1</script></span> is the maximum eighenvalue of the matrix <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>.</p>
+<p>The computational complexity of the given metric is high,
+and it can be roughly estimated to be cubic complexity
+which is not feasible for a large network.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def katz_index(G: nx.Graph, beta: int = 1) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Katz Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = (I - \\beta A)^{-1} - I
+
+    where \\(I\\) is the Identity Matrix,
+    \\(\\beta\\) is a dumping factor that controls the path weights
+    and \\(A\\) is the Adjacency Matrix
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    beta: int :
+        Dumping Factor
+         (Default value = 1)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    For the convergence of above equation,
+
+    .. math::
+        \\beta &lt; \\frac{1}{\\lambda_1}
+
+    where \\(\\lambda_1\\) is the maximum eighenvalue of the matrix \\(A\\).
+
+    The computational complexity of the given metric is high,
+    and it can be roughly estimated to be cubic complexity
+    which is not feasible for a large network.
+    &#34;&#34;&#34;
+
+    def __power_method(A: csr_matrix,
+                       max_iterations: int = 100,
+                       tol: float = 1e-12,
+                       verbose: bool = False):
+        &#34;&#34;&#34;Perfome the Power Method&#34;&#34;&#34;
+        n = A.shape[0]
+        x = np.ones(n) / np.sqrt(n)  # initialize a vector x
+        # r = A @ x - np.dot(A @ x, x) * x # residual initialization
+        r = A @ x - ((A @ x) @ x) * x
+        eigenvalue = x @ (A @ x)  # residual eigenvalue
+        # eigenvalue = np.dot(x, A @ x) # residual eigenvalue
+
+        for i in range(max_iterations):
+            # Compute the new vector x
+            x = A @ x
+            # vector normalization
+            x = x / np.linalg.norm(x)
+
+            # Residual and eigenvalue computation
+            r = A @ x - ((A @ x) @ x) * x
+            eigenvalue = x @ (A @ x)
+            # r = A @ x - np.dot(A @ x, x) * x
+            # eigenvalue = np.dot(x, A @ x)
+
+            # If the norm of r is less than the tolerance, break out of the loop.
+            if np.linalg.norm(r) &lt; tol:
+                if verbose:
+                    print(&#39;Computation done after {i} steps&#39;)
+                break
+
+        return eigenvalue, x
+
+    A = to_adjacency_matrix(G)
+    largest_eigenvalue = __power_method(A)  # lambda_1
+    if beta &gt;= (1 / largest_eigenvalue[0]):
+        print(&#39;Warning, Beta should be less than {largest_eigenvalue}&#39;)
+
+    eye = identity(A.shape[0], format=&#39;csc&#39;)
+    S = linalg.inv((eye - beta * A.tocsc())) - eye
+
+    return only_unconnected(G, csr_matrix(S))</code></pre>
+</details>
+</dd>
+<dt id="cnlp.similarity_methods.global_similarity.link_prediction_rwr"><code class="name flex">
+<span>def <span class="ident">link_prediction_rwr</span></span>(<span>G: networkx.classes.graph.Graph, c: int = 0.05, max_iters: int = 10) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Random Walk with Restart Algorithm.</p>
+<p>The similarity between two nodes is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = q_{xy} + q_{yx} </span><script type="math/tex; mode=display"> S(x, y) = q_{xy} + q_{yx} </script></span>
+where <span><span class="MathJax_Preview">q_x</span><script type="math/tex">q_x</script></span> is defined as <span><span class="MathJax_Preview"> (1-\alpha) (I - \alpha P^T)^{-1} e_x</span><script type="math/tex"> (1-\alpha) (I - \alpha P^T)^{-1} e_x</script></span>
+and <span><span class="MathJax_Preview">e_x</span><script type="math/tex">e_x</script></span> is the seed vector of length <span><span class="MathJax_Preview">|V|</span><script type="math/tex">|V|</script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>c</code></strong> :&ensp;<code>int :</code></dt>
+<dd>TODO
+(Default value = 0.05)</dd>
+<dt><strong><code>max_iters</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max number of iteration for the algorithm convergence
+(Default value = 10)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>similarity_matrix</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Let <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span> be a probability that a random walker
+iteratively moves to an arbitrary neighbor and returns to the same
+starting vertex with probability <span><span class="MathJax_Preview"> (1 - \alpha )</span><script type="math/tex"> (1 - \alpha )</script></span>.
+Consider <span><span class="MathJax_Preview">q_{xy}</span><script type="math/tex">q_{xy}</script></span> to be the probability that a random walker
+who starts walking from vertex x and located at the vertex y in steady-state.</p>
+<p>The seed vector <span><span class="MathJax_Preview">e_x</span><script type="math/tex">e_x</script></span> consists of zeros for all components except the
+elements <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> itself.</p>
+<p>The transition matrix <span><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> can be expressed as</p>
+<p><span><span class="MathJax_Preview"> P_{xy} = \begin{cases}
+\frac{1}{k_x} &amp; \text{if } x \text{ and } y \text{ are connected,} \\
+0 &amp; \text{otherwise.}
+\end{cases} </span><script type="math/tex; mode=display"> P_{xy} = \begin{cases}
+\frac{1}{k_x} & \text{if } x \text{ and } y \text{ are connected,} \\
+0 & \text{otherwise.}
+\end{cases} </script></span></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def link_prediction_rwr(G: nx.Graph,
+                        c: int = 0.05,
+                        max_iters: int = 10) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Random Walk with Restart Algorithm.
+
+    The similarity between two nodes is defined as:
+
+    .. math::
+        S(x, y) = q_{xy} + q_{yx}
+
+    where \\(q_x\\) is defined as \\( (1-\\alpha) (I - \\alpha P^T)^{-1} e_x\\)
+    and \\(e_x\\) is the seed vector of length \\(|V|\\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    c: int :
+        TODO
+         (Default value = 0.05)
+    max_iters: int :
+        max number of iteration for the algorithm convergence
+         (Default value = 10)
+
+    Returns
+    -------
+    similarity_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Let \\(\\alpha\\) be a probability that a random walker
+    iteratively moves to an arbitrary neighbor and returns to the same
+    starting vertex with probability \\( (1 - \\alpha )\\).
+    Consider \\(q_{xy}\\) to be the probability that a random walker
+    who starts walking from vertex x and located at the vertex y in steady-state.
+
+    The seed vector \\(e_x\\) consists of zeros for all components except the
+    elements \\(x\\) itself.
+
+    The transition matrix \\(P\\) can be expressed as
+
+    .. math::
+        P_{xy} = \\begin{cases}
+                \\frac{1}{k_x} &amp; \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
+                0 &amp; \\text{otherwise.}
+            \\end{cases}
+    &#34;&#34;&#34;
+
+    def random_walk_with_restart(e: lil_array,
+                                 W_normalized: csr_matrix,
+                                 c: int = 0.05,
+                                 max_iters: int = 100) -&gt; lil_array:
+        &#34;&#34;&#34;Generates the probability vector
+
+        Parameters
+        ----------
+        e: lil_array :
+            input probability vector
+        W_normalized: csr_matrix :
+            TODO
+        c: int :
+            TODO
+             (Default value = 0.05)
+        max_iters: int :
+            max number of iteration for the algorithm convergence
+             (Default value = 100)
+
+        Returns
+        -------
+        e: lil_array : the updated probability vector
+        &#34;&#34;&#34;
+        # Initialize the current probability vector to the initial one and the error to 1
+        old_e = e
+        err = 1.
+
+        # Perform the random walk with restart until the maximum number
+        # of iterations is reached or the error becomes less than 1e-6
+        for _ in range(max_iters):
+            e = (c * (W_normalized @ old_e)) + ((1 - c) * e)
+            err = linalg.norm(e - old_e, 1)
+            if err &lt;= 1e-6:
+                break
+            old_e = e
+
+        # Return the current probability vector
+        return e
+
+    # Convert the graph G into an adjacency matrix A
+    A = to_adjacency_matrix(G)
+
+    # Extract the number of nodes of matrix A
+    m = A.shape[0]
+
+    # Initialize the diagonal matrix D as a sparse lil_matrix
+    D = lil_matrix(A.shape)
+
+    # Create a map that associates each node with a row index in matrix A
+    nodes_to_indexes_map = nodes_to_indexes(G)
+
+    # Build the diagonal matrix D so that the elements on the diagonal
+    # are equal to the degree of the corresponding node
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    # Convert the diagonal matrix D into csc_matrix format
+    D = D.tocsc()
+
+    # Build the normalized transition matrix W_normalized
+    W_normalized = linalg.inv(D) @ A.tocsc()
+
+    # Initialize an matrix to hold the similarities between node pairs
+    # We put an initial column made of Zeros so we can use the hstack
+    # method later on and keep the code more clean
+    similarity_matrix = csr_matrix((m, 1))
+
+    # For each node i, create a probability vector and perform the
+    # random walk with restart starting from that node
+    for i in range(m):
+        e = lil_array((m, 1))
+        e[i, 0] = 1
+        # Concatenate the similarity vectors into a similarity matrix
+        # The use of hstack allows the lil_array returned from the
+        # random walk function to be transposed and added to the
+        # similarity matrix as a new column in just one line of code
+        similarity_matrix = hstack([
+            similarity_matrix,
+            random_walk_with_restart(e=e,
+                                     W_normalized=W_normalized,
+                                     c=c,
+                                     max_iters=max_iters)
+        ])
+
+    # Return the similarity matrix and remove the fisrt column
+    # In order to keep the results consistent without the added column of zeros at the beginning
+    return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])</code></pre>
+</details>
+</dd>
+<dt id="cnlp.similarity_methods.global_similarity.rooted_page_rank"><code class="name flex">
+<span>def <span class="ident">rooted_page_rank</span></span>(<span>G: networkx.classes.graph.Graph, alpha: float = 0.5) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Rooted Page Rank for all nodes in the Graph.
+This score is defined as:</p>
+<p><span><span class="MathJax_Preview"> S = (1 - \alpha) (I - \alpha \hat{N})^{-1} </span><script type="math/tex; mode=display"> S = (1 - \alpha) (I - \alpha \hat{N})^{-1} </script></span>
+where <span><span class="MathJax_Preview">\hat{N} = D^{-1}A</span><script type="math/tex">\hat{N} = D^{-1}A</script></span> is the normalized
+Adjacency Matrix with the diagonal degree matrix
+<span><span class="MathJax_Preview">D[i,i] = \sum_j A[i,j]</span><script type="math/tex">D[i,i] = \sum_j A[i,j]</script></span></p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float :</code></dt>
+<dd>random walk probability
+(Default value = 0.5)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The idea of PageRank was originally proposed to rank the web pages based on
+the importance of those pages. The algorithm is based on the assumption that
+a random walker randomly goes to a web page with probability <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span>
+and follows hyper-link embedded in the page with probability <span><span class="MathJax_Preview"> (1 - \alpha ) </span><script type="math/tex"> (1 - \alpha ) </script></span>.
+Chung et al. used this concept incorporated with a random walk in
+link prediction framework. The importance of web pages, in a random walk,
+can be replaced by stationary distribution. The similarity between two vertices
+<span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> and <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> can be measured by the stationary probability of
+<span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> from <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> in a random walk where the walker moves to an
+arbitrary neighboring vertex with probability <span><span class="MathJax_Preview">\alpha</span><script type="math/tex">\alpha</script></span>
+and returns to <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> with probability <span><span class="MathJax_Preview"> ( 1 - \alpha )</span><script type="math/tex"> ( 1 - \alpha )</script></span>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rooted_page_rank(G: nx.Graph, alpha: float = .5) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Rooted Page Rank for all nodes in the Graph.
+    This score is defined as:
+
+    .. math::
+        S = (1 - \\alpha) (I - \\alpha \\hat{N})^{-1}
+
+    where \\(\\hat{N} = D^{-1}A\\) is the normalized
+    Adjacency Matrix with the diagonal degree matrix
+    \\(D[i,i] = \\sum_j A[i,j]\\)
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    alpha: float :
+        random walk probability
+         (Default value = 0.5)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    The idea of PageRank was originally proposed to rank the web pages based on
+    the importance of those pages. The algorithm is based on the assumption that
+    a random walker randomly goes to a web page with probability \\(\\alpha\\)
+    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    Chung et al. used this concept incorporated with a random walk in
+    link prediction framework. The importance of web pages, in a random walk,
+    can be replaced by stationary distribution. The similarity between two vertices
+    \\(x\\) and \\(y\\) can be measured by the stationary probability of
+    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
+    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
+    &#34;&#34;&#34;
+    A = to_adjacency_matrix(G)
+    D = lil_matrix(A.shape)
+
+    nodes_to_indexes_map = nodes_to_indexes(G)
+    for node in G.nodes():
+        D[nodes_to_indexes_map[node],
+          nodes_to_indexes_map[node]] = G.degree[node]
+
+    D = D.tocsc()
+    N_hat = linalg.inv(D) @ A.tocsc()
+    eye = identity(A.shape[0], format=&#39;csc&#39;)
+    S = (1 - alpha) * linalg.inv(eye - alpha * N_hat)
+
+    return only_unconnected(G, S.tocsr())</code></pre>
+</details>
+</dd>
+<dt id="cnlp.similarity_methods.global_similarity.shortest_path"><code class="name flex">
+<span>def <span class="ident">shortest_path</span></span>(<span>G: networkx.classes.graph.Graph, cutoff: int = None) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the Shortest Path Index for all nodes in the Graph.
+Each similarity value is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = - |d(x,y)| </span><script type="math/tex; mode=display"> S(x, y) = - |d(x,y)| </script></span>
+where Dijkstra algorithm
+is applied to efficiently
+compute the shortest path <span><span class="MathJax_Preview">d(x, y)</span><script type="math/tex">d(x, y)</script></span> between the
+node pair <span><span class="MathJax_Preview"> (x, y) </span><script type="math/tex"> (x, y) </script></span>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>int :</code></dt>
+<dd>max path length
+(Default value = None)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>S</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Liben-Nowell et al. provided the shortest path with its negation as a
+metric to link prediction.</p>
+<p>The prediction accuracy
+of this index is low compared to most local indices.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shortest_path(G: nx.Graph, cutoff: int = None) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the Shortest Path Index for all nodes in the Graph.
+    Each similarity value is defined as:
+
+    .. math::
+        S(x, y) = - |d(x,y)|
+
+    where Dijkstra algorithm  is applied to efficiently
+    compute the shortest path \\(d(x, y)\\) between the
+    node pair \\( (x, y) \\).
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    cutoff: int :
+        max path length
+         (Default value = None)
+
+    Returns
+    -------
+    S: csr_matrix : the Similarity Matrix (in sparse format)
+
+    Notes
+    -----
+    Liben-Nowell et al. provided the shortest path with its negation as a
+    metric to link prediction.
+
+    The prediction accuracy
+    of this index is low compared to most local indices.
+    &#34;&#34;&#34;
+    dim = G.number_of_nodes()
+    if cutoff is None:
+        cutoff = dim
+
+    lengths = dict(nx.all_pairs_shortest_path_length(G, cutoff))
+    nodes_to_indexes_map = nodes_to_indexes(G)
+    prexisting_links = list(G.edges())
+
+    S = lil_matrix((dim, dim))
+    for source_node in lengths.keys():
+        for dest_node in lengths[source_node].keys():
+            # If the link already exists in the starting graph the computation is skipped
+            if (nodes_to_indexes_map[source_node],
+                    nodes_to_indexes_map[dest_node]) not in prexisting_links:
+                S[nodes_to_indexes_map[source_node],
+                  nodes_to_indexes_map[dest_node]] = -lengths[source_node][
+                      dest_node]
+
+    return S.tocsr()</code></pre>
+</details>
+</dd>
+<dt id="cnlp.similarity_methods.global_similarity.sim_rank"><code class="name flex">
+<span>def <span class="ident">sim_rank</span></span>(<span>G: networkx.classes.graph.Graph, k: int = 5, cutoff: int = 4, c: int = 0.8) ‑> scipy.sparse._csr.csr_matrix</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the SimRank index for all the nodes in the Graph.</p>
+<p>This method is defined as:</p>
+<p><span><span class="MathJax_Preview"> S(x, y) = \begin{cases}
+\frac{\alpha}{k_x k_y} \sum_{i=1}^{k_x} \sum_{j=1}^{k_y}
+S( \Gamma_i(x), \Gamma_j(y)) &amp; x \neq y \\
+1 &amp; x = y
+\end{cases} </span><script type="math/tex; mode=display"> S(x, y) = \begin{cases}
+\frac{\alpha}{k_x k_y} \sum_{i=1}^{k_x} \sum_{j=1}^{k_y}
+S( \Gamma_i(x), \Gamma_j(y)) & x \neq y \\
+1 & x = y
+\end{cases} </script></span>
+where <span><span class="MathJax_Preview"> \alpha \in (0,1) </span><script type="math/tex"> \alpha \in (0,1) </script></span> is a constant. <span><span class="MathJax_Preview">\Gamma_i(x)</span><script type="math/tex">\Gamma_i(x)</script></span> and <span><span class="MathJax_Preview"> \Gamma_j(y) </span><script type="math/tex"> \Gamma_j(y) </script></span>
+are the ith and jth elements in the neighborhood sets.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
+<dd>input Graph (a networkx Graph)</dd>
+<dt><strong><code>k</code></strong> :&ensp;<code>int :</code></dt>
+<dd>(Default value = 5)</dd>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>int :</code></dt>
+<dd>(Default value = 4)</dd>
+<dt><strong><code>c</code></strong> :&ensp;<code>int :</code></dt>
+<dd>(Default value = 0.8)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>sim_matrix</code></strong> :&ensp;<code>csr_matrix : the Similarity Matrix (in sparse format)</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sim_rank(G: nx.Graph,
+             k: int = 5,
+             cutoff: int = 4,
+             c: int = 0.8) -&gt; csr_matrix:
+    &#34;&#34;&#34;Compute the SimRank index for all the nodes in the Graph.
+
+    This method is defined as:
+
+    .. math::
+        S(x, y) = \\begin{cases}
+                \\frac{\\alpha}{k_x k_y} \\sum_{i=1}^{k_x} \\sum_{j=1}^{k_y}
+                    S( \\Gamma_i(x), \\Gamma_j(y)) &amp; x \\neq y \\\\
+                1 &amp; x = y
+            \\end{cases}
+
+    where \\( \\alpha \\in (0,1) \\) is a constant. \\(\\Gamma_i(x)\\) and \\( \\Gamma_j(y) \\)
+    are the ith and jth elements in the neighborhood sets.
+
+    Parameters
+    ----------
+    G: nx.Graph :
+        input Graph (a networkx Graph)
+    k: int :
+         (Default value = 5)
+    cutoff: int :
+         (Default value = 4)
+    c: int :
+         (Default value = 0.8)
+
+    Returns
+    -------
+    sim_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+    &#34;&#34;&#34;
+
+    def init_similarity_matrix(G: nx.Graph, n: int) -&gt; lil_matrix:
+        &#34;&#34;&#34;Generate an Identity matrix: the starting Similarity
+        Matrix.
+
+        Parameters
+        ----------
+        G: nx.Graph :
+            input Graph (a networkx Graph)
+        n: int :
+           the new matrix size
+
+        Returns
+        -------
+        sim_matrix: lil_matrix : the starting Similarity Matrix
+        &#34;&#34;&#34;
+        # inizializzo la matrice similarity
+        # gli elementi con loro stessi (lungo la diagonale) hanno similarità massima
+        sim_matrix = identity(n).tolil()
+        return sim_matrix
+
+    def compute_sim_rank(G: nx.Graph,
+                         a,
+                         b,
+                         sim_matrix: lil_matrix,
+                         C: int = 0.8) -&gt; float:
+        &#34;&#34;&#34;Compute the Sim Rank method between the given
+        nodes a and b.
+
+        Parameters
+        ----------
+        G: nx.Graph :
+            input Graph (a networkx Graph)
+        a :
+           first node
+        b :
+           second node
+        sim_matrix: lil_matrix :
+            the similarity matrix
+        C: int :
+            free parameter
+             (Default value = 0.8)
+
+        Returns
+        -------
+        new_SimRank: float : the SimRank value between a and b
+        &#34;&#34;&#34;
+
+        # se i nodi sono uguali allora similarità massima
+        if (a == b):
+            return 1
+
+        a_neigh = list(G.neighbors(a))
+        b_neigh = list(G.neighbors(b))
+        len_a = len(a_neigh)
+        len_b = len(b_neigh)
+
+        # nodi isolati hanno similarità 0
+        if (len_a == 0 or len_b == 0):
+            return 0
+
+        # mi recupero e sommo i valori di similarità calcolati in precedenza
+        simRank_sum = 0
+        for i in a_neigh:
+            for j in b_neigh:
+                simRank_sum += sim_matrix[i, j]
+        # moltiplico secondo la definizione del paper
+        scale = C / (len_a * len_b)
+        new_SimRank = scale * simRank_sum
+        return new_SimRank
+
+    G = nx.convert_node_labels_to_integers(G, 0)
+
+    nodes_num = G.number_of_nodes()
+    sim_matrix = init_similarity_matrix(G, nodes_num)
+
+    for a in range(nodes_num):
+        for b in range(nodes_num):
+            # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
+            if (nx.has_path(G, a, b)
+                    and (nx.shortest_path_length(G, a, b) &gt; cutoff)):
+                sim_matrix[a, b] = 0
+            else:
+                # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
+                for i in range(k):
+                    sim_matrix[a, b] = compute_sim_rank(G,
+                                                        a,
+                                                        b,
+                                                        sim_matrix=sim_matrix,
+                                                        C=c)
+
+    # imposta a 0 gli elementi della diagonale che prima avevano similarità uguale ad 1
+    for a in range(nodes_num):
+        sim_matrix[a, a] = 0
+    return only_unconnected(G, csr_matrix(sim_matrix))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="cnlp.similarity_methods" href="index.html">cnlp.similarity_methods</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="cnlp.similarity_methods.global_similarity.katz_index" href="#cnlp.similarity_methods.global_similarity.katz_index">katz_index</a></code></li>
+<li><code><a title="cnlp.similarity_methods.global_similarity.link_prediction_rwr" href="#cnlp.similarity_methods.global_similarity.link_prediction_rwr">link_prediction_rwr</a></code></li>
+<li><code><a title="cnlp.similarity_methods.global_similarity.rooted_page_rank" href="#cnlp.similarity_methods.global_similarity.rooted_page_rank">rooted_page_rank</a></code></li>
+<li><code><a title="cnlp.similarity_methods.global_similarity.shortest_path" href="#cnlp.similarity_methods.global_similarity.shortest_path">shortest_path</a></code></li>
+<li><code><a title="cnlp.similarity_methods.global_similarity.sim_rank" href="#cnlp.similarity_methods.global_similarity.sim_rank">sim_rank</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

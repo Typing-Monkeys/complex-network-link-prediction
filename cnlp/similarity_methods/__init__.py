@@ -12,6 +12,3 @@ properties of the network_, one of which is structural property.
 Scores based on this property can be grouped in several categories
 like **local** and **global**, and so on.
 """
-from . import local_similarity
-from . import quasi_local_similarity
-from . import global_similarity
