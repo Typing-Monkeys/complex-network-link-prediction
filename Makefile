@@ -10,7 +10,7 @@ REQUIREMENTS	=	gh
 REQUIREMENTS	+=	git
 REQUIREMENTS	+=	virtualenv
 
-SRC = src
+SRC = cnlp
 TEST_DIR = tests
 # W,E (ignore warning end errors). W (only warnings)
 CODE_IGNORE_LEVEL = ""
@@ -24,7 +24,7 @@ DOCS_LATEX  = True
 DOCSTRINGS_FORMAT = numpydoc
 LINT_FORMAT = pylint
 
-.PHONY: tests docs
+.PHONY: tests docs build
 
 all:
 	@echo "social-network-link-prediction Makefile guide."

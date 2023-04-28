@@ -1,5 +1,5 @@
 import unittest
-from social_network_link_prediction import other_methods
+from cnlp import other_methods
 from tests import Configs
 import numpy as np
 from scipy import sparse

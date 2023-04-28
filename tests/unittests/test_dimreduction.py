@@ -1,6 +1,5 @@
 import unittest
-from social_network_link_prediction import dimensionality_reduction_methods
-from sknetwork.embedding import SVD
+from cnlp import dimensionality_reduction_methods
 from tests import Configs
 import numpy as np
 from scipy import sparse
