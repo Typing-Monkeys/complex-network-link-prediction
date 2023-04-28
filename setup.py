@@ -1,17 +1,24 @@
 from setuptools import setup, find_packages
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
-    name='sn_link_prediction',
-    version='0.1',
+    name='complex-network-link-prediction',
+    version='1.0',
     license='MIT',
-    author="Cristian Cosci, Fabrizio Fagiolo, Nicolò Vescera, Nicolò Posta, Tommaso Romani",
-    #author_email='email@example.com',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
+    author=
+    "Cristian Cosci, Fabrizio Fagiolo, Nicolò Vescera, Nicolò Posta, Tommaso Romani",
+    packages=find_packages('cnlp'),
+    package_dir={'': 'cnlp'},
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/Typing-Monkeys/social-network-link-prediction',
     keywords='Link Prediction, Social Network, Complex Network Analisys',
     install_requires=[
-          'numpy',
-      ],
-
+        'networkx',
+        'scipy',
+        'numpy',
+    ],
 )

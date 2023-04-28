@@ -1,0 +1,4 @@
+.
+matplotlib
+setuptools
+twine
