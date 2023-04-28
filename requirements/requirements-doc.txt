@@ -1,4 +1,0 @@
-pylama
-yapf
-pyment
-pdoc3
