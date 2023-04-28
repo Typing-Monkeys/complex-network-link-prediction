@@ -8,12 +8,12 @@
 
 Check out our [home page](docs link)link pages qui for more information.
 
-<img src="imgs/logo.png" alt="logo" width="70%" />
+<img src="https://raw.githubusercontent.com/Typing-Monkeys/social-network-link-prediction/develop/imgs/logo.png" alt="logo" width="70%" />
 
 This library implemented in python allows you to use some of the main algorithms and methods to perform link predictions. It was designed to carry out these tasks in **Complex Networks** and, specifically, in **Social Networks**. Each method has its own specific documentation available on the following page ---- where it is possible to see the required parameters and the output of the method itself. <br>
 The methods are distinguished by belonging to categories and subcategories, below is an example image with all the categories.
 
-<img src="imgs/methods_list.jpg" alt="methods list" width="50%" />
+<img src="https://raw.githubusercontent.com/Typing-Monkeys/social-network-link-prediction/develop/imgs/methods_list.jpg" alt="methods list" width="50%" />
 
 The speed of computation differs both from the type of method and from the input graph. However, for convention and efficiency we have chosen to use the `csr_matrix` sparse matrix structure from the ***scipy*** library in each algorithm.
 
@@ -60,16 +60,16 @@ plt.show()
 
 <hr>
 
-### Contribute :boom:
+### Contribute 💥
 As there are still many methods to implement and, at the same time, maintaining a library takes up a lot of time, we are always happy to accept new willing and able people to contribute and support our project.
 
 If you want to contribute or you've found a bug, you can open a **Pull Request**.
 
-Check this [tutorial](#https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) if you want to use our preferred *Workflow* :gorilla: for developing.
+Check this [tutorial](#https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) if you want to use our preferred *Workflow* 🦍 for developing.
 
 Otherwise you can open a normal Pull Request using `git` and help us to make this project even better!
 
-### Help :question:
+### Help ❓
 If you encounter any bug or you have some problem with this package you can open an [issue](#https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) to report it, we will resolve that asap.
 
 <hr>
@@ -105,4 +105,5 @@ ecc
 
 | ![cosci](https://avatars.githubusercontent.com/u/44636000?s=421&v=4) | ![vescera](https://avatars.githubusercontent.com/u/10250769?s=421&v=4)| ![fagiolo](https://avatars.githubusercontent.com/u/44865237?v=4) | ![romani](https://avatars.githubusercontent.com/u/44830726?v=4)| ![posta](https://avatars.githubusercontent.com/u/44830740?v=4) 
 | - | - | - | - | - |
-| [Cristian Cosci](https://github.com/CristianCosci) :chicken: | [Nicolò Vescera](https://github.com/ncvescera) 🦧 | [Fabrizio Fagiolo](https://github.com/F-a-b-r-i-z-i-o) :bug: |  [Tommaso Romani](https://github.com/TommasoRomani) :gorilla: | [Nicolò Posta](https://github.com/NicoloPosta) :monkey:
+| [Cristian Cosci](https://github.com/CristianCosci) 🐔 | [Nicolò Vescera](https://github.com/ncvescera) 🦧 | [Fabrizio Fagiolo](https://github.com/F-a-b-r-i-z-i-o) 🐛 |  [Tommaso Romani](https://github.com/TommasoRomani) 🦍 | [Nicolò Posta](https://github.com/NicoloPosta) 🐒
+
