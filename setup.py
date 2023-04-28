@@ -6,12 +6,11 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='complex-network-link-prediction',
-    version='1.0',
+    version='1.0.1',
     license='MIT',
     author=
     "Cristian Cosci, Fabrizio Fagiolo, Nicolò Vescera, Nicolò Posta, Tommaso Romani",
-    packages=find_packages('cnlp'),
-    package_dir={'': 'cnlp'},
+    packages=find_packages(where='.', include=['cnlp*']),
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/Typing-Monkeys/social-network-link-prediction',
