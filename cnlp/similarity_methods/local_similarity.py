@@ -239,8 +239,7 @@ def jaccard(G: nx.Graph) -> csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
-        {|\\Gamma(x) \\cup \\Gamma(y)|}
+        S(x, y) = \\frac{| \\Gamma(x) \\cap \\Gamma(y)|}{| \\Gamma(x) \\cup \\Gamma(y)|}
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
