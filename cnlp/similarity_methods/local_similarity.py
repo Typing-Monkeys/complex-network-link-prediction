@@ -270,7 +270,6 @@ def jaccard(G: nx.Graph) -> csr_matrix:
         
         return __common_neighbors(G, x, y) / total_neighbor_number
 
-
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
     node_index_map = nodes_to_indexes(G)
