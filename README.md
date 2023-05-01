@@ -1,16 +1,16 @@
 # **Complex Network Link Prediction**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- [![PyPi](https://badge.fury.io/py/nomepacchetto.svg)](https://badge.fury.io/py/nomepacchetto) --> <!-- [![Downloads](https://pepy.tech/badge/nomepacchetto/month)](https://pepy.tech/project/nomepacchetto) --> [![Wiki](https://img.shields.io/badge/howTo-Wiki-blue.svg)](https://github.com/Typing-Monkeys/social-network-link-prediction/wiki) [![GitHubIssues](https://img.shields.io/badge/issue_tracking-github-blue.svg)](https://github.com/Typing-Monkeys/social-network-link-prediction/issues) [![GitTutorial](https://img.shields.io/badge/PR-Welcome-%23FF8300.svg?)](https://git-scm.com/book/en/v2/GitHub-Contributing-to-a-Project)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![PyPi](https://badge.fury.io/py/complex-network-link-prediction.svg)](https://badge.fury.io/py/complex-network-link-prediction) [![Downloads](https://pepy.tech/badge/complex-network-link-prediction/month)](https://pepy.tech/project/complex-network-link-prediction) [![Wiki](https://img.shields.io/badge/howTo-Wiki-blue.svg)](https://github.com/Typing-Monkeys/social-network-link-prediction/wiki) [![GitHubIssues](https://img.shields.io/badge/issue_tracking-github-blue.svg)](https://github.com/Typing-Monkeys/social-network-link-prediction/issues) [![GitTutorial](https://img.shields.io/badge/PR-Welcome-%23FF8300.svg?)](https://git-scm.com/book/en/v2/GitHub-Contributing-to-a-Project)
 
 
 #### **Complex Network Link Prediction** is a python library that implements some of the main techniques and algorithms to perform link predictions.
 
 
-Check out our [home page](docs link)link pages qui for more information.
+Check out our [home page](https://typing-monkeys.github.io/social-network-link-prediction/) for more information.
 
 <img src="https://raw.githubusercontent.com/Typing-Monkeys/social-network-link-prediction/develop/imgs/logo.png" alt="logo" width="70%" />
 
-This library implemented in python allows you to use some of the main algorithms and methods to perform link predictions. It was designed to carry out these tasks in **Complex Networks** and, specifically, in **Social Networks**. Each method has its own specific documentation available on the following page ---- where it is possible to see the required parameters and the output of the method itself. <br>
+This library implemented in python allows you to use some of the main algorithms and methods to perform link predictions. It was designed to carry out these tasks in **Complex Networks** and, specifically, in **Social Networks**. Each method has its own specific documentation available on the [official documentation page](https://typing-monkeys.github.io/social-network-link-prediction/), where it is possible to see the required parameters and the output of the method itself. <br>
 The methods are distinguished by belonging to categories and subcategories, below is an example image with all the categories.
 
 <img src="https://raw.githubusercontent.com/Typing-Monkeys/social-network-link-prediction/develop/imgs/methods_list.jpg" alt="methods list" width="50%" />
@@ -20,7 +20,7 @@ The speed of computation differs both from the type of method and from the input
 
 ## Install
 ```
-pip install cnlp
+pip install complex-network-link-prediction
 ```
 
 <hr>
@@ -65,12 +65,12 @@ As there are still many methods to implement and, at the same time, maintaining 
 
 If you want to contribute or you've found a bug, you can open a **Pull Request**.
 
-Check this [tutorial](#https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) if you want to use our preferred *Workflow* 🦍 for developing.
+Check this [tutorial](https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) if you want to use our preferred *Workflow* 🦍 for developing.
 
 Otherwise you can open a normal Pull Request using `git` and help us to make this project even better!
 
 ### Help ❓
-If you encounter any bug or you have some problem with this package you can open an [issue](#https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) to report it, we will resolve that asap.
+If you encounter any bug or you have some problem with this package you can open an [issue](https://github.com/Typing-Monkeys/social-network-link-prediction/wiki/monkeflow-Workflow-🦍) to report it, we will resolve that asap.
 
 <hr>
 
@@ -82,7 +82,6 @@ If your system does not have some or all of this requirements they will be insta
 - networkx
 - scipy
 - numpy
-ecc
 
 <hr>
 
