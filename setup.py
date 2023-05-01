@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='complex-network-link-prediction',
-    version='1.0.1',
+    version='1.0.2',
     license='MIT',
     author=
     "Cristian Cosci, Fabrizio Fagiolo, Nicolò Vescera, Nicolò Posta, Tommaso Romani",
