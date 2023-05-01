@@ -32,7 +32,7 @@
 import networkx as nx
 import numpy as np
 from typing import Union
-from scipy.sparse import csr_matrix, csc_matrix
+from scipy.sparse import csr_matrix, csc_matrix, lil_matrix
 
 
 def nodes_to_indexes(G: nx.Graph) -&gt; dict[any, int]:
@@ -81,7 +81,7 @@ def to_adjacency_matrix(G: nx.Graph,
         G, weight=None) if sparse else nx.to_numpy_array(G, weight=None)
 
 
-def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -&gt; csr_matrix:
+def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -&gt; csr_matrix:
     &#34;&#34;&#34;Filter the given matrix and return only previously unconnected
     nodes &#34;similarity&#34; values
 
@@ -102,6 +102,7 @@ def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -&gt; csr_matrix:
     for x, y in graph.edges():
         sim_matrix[node_idexies_map[x], node_idexies_map[y]] = 0
 
+    sim_matrix = sim_matrix.tocsr()
     sim_matrix.eliminate_zeros()
 
     return sim_matrix.tocsr()</code></pre>
@@ -164,7 +165,7 @@ obtained with the method <code>Graph.to_adjacency_matrix</code> or
 </details>
 </dd>
 <dt id="cnlp.utils.only_unconnected"><code class="name flex">
-<span>def <span class="ident">only_unconnected</span></span>(<span>graph: networkx.classes.graph.Graph, sim_matrix: scipy.sparse._csr.csr_matrix) ‑> scipy.sparse._csr.csr_matrix</span>
+<span>def <span class="ident">only_unconnected</span></span>(<span>graph: networkx.classes.graph.Graph, sim_matrix: scipy.sparse._lil.lil_matrix) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Filter the given matrix and return only previously unconnected
@@ -187,7 +188,7 @@ nodes "similarity" values</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -&gt; csr_matrix:
+<pre><code class="python">def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -&gt; csr_matrix:
     &#34;&#34;&#34;Filter the given matrix and return only previously unconnected
     nodes &#34;similarity&#34; values
 
@@ -208,6 +209,7 @@ nodes "similarity" values</p>
     for x, y in graph.edges():
         sim_matrix[node_idexies_map[x], node_idexies_map[y]] = 0
 
+    sim_matrix = sim_matrix.tocsr()
     sim_matrix.eliminate_zeros()
 
     return sim_matrix.tocsr()</code></pre>
