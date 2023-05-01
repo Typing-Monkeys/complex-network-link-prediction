@@ -2,7 +2,7 @@
 import networkx as nx
 import numpy as np
 from typing import Union
-from scipy.sparse import csr_matrix, csc_matrix
+from scipy.sparse import csr_matrix, csc_matrix, lil_matrix
 
 
 def nodes_to_indexes(G: nx.Graph) -> dict[any, int]:
@@ -51,7 +51,7 @@ def to_adjacency_matrix(G: nx.Graph,
         G, weight=None) if sparse else nx.to_numpy_array(G, weight=None)
 
 
-def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -> csr_matrix:
+def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -> csr_matrix:
     """Filter the given matrix and return only previously unconnected
     nodes "similarity" values
 
@@ -72,6 +72,7 @@ def only_unconnected(graph: nx.Graph, sim_matrix: csr_matrix) -> csr_matrix:
     for x, y in graph.edges():
         sim_matrix[node_idexies_map[x], node_idexies_map[y]] = 0
 
+    sim_matrix = sim_matrix.tocsr()
     sim_matrix.eliminate_zeros()
 
     return sim_matrix.tocsr()

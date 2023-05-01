@@ -75,7 +75,7 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
             # If the norm of r is less than the tolerance, break out of the loop.
             if np.linalg.norm(r) < tol:
                 if verbose:
-                    print('Computation done after {i} steps')
+                    print(f'Computation done after {i} steps')
                 break
 
         return eigenvalue, x
@@ -83,7 +83,7 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
     A = to_adjacency_matrix(G)
     largest_eigenvalue = __power_method(A)  # lambda_1
     if beta >= (1 / largest_eigenvalue[0]):
-        print('Warning, Beta should be less than {largest_eigenvalue}')
+        print(f'Warning, Beta should be less than {largest_eigenvalue}')
 
     eye = identity(A.shape[0], format='csc')
     S = linalg.inv((eye - beta * A.tocsc())) - eye
@@ -199,8 +199,13 @@ def link_prediction_rwr(G: nx.Graph,
     # Convert the diagonal matrix D into csc_matrix format
     D = D.tocsc()
 
-    # Build the normalized transition matrix W_normalized
-    W_normalized = linalg.inv(D) @ A.tocsc()
+    try:
+        # Build the normalized transition matrix W_normalized
+        W_normalized = linalg.inv(D) @ A.tocsc()
+    except RuntimeError as e:
+        print('Possible presence of singleton nodes in the graph G')
+        print(e)
+        exit(1)
 
     # Initialize an matrix to hold the similarities between node pairs
     # We put an initial column made of Zeros so we can use the hstack
@@ -461,4 +466,4 @@ def sim_rank(G: nx.Graph,
     # imposta a 0 gli elementi della diagonale che prima avevano similarità uguale ad 1
     for a in range(nodes_num):
         sim_matrix[a, a] = 0
-    return only_unconnected(G, csr_matrix(sim_matrix))
+    return only_unconnected(G, sim_matrix)

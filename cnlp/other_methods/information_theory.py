@@ -223,7 +223,7 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
         deg_b = G.degree(b)
         M = G.number_of_edges()
 
-        return -1 * math.log2(1 - (math.comb(M - deg_a, deg_b) /
+        return -1 * np.log2(1 - (math.comb(M - deg_a, deg_b) /
                                    math.comb(M, deg_b)))
 
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))

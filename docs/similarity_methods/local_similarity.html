@@ -272,8 +272,7 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
-        {|\\Gamma(x) \\cup \\Gamma(y)|}
+        S(x, y) = \\frac{| \\Gamma(x) \\cap \\Gamma(y)|}{| \\Gamma(x) \\cup \\Gamma(y)|}
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
@@ -298,7 +297,12 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
 
     def __jaccard(G: nx.Graph, x, y) -&gt; float:
         &#34;&#34;&#34;Compute the Jaccard Coefficient for 2 given nodes.&#34;&#34;&#34;
-        return __common_neighbors(G, x, y) / len(set(G[x]).union(set(G[y])))
+        total_neighbor_number = len(set(G[x]).union(set(G[y])))
+        if total_neighbor_number == 0:
+            return 0
+        
+        return __common_neighbors(G, x, y) / total_neighbor_number
+
 
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -913,8 +917,7 @@ It also tries to prevent links formation between the hub nodes.</p></div>
 <dd>
 <div class="desc"><p>Compute the Jaccard Coefficient for all nodes in the Graph.
 Each similarity value is defined as:</p>
-<p><span><span class="MathJax_Preview"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}
-{|\Gamma(x) \cup \Gamma(y)|} </span><script _Gamma_x_="|\Gamma(x)" _Gamma_y_="\Gamma(y)|" _cup="\cup" type="math/tex; mode=display"> S(x, y) = \frac{|\Gamma(x) \cap \Gamma(y)|}</script></span>
+<p><span><span class="MathJax_Preview"> S(x, y) = \frac{| \Gamma(x) \cap \Gamma(y)|}{| \Gamma(x) \cup \Gamma(y)|} </span><script type="math/tex; mode=display"> S(x, y) = \frac{| \Gamma(x) \cap \Gamma(y)|}{| \Gamma(x) \cup \Gamma(y)|} </script></span>
 where <span><span class="MathJax_Preview">\Gamma(x)</span><script type="math/tex">\Gamma(x)</script></span> are the neighbors of the node <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
@@ -942,8 +945,7 @@ performs worse as compared to Common Neighbors.</p></div>
     Each similarity value is defined as:
 
     .. math::
-        S(x, y) = \\frac{|\\Gamma(x) \\cap \\Gamma(y)|}
-        {|\\Gamma(x) \\cup \\Gamma(y)|}
+        S(x, y) = \\frac{| \\Gamma(x) \\cap \\Gamma(y)|}{| \\Gamma(x) \\cup \\Gamma(y)|}
 
     where \\(\\Gamma(x)\\) are the neighbors of the node \\(x\\).
 
@@ -968,7 +970,12 @@ performs worse as compared to Common Neighbors.</p></div>
 
     def __jaccard(G: nx.Graph, x, y) -&gt; float:
         &#34;&#34;&#34;Compute the Jaccard Coefficient for 2 given nodes.&#34;&#34;&#34;
-        return __common_neighbors(G, x, y) / len(set(G[x]).union(set(G[y])))
+        total_neighbor_number = len(set(G[x]).union(set(G[y])))
+        if total_neighbor_number == 0:
+            return 0
+        
+        return __common_neighbors(G, x, y) / total_neighbor_number
+
 
     size = G.number_of_nodes()
     S = lil_matrix((size, size))

@@ -62,7 +62,7 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
         A = A @ A
         S += np.power(epsilon, i) * (A)
 
-    return only_unconnected(G, csr_matrix(S))
+    return only_unconnected(G, lil_matrix(S))
 
 
 def path_of_length_three(G: nx.Graph) -> csr_matrix:
