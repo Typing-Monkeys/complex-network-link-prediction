@@ -265,7 +265,11 @@ def jaccard(G: nx.Graph) -> csr_matrix:
 
     def __jaccard(G: nx.Graph, x, y) -> float:
         """Compute the Jaccard Coefficient for 2 given nodes."""
-        return __common_neighbors(G, x, y) / len(set(G[x]).union(set(G[y])))
+        total_neighbor_number = len(set(G[x]).union(set(G[y])))
+        if total_neighbor_number == 0:
+            return 0
+        
+        return __common_neighbors(G, x, y) / total_neighbor_number
 
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
