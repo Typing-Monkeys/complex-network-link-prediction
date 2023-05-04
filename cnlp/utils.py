@@ -76,3 +76,28 @@ def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -> csr_matrix:
     sim_matrix.eliminate_zeros()
 
     return sim_matrix.tocsr()
+
+
+def get_top_predicted_link(predicted_adj_matrix, number_of_nodes, pct_new_link, name_index_map, verbose=False):
+    '''
+        Get the edges (new link) with the highest predicted probabilities
+    '''
+    max_possible_edges = predicted_adj_matrix.nnz
+    number_of_new_link = int(np.ceil(max_possible_edges / 100 * pct_new_link))
+    edges = []
+    new_link = []
+    for i in range(number_of_nodes):
+        for j in range(i + 1, number_of_nodes):
+            prob = predicted_adj_matrix[i, j]
+            edges.append((i, j, prob))
+
+    edges = sorted(edges, key=lambda x: x[2], reverse=True)[:number_of_new_link]
+
+    new_link = []
+    for edge in edges:
+        if verbose:
+            print(f"({name_index_map[edge[0]][0]}, {name_index_map[edge[1]][0]}) - Similarity: {edge[2]:.2f}")
+
+        new_link.append((name_index_map[edge[0]][0], name_index_map[edge[1]][0]))
+    
+    return new_link
