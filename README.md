@@ -87,7 +87,7 @@ If your system does not have some or all of this requirements they will be insta
 
 ### ***Authors***
 
-| ![cosci](https://avatars.githubusercontent.com/u/44636000?s=421&v=4) | ![vescera](https://avatars.githubusercontent.com/u/10250769?s=421&v=4)| ![fagiolo](https://avatars.githubusercontent.com/u/44865237?v=4) | ![romani](https://avatars.githubusercontent.com/u/44830726?v=4)| ![posta](https://avatars.githubusercontent.com/u/44830740?v=4) 
+| ![cosci](https://avatars.githubusercontent.com/u/44636000?s=250) | ![vescera](https://avatars.githubusercontent.com/u/10250769?s=250)| ![fagiolo](https://avatars.githubusercontent.com/u/44865237?v=47&size=250) | ![romani](https://avatars.githubusercontent.com/u/44830726?v=4&size=250)| ![posta](https://avatars.githubusercontent.com/u/44830740?v=4&size=250) 
 | - | - | - | - | - |
 | [Cristian Cosci](https://github.com/CristianCosci) 🐔 | [Nicolò Vescera](https://github.com/ncvescera) 🦧 | [Fabrizio Fagiolo](https://github.com/F-a-b-r-i-z-i-o) 🐛 |  [Tommaso Romani](https://github.com/TommasoRomani) 🦍 | [Nicolò Posta](https://github.com/NicoloPosta) 🐒
 
