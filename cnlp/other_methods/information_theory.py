@@ -1,3 +1,28 @@
+"""Collection of Information Theory Methods for Link Prediction.
+
+Several complex networks have utilized the concept of information theory to
+compute their complexity on different scales.
+They defined several correlation measures and modeled some networks
+(e.g., star, tree, lattice, ER graph, etc.).
+
+**Bauer et al.** used the maximum entropy principle to assign a statistical weight to any
+graph and introduced random graph construction with arbitrary degree distribution.
+
+**Tan et al.** posed the link prediction problem in the framework of information theory.
+They mainly focus on local assortativity to capture local structural properties of
+the network and showed that mutual information (MI) method performs well on both
+low and highly correlated networks. Motivated by, **Zhu, B. and Xia** added more
+local features (i.e., links information of neighbors of the seed nodes as well
+as their common neighbors) in their framework and called it as neighbor set
+information (NSI) index. Thus, they showed that the different features could be combined in
+an information-theoretic model to improve the link prediction accuracy.
+
+
+**Xu et al.** considered path entropy as a similarity metric for the link prediction problem.
+The authors assumed that there is no correlation among the degrees of the nodes in the network.
+
+And many many more.
+"""
 import networkx as nx
 import numpy as np
 import scipy.sparse as scipy
@@ -224,7 +249,7 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
         M = G.number_of_edges()
 
         return -1 * np.log2(1 - (math.comb(M - deg_a, deg_b) /
-                                   math.comb(M, deg_b)))
+                                 math.comb(M, deg_b)))
 
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
