@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>cnlp.other_methods.information_theory API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Collection of Information Theory Methods for Link Prediction …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,11 +23,54 @@
 <h1 class="title">Module <code>cnlp.other_methods.information_theory</code></h1>
 </header>
 <section id="section-intro">
+<p>Collection of Information Theory Methods for Link Prediction.</p>
+<p>Several complex networks have utilized the concept of information theory to
+compute their complexity on different scales.
+They defined several correlation measures and modeled some networks
+(e.g., star, tree, lattice, ER graph, etc.).</p>
+<p><strong>Bauer et al.</strong> used the maximum entropy principle to assign a statistical weight to any
+graph and introduced random graph construction with arbitrary degree distribution.</p>
+<p><strong>Tan et al.</strong> posed the link prediction problem in the framework of information theory.
+They mainly focus on local assortativity to capture local structural properties of
+the network and showed that mutual information (MI) method performs well on both
+low and highly correlated networks. Motivated by, <strong>Zhu, B. and Xia</strong> added more
+local features (i.e., links information of neighbors of the seed nodes as well
+as their common neighbors) in their framework and called it as neighbor set
+information (NSI) index. Thus, they showed that the different features could be combined in
+an information-theoretic model to improve the link prediction accuracy.</p>
+<p><strong>Xu et al.</strong> considered path entropy as a similarity metric for the link prediction problem.
+The authors assumed that there is no correlation among the degrees of the nodes in the network.</p>
+<p>And many many more.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import networkx as nx
+<pre><code class="python">&#34;&#34;&#34;Collection of Information Theory Methods for Link Prediction.
+
+Several complex networks have utilized the concept of information theory to
+compute their complexity on different scales.
+They defined several correlation measures and modeled some networks
+(e.g., star, tree, lattice, ER graph, etc.).
+
+**Bauer et al.** used the maximum entropy principle to assign a statistical weight to any
+graph and introduced random graph construction with arbitrary degree distribution.
+
+**Tan et al.** posed the link prediction problem in the framework of information theory.
+They mainly focus on local assortativity to capture local structural properties of
+the network and showed that mutual information (MI) method performs well on both
+low and highly correlated networks. Motivated by, **Zhu, B. and Xia** added more
+local features (i.e., links information of neighbors of the seed nodes as well
+as their common neighbors) in their framework and called it as neighbor set
+information (NSI) index. Thus, they showed that the different features could be combined in
+an information-theoretic model to improve the link prediction accuracy.
+
+
+**Xu et al.** considered path entropy as a similarity metric for the link prediction problem.
+The authors assumed that there is no correlation among the degrees of the nodes in the network.
+
+And many many more.
+&#34;&#34;&#34;
+import networkx as nx
 import numpy as np
 import scipy.sparse as scipy
 import math
@@ -253,7 +296,7 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -&gt; csr_matrix:
         M = G.number_of_edges()
 
         return -1 * np.log2(1 - (math.comb(M - deg_a, deg_b) /
-                                   math.comb(M, deg_b)))
+                                 math.comb(M, deg_b)))
 
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
@@ -578,7 +621,7 @@ length of simple path of the network.</p>
         M = G.number_of_edges()
 
         return -1 * np.log2(1 - (math.comb(M - deg_a, deg_b) /
-                                   math.comb(M, deg_b)))
+                                 math.comb(M, deg_b)))
 
     similarity_matrix = lil_matrix((G.number_of_nodes(), G.number_of_nodes()))
     nodes_to_indexes_map = nodes_to_indexes(G)
