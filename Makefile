@@ -6,6 +6,8 @@ SYSTEM_PYTHON  = $(or $(shell which python3), $(shell which python))
 # If virtualenv exists, use it. If not, find python using PATH
 PYTHON         = $(or $(wildcard $(VENV_PYTHON)), $(SYSTEM_PYTHON))
 
+PYTHON_VERSION = 3.10
+
 REQUIREMENTS	=	gh
 REQUIREMENTS	+=	git
 REQUIREMENTS	+=	virtualenv
@@ -90,7 +92,7 @@ install:
 install-dev: check	
 	@echo "🟡 Installing dev dependencies ..."
 
-	virtualenv $(VENV)
+	virtualenv -p $(PYTHON_VERSION) $(VENV)
 	@echo "Created env '$(VENV)' ✅"
 	@echo ""
 	

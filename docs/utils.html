@@ -33,6 +33,7 @@ import networkx as nx
 import numpy as np
 from typing import Union
 from scipy.sparse import csr_matrix, csc_matrix, lil_matrix
+from typing import Dict, List, Tuple
 
 
 def nodes_to_indexes(G: nx.Graph) -&gt; dict[any, int]:
@@ -105,7 +106,58 @@ def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -&gt; csr_matrix:
     sim_matrix = sim_matrix.tocsr()
     sim_matrix.eliminate_zeros()
 
-    return sim_matrix.tocsr()</code></pre>
+    return sim_matrix.tocsr()
+
+
+def get_top_predicted_link(predicted_adj_matrix: csr_matrix,
+                           number_of_nodes: int,
+                           pct_new_link: float,
+                           name_index_map: Dict[any, int],
+                           verbose: bool = False) -&gt; List[Tuple[any, any]]:
+    &#34;&#34;&#34;Get the edges (new link) with the highest predicted probabilities
+                           verbose: bool = False):
+
+    Parameters
+    ----------
+    predicted_adj_matrix: csr_matrix,
+        input Similarity Matrix
+    number_of_nodes: int :
+        number of node in the graph
+    pct_new_link: float :
+        top x% best new links
+    name_index_map: Dict[any, int] :
+        node to index (starting from 0) mapping
+    verbose: bool :
+        if True print some usefull outputs
+         (Default value = False)
+
+    Returns
+    -------
+    new_link: List[Tuple[any, any]] : top % new link predicted
+    &#34;&#34;&#34;
+    max_possible_edges = predicted_adj_matrix.nnz
+    number_of_new_link = int(np.ceil(max_possible_edges / 100 * pct_new_link))
+    edges = []
+    new_link = []
+    for i in range(number_of_nodes):
+        for j in range(i + 1, number_of_nodes):
+            prob = predicted_adj_matrix[i, j]
+            edges.append((i, j, prob))
+
+    edges = sorted(edges, key=lambda x: x[2],
+                   reverse=True)[:number_of_new_link]
+
+    new_link = []
+    for edge in edges:
+        if verbose:
+            print(
+                f&#34;({name_index_map[edge[0]][0]}, {name_index_map[edge[1]][0]}) - Similarity: {edge[2]:.2f}&#34;
+            )
+
+        new_link.append(
+            (name_index_map[edge[0]][0], name_index_map[edge[1]][0]))
+
+    return new_link</code></pre>
 </details>
 </section>
 <section>
@@ -115,6 +167,86 @@ def only_unconnected(graph: nx.Graph, sim_matrix: lil_matrix) -&gt; csr_matrix:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="cnlp.utils.get_top_predicted_link"><code class="name flex">
+<span>def <span class="ident">get_top_predicted_link</span></span>(<span>predicted_adj_matrix: scipy.sparse._csr.csr_matrix, number_of_nodes: int, pct_new_link: float, name_index_map: Dict[<built-in function any>, int], verbose: bool = False) ‑> List[Tuple[<built-in function any>, <built-in function any>]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the edges (new link) with the highest predicted probabilities
+verbose: bool = False):</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>predicted_adj_matrix</code></strong> :&ensp;<code>csr_matrix,</code></dt>
+<dd>input Similarity Matrix</dd>
+<dt><strong><code>number_of_nodes</code></strong> :&ensp;<code>int :</code></dt>
+<dd>number of node in the graph</dd>
+<dt><strong><code>pct_new_link</code></strong> :&ensp;<code>float :</code></dt>
+<dd>top x% best new links</dd>
+<dt><strong><code>name_index_map</code></strong> :&ensp;<code>Dict[any, int] :</code></dt>
+<dd>node to index (starting from 0) mapping</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool :</code></dt>
+<dd>if True print some usefull outputs
+(Default value = False)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>new_link</code></strong> :&ensp;<code>List[Tuple[any, any]] : top % new link predicted</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_top_predicted_link(predicted_adj_matrix: csr_matrix,
+                           number_of_nodes: int,
+                           pct_new_link: float,
+                           name_index_map: Dict[any, int],
+                           verbose: bool = False) -&gt; List[Tuple[any, any]]:
+    &#34;&#34;&#34;Get the edges (new link) with the highest predicted probabilities
+                           verbose: bool = False):
+
+    Parameters
+    ----------
+    predicted_adj_matrix: csr_matrix,
+        input Similarity Matrix
+    number_of_nodes: int :
+        number of node in the graph
+    pct_new_link: float :
+        top x% best new links
+    name_index_map: Dict[any, int] :
+        node to index (starting from 0) mapping
+    verbose: bool :
+        if True print some usefull outputs
+         (Default value = False)
+
+    Returns
+    -------
+    new_link: List[Tuple[any, any]] : top % new link predicted
+    &#34;&#34;&#34;
+    max_possible_edges = predicted_adj_matrix.nnz
+    number_of_new_link = int(np.ceil(max_possible_edges / 100 * pct_new_link))
+    edges = []
+    new_link = []
+    for i in range(number_of_nodes):
+        for j in range(i + 1, number_of_nodes):
+            prob = predicted_adj_matrix[i, j]
+            edges.append((i, j, prob))
+
+    edges = sorted(edges, key=lambda x: x[2],
+                   reverse=True)[:number_of_new_link]
+
+    new_link = []
+    for edge in edges:
+        if verbose:
+            print(
+                f&#34;({name_index_map[edge[0]][0]}, {name_index_map[edge[1]][0]}) - Similarity: {edge[2]:.2f}&#34;
+            )
+
+        new_link.append(
+            (name_index_map[edge[0]][0], name_index_map[edge[1]][0]))
+
+    return new_link</code></pre>
+</details>
+</dd>
 <dt id="cnlp.utils.nodes_to_indexes"><code class="name flex">
 <span>def <span class="ident">nodes_to_indexes</span></span>(<span>G: networkx.classes.graph.Graph) ‑> dict[any, int]</span>
 </code></dt>
@@ -278,6 +410,7 @@ otherwise in full format.
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
+<li><code><a title="cnlp.utils.get_top_predicted_link" href="#cnlp.utils.get_top_predicted_link">get_top_predicted_link</a></code></li>
 <li><code><a title="cnlp.utils.nodes_to_indexes" href="#cnlp.utils.nodes_to_indexes">nodes_to_indexes</a></code></li>
 <li><code><a title="cnlp.utils.only_unconnected" href="#cnlp.utils.only_unconnected">only_unconnected</a></code></li>
 <li><code><a title="cnlp.utils.to_adjacency_matrix" href="#cnlp.utils.to_adjacency_matrix">to_adjacency_matrix</a></code></li>
