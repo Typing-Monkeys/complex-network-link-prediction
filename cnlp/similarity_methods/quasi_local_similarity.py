@@ -77,11 +77,11 @@ def path_of_length_three(G: nx.Graph) -> csr_matrix:
     Parameters
     ----------
     G: nx.Graph :
-        grafo da analizzare
+        input Graph (a networkx Graph)
 
     Returns
     -------
-    S: csr_matrix : matrice di Similarità
+    S: csr_matrix : the Similarity Matrix (in sparse format)
 
     Notes
     -----
