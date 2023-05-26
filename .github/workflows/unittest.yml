@@ -30,7 +30,7 @@ jobs:
               - 'tests/**'
   test:
     needs: changes
-    if: ${{ needs.changes.outputs.src == 'true' ||  needs.changes.outputs.test }}
+    if: ${{ needs.changes.outputs.src == 'true' ||  needs.changes.outputs.test == 'true' }}
     name: Run python unittests
     runs-on: ubuntu-latest
     steps:
