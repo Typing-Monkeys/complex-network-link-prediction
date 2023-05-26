@@ -5,7 +5,7 @@
 Link prediction finds missing links (in static networks)
 or predicts the likelihood of future links (in dynamic networks).
 
-### _A breaf introduction_
+### _A brief introduction_
 
 A social network (a more general term is a _complex network_) is a standard
 approach to model communication in a group or community of persons.
