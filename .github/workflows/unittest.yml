@@ -4,12 +4,33 @@ on:
     branches: 
       - main
       - develop
-    path:
-      - 'tests/**'
-      - 'cnlp/**'
 
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+
+    # Set job outputs to values from filter step
+    outputs:
+      src: ${{ steps.filter.outputs.src }}
+      test: ${{ steps.filter.outputs.test }}
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            src:
+              - 'cnlp/**'
+            test:
+              - 'tests/**'
   test:
+    needs: changes
+    if: ${{ needs.changes.outputs.src == 'true' ||  needs.changes.outputs.test }}
     name: Run python unittests
     runs-on: ubuntu-latest
     steps:
