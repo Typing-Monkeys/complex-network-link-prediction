@@ -267,7 +267,7 @@ def jaccard(G: nx.Graph) -> csr_matrix:
         total_neighbor_number = len(set(G[x]).union(set(G[y])))
         if total_neighbor_number == 0:
             return 0
-        
+
         return __common_neighbors(G, x, y) / total_neighbor_number
 
     size = G.number_of_nodes()
@@ -285,7 +285,7 @@ def jaccard(G: nx.Graph) -> csr_matrix:
 
 
 def node_clustering(G: nx.Graph) -> csr_matrix:
-    """Compute the Hub Depressed Index for all nodes in the Graph.
+    """Compute the Node Clustering Coefficient for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::

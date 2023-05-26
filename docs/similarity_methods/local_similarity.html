@@ -300,7 +300,7 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
         total_neighbor_number = len(set(G[x]).union(set(G[y])))
         if total_neighbor_number == 0:
             return 0
-        
+
         return __common_neighbors(G, x, y) / total_neighbor_number
 
     size = G.number_of_nodes()
@@ -318,7 +318,7 @@ def jaccard(G: nx.Graph) -&gt; csr_matrix:
 
 
 def node_clustering(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Hub Depressed Index for all nodes in the Graph.
+    &#34;&#34;&#34;Compute the Node Clustering Coefficient for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::
@@ -972,7 +972,7 @@ performs worse as compared to Common Neighbors.</p></div>
         total_neighbor_number = len(set(G[x]).union(set(G[y])))
         if total_neighbor_number == 0:
             return 0
-        
+
         return __common_neighbors(G, x, y) / total_neighbor_number
 
     size = G.number_of_nodes()
@@ -993,7 +993,7 @@ performs worse as compared to Common Neighbors.</p></div>
 <span>def <span class="ident">node_clustering</span></span>(<span>G: networkx.classes.graph.Graph) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Compute the Hub Depressed Index for all nodes in the Graph.
+<div class="desc"><p>Compute the Node Clustering Coefficient for all nodes in the Graph.
 Each similarity value is defined as:</p>
 <p><span><span class="MathJax_Preview"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z) </span><script type="math/tex; mode=display"> S(x, y) = \sum_{z \in \Gamma(x) \cap \Gamma(y)} C(z) </script></span>
 where</p>
@@ -1022,7 +1022,7 @@ and summed to find the final similarity score of the pair.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def node_clustering(G: nx.Graph) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Hub Depressed Index for all nodes in the Graph.
+    &#34;&#34;&#34;Compute the Node Clustering Coefficient for all nodes in the Graph.
     Each similarity value is defined as:
 
     .. math::
