@@ -109,7 +109,7 @@ def link_prediction_rwr(G: nx.Graph,
     G: nx.Graph :
         input Graph (a networkx Graph)
     c: int :
-        TODO
+        restart probability
          (Default value = 0.05)
     max_iters: int :
         max number of iteration for the algorithm convergence
