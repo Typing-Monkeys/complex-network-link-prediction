@@ -82,7 +82,8 @@ def link_prediction_nmf(graph: nx.Graph,
                         num_features: int = 2,
                         num_iterations: int = 100,
                         seed: int = 69) -> csr_matrix:
-    """Compute the _Non-negative Matrix Factorization_ Decomposition for the Graph Adjacency Matrix.
+    """Compute the _Non-negative Matrix Factorization_ Decomposition
+    for the Graph Adjacency Matrix.
     The similarity decinoisutuin is defined as:
 
     .. math::
