@@ -9,12 +9,15 @@ or predicts the likelihood of future links (in dynamic networks).
 
 A social network (a more general term is a _complex network_) is a standard
 approach to model communication in a group or community of persons.
-Such networks can be represented as a graphical model in which a node maps to a person
-or social entity, and a link corresponds to an association or collaboration between
-corresponding persons or social entities.
+Such networks can be represented as a graphical model in which a
+node maps to a person
+or social entity, and a link corresponds to an association or
+collaboration between corresponding persons or social entities.
 When links can be deleted or added, during time, the network is called dynamic.
-Lots of issues arise when we study a social network, some of which are changing association
-patterns over time, factors that drive those associations, and the effects of those associations
+Lots of issues arise when we study a social network,
+some of which are changing association
+patterns over time, factors that drive those associations,
+and the effects of those associations
 to other nodes. Here, we address a specific problem termed as link prediction.
 
 ### _Problem Characterization_
