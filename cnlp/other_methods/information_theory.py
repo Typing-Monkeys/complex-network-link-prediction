@@ -279,7 +279,8 @@ if __name__ == "__main__":
 
     G = nx.karate_club_graph()
 
-    # converte gli id dei nodi in interi affinche possano essere usati come indici
+    # converte gli id dei nodi in interi affinche possano
+    # essere usati come indici
     # G_to_int = nx.convert_node_labels_to_integers(G, 0)
     nx.draw(G, with_labels=True)
 
