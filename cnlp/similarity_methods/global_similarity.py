@@ -72,7 +72,8 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
             # r = A @ x - np.dot(A @ x, x) * x
             # eigenvalue = np.dot(x, A @ x)
 
-            # If the norm of r is less than the tolerance, break out of the loop.
+            # If the norm of r is less than the tolerance,
+            # break out of the loop.
             if np.linalg.norm(r) < tol:
                 if verbose:
                     print(f'Computation done after {i} steps')
@@ -162,7 +163,8 @@ def link_prediction_rwr(G: nx.Graph,
         -------
         e: lil_array : the updated probability vector
         """
-        # Initialize the current probability vector to the initial one and the error to 1
+        # Initialize the current probability vector to the
+        # initial one and the error to 1
         old_e = e
         err = 1.
 
@@ -230,7 +232,8 @@ def link_prediction_rwr(G: nx.Graph,
         ])
 
     # Return the similarity matrix and remove the first column
-    # In order to keep the results consistent without the added column of zeros at the beginning
+    # In order to keep the results consistent without the added
+    # column of zeros at the beginning
     return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])
 
 
@@ -331,7 +334,8 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
     S = lil_matrix((dim, dim))
     for source_node in lengths.keys():
         for dest_node in lengths[source_node].keys():
-            # If the link already exists in the starting graph the computation is skipped
+            # If the link already exists in the starting graph
+            # the computation is skipped
             if (nodes_to_indexes_map[source_node],
                     nodes_to_indexes_map[dest_node]) not in prexisting_links:
                 S[nodes_to_indexes_map[source_node],
