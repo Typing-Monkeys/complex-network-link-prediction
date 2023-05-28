@@ -46,6 +46,11 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
     The computational complexity of the given metric is high,
     and it can be roughly estimated to be cubic complexity
     which is not feasible for a large network.
+
+    References
+    ----------
+    .. todo:: Copletare
+    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
 
     def __power_method(A: csr_matrix,
@@ -133,11 +138,16 @@ def link_prediction_rwr(G: nx.Graph,
 
     The transition matrix \\(P\\) can be expressed as
 
-    .. math::
+    \\[
         P_{xy} = \\begin{cases}
                 \\frac{1}{k_x} & \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
                 0 & \\text{otherwise.}
             \\end{cases}
+    \\]
+
+    References
+    ------------
+    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
 
     def random_walk_with_restart(e: lil_array,
@@ -275,6 +285,11 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     walker moves to an arbitrary neighboring vertex with
     probability \\(\\alpha\\)
     and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
+
+    References
+    ----------
+    .. todo:: Copletare
+    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
@@ -322,6 +337,11 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
 
     The prediction accuracy
     of this index is low compared to most local indices.
+
+    References
+    ----------
+    .. todo:: Copletare
+    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
     dim = G.number_of_nodes()
     if cutoff is None:
@@ -378,6 +398,11 @@ def sim_rank(G: nx.Graph,
     Returns
     -------
     sim_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    References
+    ----------
+    .. todo:: Copletare
+    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
 
     def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
