@@ -32,7 +32,7 @@ def nodes_to_indexes(G: nx.Graph) -> dict[any, int]:
 
 def to_adjacency_matrix(G: nx.Graph,
                         sparse: bool = True) -> Union[csc_matrix, np.ndarray]:
-    """Convert a ginven Graph in to its Adjacency Matrix
+    """Convert a given Graph in to its Adjacency Matrix
 
     Parameters
     ----------
@@ -98,7 +98,7 @@ def get_top_predicted_link(predicted_adj_matrix: csr_matrix,
     name_index_map: Dict[any, int] :
         node to index (starting from 0) mapping
     verbose: bool :
-        if True print some usefull outputs
+        if True print some useful outputs
          (Default value = False)
 
     Returns

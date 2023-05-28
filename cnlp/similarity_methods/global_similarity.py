@@ -229,7 +229,7 @@ def link_prediction_rwr(G: nx.Graph,
                                      max_iters=max_iters)
         ])
 
-    # Return the similarity matrix and remove the fisrt column
+    # Return the similarity matrix and remove the first column
     # In order to keep the results consistent without the added column of zeros at the beginning
     return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])
 

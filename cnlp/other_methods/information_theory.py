@@ -114,7 +114,7 @@ def MI(G: nx.Graph) -> scipy.csr_matrix:
                 priorInfo = -np.log2(prior(m, n, G, edge_num))
                 likelihoodInfo = -np.log2(likelihood(z, G))
                 # print(f"a = {x}, b = {y}, priorInfo = { priorInfo},
-                #   lilelihoodInfo = {likelihoodInfo}")
+                #   likelihoodInfo = {likelihoodInfo}")
                 # combine mutual information
                 overlap += 2 * (priorInfo - likelihoodInfo)
                 # print(f"a = {x}, b = {y}, zOverlap = { 2*(priorInfo -likelihoodInfo)}")
@@ -207,7 +207,7 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
 
     Returns
     -------
-    similarity_matrix: csr_matix: the Similarity Matrix (in sparse format)
+    similarity_matrix: csr_matrix: the Similarity Matrix (in sparse format)
     """
 
     def simple_path_entropy(paths: Generator[list, None, None],
@@ -284,7 +284,7 @@ if __name__ == "__main__":
     nx.draw(G, with_labels=True)
 
     ranking = MI(G)
-    # da aggiungere informazioni dei nodi che hanno fatto ottentere il
+    # da aggiungere informazioni dei nodi che hanno fatto ottenere il
     # ranking migliore
 
     # va preso il risultato più piccolo perchè si tratta di entropia

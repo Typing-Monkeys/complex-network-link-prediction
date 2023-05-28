@@ -33,7 +33,7 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: float = .05,
                            seed: int = 42) -> csr_matrix:
-    """Compute the Sotchastic Block Model Similarity for
+    """Compute the Stochastic Block Model Similarity for
     all the nodes in the network.
 
     This similarity is defined as:
@@ -114,8 +114,8 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: np.float32 = .05,
                            seed: int = 42) -> List[List[Set]]:
-        """Generate the samples (block) given the orginal
-        adjacecy matrix.
+        """Generate the samples (block) given the original
+        adjacency matrix.
 
         Parameters
         ----------
@@ -150,8 +150,8 @@ def stochastic_block_model(G: nx.Graph,
 
         Parameters
         ----------
-        samole: List[Set] :
-            current sample to analize
+        sample: List[Set] :
+            current sample to analyze
         x: int :
             node
 
@@ -168,7 +168,7 @@ def stochastic_block_model(G: nx.Graph,
         return np.sum([A_0[x, y] for x, y in product(alpha, beta)])
 
     def __r(alpha: Set, beta: Set) -> int:
-        """Maxmimum possible links between groups Alpha and Beta"""
+        """Maximum possible links between groups Alpha and Beta"""
         len_a = len(alpha)
         len_b = len(beta)
 
