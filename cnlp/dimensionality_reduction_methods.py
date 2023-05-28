@@ -1,4 +1,4 @@
-"""Dimentionality Reduction based Methods for Link Prediction.
+"""Dimensionality Reduction based Methods for Link Prediction.
 
 The curse of dimensionality is a well-known
 problem in machine learning.
@@ -16,7 +16,7 @@ def link_prediction_svd(G: nx.Graph,
                         k: int = 5,
                         normalize: bool = False) -> csr_matrix:
     """Compute the SVD Decomposition for the Graph Adjacency Matrix.
-    The similarity decinoisutuin is defined as:
+    The similarity decomposition is defined as:
 
     .. math::
         X_\\pm \\approx F G^T
@@ -25,8 +25,8 @@ def link_prediction_svd(G: nx.Graph,
     the bases of the latent space and is called the basis matrix;
     \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
     of the bases for reconstructing the matrix \\(X\\), and is called
-    the coefficient matrix; \\(k\\) is the dimention of the latent space
-    (\\(k<n\\)) and \\(n\\) is the nunber of data vector
+    the coefficient matrix; \\(k\\) is the dimension of the latent space
+    (\\(k<n\\)) and \\(n\\) is the number of data vector
     (as columns) in \\(X\\).
 
     Parameters
@@ -34,7 +34,7 @@ def link_prediction_svd(G: nx.Graph,
     G: nx.Graph :
         input Graph (a networkx Graph)
     k: int :
-        dimention of the latent space (must be \\(< n\\))
+        dimension of the latent space (must be \\(< n\\))
          (Default value = 5)
     normalize: bool :
         if True, normalize the output values
@@ -82,8 +82,9 @@ def link_prediction_nmf(graph: nx.Graph,
                         num_features: int = 2,
                         num_iterations: int = 100,
                         seed: int = 69) -> csr_matrix:
-    """Compute the _Non-negative Matrix Factorization_ Decomposition for the Graph Adjacency Matrix.
-    The similarity decinoisutuin is defined as:
+    """Compute the _Non-negative Matrix Factorization_ Decomposition
+    for the Graph Adjacency Matrix.
+    The similarity decomposition is defined as:
 
     .. math::
         X_\\pm \\approx F_+ G^T_+
@@ -92,8 +93,8 @@ def link_prediction_nmf(graph: nx.Graph,
     the bases of the latent space and is called the basis matrix;
     \\(G \\in \\mathbb{R}^{n \\times k}\\) contains combination of coefficients
     of the bases for reconstructing the matrix \\(X\\), and is called
-    the coefficient matrix; \\(k\\) is the dimention of the latent space
-    ( \\(k<n\\) ) and \\(n\\) is the nunber of data vector
+    the coefficient matrix; \\(k\\) is the dimension of the latent space
+    ( \\(k<n\\) ) and \\(n\\) is the number of data vector
     (as columns) in \\(X\\).
 
     Parameters
@@ -101,12 +102,12 @@ def link_prediction_nmf(graph: nx.Graph,
     graph: nx.Graph :
         input Graph (a networkx Graph)
     num_features: int :
-        dimention of the latent space (must be \\(< n\\))
+        dimension of the latent space (must be \\(< n\\))
          (Default value = 2)
     num_iterations: int :
         max number of iteration for the algorithm convergence
          (Default value = 100)
-    sedd: int :
+    seed: int :
         the seed for the random initialization
          (Default value = 69)
 

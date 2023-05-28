@@ -326,7 +326,7 @@ def node_clustering(G: nx.Graph) -> csr_matrix:
         """Clustering Coefficient"""
         z_degree = G.degree[z]
 
-        # avoiding 0 divition error
+        # avoiding 0 division error
         if z_degree == 1:
             return 0
 

@@ -52,7 +52,7 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
                        max_iterations: int = 100,
                        tol: float = 1e-12,
                        verbose: bool = False):
-        """Perfome the Power Method"""
+        """Perform the Power Method"""
         n = A.shape[0]
         x = np.ones(n) / np.sqrt(n)  # initialize a vector x
         # r = A @ x - np.dot(A @ x, x) * x # residual initialization
@@ -72,7 +72,8 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
             # r = A @ x - np.dot(A @ x, x) * x
             # eigenvalue = np.dot(x, A @ x)
 
-            # If the norm of r is less than the tolerance, break out of the loop.
+            # If the norm of r is less than the tolerance,
+            # break out of the loop.
             if np.linalg.norm(r) < tol:
                 if verbose:
                     print(f'Computation done after {i} steps')
@@ -124,8 +125,8 @@ def link_prediction_rwr(G: nx.Graph,
     Let \\(\\alpha\\) be a probability that a random walker
     iteratively moves to an arbitrary neighbor and returns to the same
     starting vertex with probability \\( (1 - \\alpha )\\).
-    Consider \\(q_{xy}\\) to be the probability that a random walker
-    who starts walking from vertex x and located at the vertex y in steady-state.
+    Consider \\(q_{xy}\\) to be the probability that a random walker who
+    starts walking from vertex x and located at the vertex y in steady-state.
 
     The seed vector \\(e_x\\) consists of zeros for all components except the
     elements \\(x\\) itself.
@@ -162,7 +163,8 @@ def link_prediction_rwr(G: nx.Graph,
         -------
         e: lil_array : the updated probability vector
         """
-        # Initialize the current probability vector to the initial one and the error to 1
+        # Initialize the current probability vector to the
+        # initial one and the error to 1
         old_e = e
         err = 1.
 
@@ -229,8 +231,9 @@ def link_prediction_rwr(G: nx.Graph,
                                      max_iters=max_iters)
         ])
 
-    # Return the similarity matrix and remove the fisrt column
-    # In order to keep the results consistent without the added column of zeros at the beginning
+    # Return the similarity matrix and remove the first column
+    # In order to keep the results consistent without the added
+    # column of zeros at the beginning
     return only_unconnected(G, csr_matrix(similarity_matrix)[:, 1:])
 
 
@@ -260,15 +263,17 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     Notes
     -----
     The idea of PageRank was originally proposed to rank the web pages based on
-    the importance of those pages. The algorithm is based on the assumption that
-    a random walker randomly goes to a web page with probability \\(\\alpha\\)
-    and follows hyper-link embedded in the page with probability \\( (1 - \\alpha ) \\).
+    the importance of those pages. The algorithm is based on the assumption
+    that a random walker randomly goes to a web page
+    with probability \\(\\alpha\\) and follows hyper-link embedded in the
+    page with probability \\( (1 - \\alpha ) \\).
     Chung et al. used this concept incorporated with a random walk in
     link prediction framework. The importance of web pages, in a random walk,
-    can be replaced by stationary distribution. The similarity between two vertices
-    \\(x\\) and \\(y\\) can be measured by the stationary probability of
-    \\(x\\) from \\(y\\) in a random walk where the walker moves to an
-    arbitrary neighboring vertex with probability \\(\\alpha\\)
+    can be replaced by stationary distribution. The similarity between two
+    vertices \\(x\\) and \\(y\\) can be measured by the stationary
+    probability of \\(x\\) from \\(y\\) in a random walk where the
+    walker moves to an arbitrary neighboring vertex with
+    probability \\(\\alpha\\)
     and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
     """
     A = to_adjacency_matrix(G)
@@ -329,7 +334,8 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
     S = lil_matrix((dim, dim))
     for source_node in lengths.keys():
         for dest_node in lengths[source_node].keys():
-            # If the link already exists in the starting graph the computation is skipped
+            # If the link already exists in the starting graph
+            # the computation is skipped
             if (nodes_to_indexes_map[source_node],
                     nodes_to_indexes_map[dest_node]) not in prexisting_links:
                 S[nodes_to_indexes_map[source_node],
@@ -354,7 +360,8 @@ def sim_rank(G: nx.Graph,
                 1 & x = y
             \\end{cases}
 
-    where \\( \\alpha \\in (0,1) \\) is a constant. \\(\\Gamma_i(x)\\) and \\( \\Gamma_j(y) \\)
+    where \\( \\alpha \\in (0,1) \\) is a constant.
+    \\(\\Gamma_i(x)\\) and \\( \\Gamma_j(y) \\)
     are the ith and jth elements in the neighborhood sets.
 
     Parameters
@@ -389,7 +396,8 @@ def sim_rank(G: nx.Graph,
         sim_matrix: lil_matrix : the starting Similarity Matrix
         """
         # inizializzo la matrice similarity
-        # gli elementi con loro stessi (lungo la diagonale) hanno similarità massima
+        # gli elementi con loro stessi (lungo la diagonale)
+        # hanno similarità massima
         sim_matrix = identity(n).tolil()
         return sim_matrix
 
@@ -450,12 +458,14 @@ def sim_rank(G: nx.Graph,
 
     for a in range(nodes_num):
         for b in range(nodes_num):
-            # fa pruning evitando di calcolare la similarità di archi a distanza maggiore di 5
+            # fa pruning evitando di calcolare la similarità di archi
+            # a distanza maggiore di 5
             if (nx.has_path(G, a, b)
                     and (nx.shortest_path_length(G, a, b) > cutoff)):
                 sim_matrix[a, b] = 0
             else:
-                # se non deve fare pruning si calcola il valore di similarità per i nodi a e b
+                # se non deve fare pruning si calcola
+                # il valore di similarità per i nodi a e b
                 for i in range(k):
                     sim_matrix[a, b] = compute_sim_rank(G,
                                                         a,
@@ -463,7 +473,8 @@ def sim_rank(G: nx.Graph,
                                                         sim_matrix=sim_matrix,
                                                         C=c)
 
-    # imposta a 0 gli elementi della diagonale che prima avevano similarità uguale ad 1
+    # imposta a 0 gli elementi della diagonale che
+    # prima avevano similarità uguale ad 1
     for a in range(nodes_num):
         sim_matrix[a, a] = 0
     return only_unconnected(G, sim_matrix)
