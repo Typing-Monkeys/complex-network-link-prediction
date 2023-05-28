@@ -29,13 +29,15 @@ optimizes an objective function to set up a model that
 is composed of several parameters</strong>.
 Observed data of the given network can be estimated by this model nicely.
 At that point, the likelihood of the presence of a non-existing link
-<span><span class="MathJax_Preview"> (i,j) </span><script type="math/tex"> (i,j) </script></span> is evaluated using conditional probability <span><span class="MathJax_Preview"> P(A_{ij} = 1 | \Theta) </span><script type="math/tex"> P(A_{ij} = 1 | \Theta) </script></span>.
+<span><span class="MathJax_Preview"> (i,j) </span><script type="math/tex"> (i,j) </script></span> is evaluated using conditional
+probability <span><span class="MathJax_Preview"> P(A_{ij} = 1 | \Theta) </span><script type="math/tex"> P(A_{ij} = 1 | \Theta) </script></span>.
 Several <code>probabilistic models</code> and <code>maximum likelihood models</code> have been
 proposed in the literature to infer missing links in the networks.</p>
 <p><strong>The probabilistic models normally require more information like
 node or edge attribute knowledge in addition to structural information</strong>.
 Extracting these attribute information is not easy; moreover,
-the parameter tuning is also a big deal in such models that limit their applicability.
+the parameter tuning is also a big deal in such models that limit
+their applicability.
 <em>Maximum likelihood methods</em> are <em>complex and time-consuming</em>, so these models
 are not suitable for real large networks.</p>
 <details class="source">
@@ -49,14 +51,16 @@ optimizes an objective function to set up a model that
 is composed of several parameters**.
 Observed data of the given network can be estimated by this model nicely.
 At that point, the likelihood of the presence of a non-existing link
-\\( (i,j) \\) is evaluated using conditional probability \\( P(A_{ij} = 1 | \\Theta) \\).
+\\( (i,j) \\) is evaluated using conditional
+probability \\( P(A_{ij} = 1 | \\Theta) \\).
 Several `probabilistic models` and `maximum likelihood models` have been
 proposed in the literature to infer missing links in the networks.
 
 **The probabilistic models normally require more information like
 node or edge attribute knowledge in addition to structural information**.
 Extracting these attribute information is not easy; moreover,
-the parameter tuning is also a big deal in such models that limit their applicability.
+the parameter tuning is also a big deal in such models that limit
+their applicability.
 _Maximum likelihood methods_ are _complex and time-consuming_, so these models
 are not suitable for real large networks.
 &#34;&#34;&#34;
@@ -75,7 +79,7 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: float = .05,
                            seed: int = 42) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Sotchastic Block Model Similarity for
+    &#34;&#34;&#34;Compute the Stochastic Block Model Similarity for
     all the nodes in the network.
 
     This similarity is defined as:
@@ -156,8 +160,8 @@ def stochastic_block_model(G: nx.Graph,
                            n: int,
                            p: np.float32 = .05,
                            seed: int = 42) -&gt; List[List[Set]]:
-        &#34;&#34;&#34;Generate the samples (block) given the orginal
-        adjacecy matrix.
+        &#34;&#34;&#34;Generate the samples (block) given the original
+        adjacency matrix.
 
         Parameters
         ----------
@@ -192,8 +196,8 @@ def stochastic_block_model(G: nx.Graph,
 
         Parameters
         ----------
-        samole: List[Set] :
-            current sample to analize
+        sample: List[Set] :
+            current sample to analyze
         x: int :
             node
 
@@ -210,7 +214,7 @@ def stochastic_block_model(G: nx.Graph,
         return np.sum([A_0[x, y] for x, y in product(alpha, beta)])
 
     def __r(alpha: Set, beta: Set) -&gt; int:
-        &#34;&#34;&#34;Maxmimum possible links between groups Alpha and Beta&#34;&#34;&#34;
+        &#34;&#34;&#34;Maximum possible links between groups Alpha and Beta&#34;&#34;&#34;
         len_a = len(alpha)
         len_b = len(beta)
 
@@ -306,7 +310,7 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">stochastic_block_model</span></span>(<span>G: networkx.classes.graph.Graph, n: int, p: float = 0.05, seed: int = 42) ‑> scipy.sparse._csr.csr_matrix</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Compute the Sotchastic Block Model Similarity for
+<div class="desc"><p>Compute the Stochastic Block Model Similarity for
 all the nodes in the network.</p>
 <p>This similarity is defined as:</p>
 <p><span><span class="MathJax_Preview"> R_{xy} = \frac{1}{Z} \sum_{P \in P^*}
@@ -346,7 +350,7 @@ the matrix
                            n: int,
                            p: float = .05,
                            seed: int = 42) -&gt; csr_matrix:
-    &#34;&#34;&#34;Compute the Sotchastic Block Model Similarity for
+    &#34;&#34;&#34;Compute the Stochastic Block Model Similarity for
     all the nodes in the network.
 
     This similarity is defined as:
@@ -427,8 +431,8 @@ the matrix
                            n: int,
                            p: np.float32 = .05,
                            seed: int = 42) -&gt; List[List[Set]]:
-        &#34;&#34;&#34;Generate the samples (block) given the orginal
-        adjacecy matrix.
+        &#34;&#34;&#34;Generate the samples (block) given the original
+        adjacency matrix.
 
         Parameters
         ----------
@@ -463,8 +467,8 @@ the matrix
 
         Parameters
         ----------
-        samole: List[Set] :
-            current sample to analize
+        sample: List[Set] :
+            current sample to analyze
         x: int :
             node
 
@@ -481,7 +485,7 @@ the matrix
         return np.sum([A_0[x, y] for x, y in product(alpha, beta)])
 
     def __r(alpha: Set, beta: Set) -&gt; int:
-        &#34;&#34;&#34;Maxmimum possible links between groups Alpha and Beta&#34;&#34;&#34;
+        &#34;&#34;&#34;Maximum possible links between groups Alpha and Beta&#34;&#34;&#34;
         len_a = len(alpha)
         len_b = len(beta)
 

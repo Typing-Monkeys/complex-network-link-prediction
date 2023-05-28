@@ -62,7 +62,7 @@ def nodes_to_indexes(G: nx.Graph) -&gt; dict[any, int]:
 
 def to_adjacency_matrix(G: nx.Graph,
                         sparse: bool = True) -&gt; Union[csc_matrix, np.ndarray]:
-    &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
+    &#34;&#34;&#34;Convert a given Graph in to its Adjacency Matrix
 
     Parameters
     ----------
@@ -128,7 +128,7 @@ def get_top_predicted_link(predicted_adj_matrix: csr_matrix,
     name_index_map: Dict[any, int] :
         node to index (starting from 0) mapping
     verbose: bool :
-        if True print some usefull outputs
+        if True print some useful outputs
          (Default value = False)
 
     Returns
@@ -184,7 +184,7 @@ verbose: bool = False):</p>
 <dt><strong><code>name_index_map</code></strong> :&ensp;<code>Dict[any, int] :</code></dt>
 <dd>node to index (starting from 0) mapping</dd>
 <dt><strong><code>verbose</code></strong> :&ensp;<code>bool :</code></dt>
-<dd>if True print some usefull outputs
+<dd>if True print some useful outputs
 (Default value = False)</dd>
 </dl>
 <h2 id="returns">Returns</h2>
@@ -215,7 +215,7 @@ verbose: bool = False):</p>
     name_index_map: Dict[any, int] :
         node to index (starting from 0) mapping
     verbose: bool :
-        if True print some usefull outputs
+        if True print some useful outputs
          (Default value = False)
 
     Returns
@@ -351,7 +351,7 @@ nodes "similarity" values</p>
 <span>def <span class="ident">to_adjacency_matrix</span></span>(<span>G: networkx.classes.graph.Graph, sparse: bool = True) ‑> Union[scipy.sparse._csc.csc_matrix, numpy.ndarray]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Convert a ginven Graph in to its Adjacency Matrix</p>
+<div class="desc"><p>Convert a given Graph in to its Adjacency Matrix</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>G</code></strong> :&ensp;<code>nx.Graph :</code></dt>
@@ -372,7 +372,7 @@ otherwise in full format.
 </summary>
 <pre><code class="python">def to_adjacency_matrix(G: nx.Graph,
                         sparse: bool = True) -&gt; Union[csc_matrix, np.ndarray]:
-    &#34;&#34;&#34;Convert a ginven Graph in to its Adjacency Matrix
+    &#34;&#34;&#34;Convert a given Graph in to its Adjacency Matrix
 
     Parameters
     ----------
