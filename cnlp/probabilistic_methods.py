@@ -5,14 +5,16 @@ optimizes an objective function to set up a model that
 is composed of several parameters**.
 Observed data of the given network can be estimated by this model nicely.
 At that point, the likelihood of the presence of a non-existing link
-\\( (i,j) \\) is evaluated using conditional probability \\( P(A_{ij} = 1 | \\Theta) \\).
+\\( (i,j) \\) is evaluated using conditional
+probability \\( P(A_{ij} = 1 | \\Theta) \\).
 Several `probabilistic models` and `maximum likelihood models` have been
 proposed in the literature to infer missing links in the networks.
 
 **The probabilistic models normally require more information like
 node or edge attribute knowledge in addition to structural information**.
 Extracting these attribute information is not easy; moreover,
-the parameter tuning is also a big deal in such models that limit their applicability.
+the parameter tuning is also a big deal in such models that limit
+their applicability.
 _Maximum likelihood methods_ are _complex and time-consuming_, so these models
 are not suitable for real large networks.
 """
