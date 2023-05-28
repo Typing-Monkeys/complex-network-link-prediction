@@ -37,9 +37,10 @@ The link prediction problem can be defined as follow:
 _Suppose a graph \\(G_{t_0 - t_1}(V, E)\\) represents a snapshot of
 a network during time interval \\([t_0, t_1]\\)
 and \\(E_{t_0 - t_1}\\) , a set of links present in that snapshot.
-The task of link prediction is to find set of links \\(E_{t^\\prime_0,t^\\prime_1}\\)
+The task of link prediction is to find set of links
+\\(E_{t^\\prime_0,t^\\prime_1}\\)
 during the time interval \\([t^\\prime_0, t^\\prime_1]\\)
- where \\( [t_0, t_1] \\leq [t^\\prime_0, t^\\prime_1]\\).
+where \\( [t_0, t_1] \\leq [t^\\prime_0, t^\\prime_1]\\).
 
 The link prediction idea is useful in several domains of application.
 Examples include automatic hyperlink creation, website hyper-link prediction
