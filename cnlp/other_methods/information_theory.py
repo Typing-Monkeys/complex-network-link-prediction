@@ -5,21 +5,26 @@ compute their complexity on different scales.
 They defined several correlation measures and modeled some networks
 (e.g., star, tree, lattice, ER graph, etc.).
 
-**Bauer et al.** used the maximum entropy principle to assign a statistical weight to any
-graph and introduced random graph construction with arbitrary degree distribution.
+**Bauer et al.** used the maximum entropy principle to assign a
+statistical weight to any
+graph and introduced random graph construction with arbitrary degree
+distribution.
 
-**Tan et al.** posed the link prediction problem in the framework of information theory.
-They mainly focus on local assortativity to capture local structural properties of
-the network and showed that mutual information (MI) method performs well on both
-low and highly correlated networks. Motivated by, **Zhu, B. and Xia** added more
+**Tan et al.** posed the link prediction problem in the framework of
+information theory. They mainly focus on local assortativity to capture
+local structural properties of the network and showed that mutual
+information (MI) method performs well on both low and highly correlated
+networks. Motivated by, **Zhu, B. and Xia** added more
 local features (i.e., links information of neighbors of the seed nodes as well
 as their common neighbors) in their framework and called it as neighbor set
-information (NSI) index. Thus, they showed that the different features could be combined in
-an information-theoretic model to improve the link prediction accuracy.
+information (NSI) index. Thus, they showed that the different features
+could be combined in an information-theoretic model to improve
+the link prediction accuracy.
 
 
-**Xu et al.** considered path entropy as a similarity metric for the link prediction problem.
-The authors assumed that there is no correlation among the degrees of the nodes in the network.
+**Xu et al.** considered path entropy as a similarity metric for
+the link prediction problem. The authors assumed that there is no
+correlation among the degrees of the nodes in the network.
 
 And many many more.
 """
@@ -36,23 +41,26 @@ from typing import Generator
 def MI(G: nx.Graph) -> scipy.csr_matrix:
     """Neighbor Set Information
 
-    Il modello di link prediction basato su information theory che sfrutta la neighbor
-    set information è un approccio utilizzato per prevedere la probabilità di esistenza
-    di un link tra due nodi in una rete. In questo modello, l'informazione contenuta nei
-    neighbor set dei due nodi in questione viene utilizzata per stimare la probabilità
-    di connessione.
+    Il modello di link prediction basato su information theory
+    che sfrutta la neighbor set information è un approccio utilizzato
+    per prevedere la probabilità di esistenza di un link tra due nodi in
+    una rete. In questo modello, l'informazione contenuta nei
+    neighbor set dei due nodi in questione viene utilizzata per
+    stimare la probabilità di connessione.
 
-    L'idea alla base di questo modello è che i nodi che hanno molti neighbor in comune
-    sono più propensi a essere connessi tra loro rispetto a nodi con neighbor set diversi.
-    Questo perché i nodi con neighbor set simili tendono a essere coinvolti in attività
-    simili all'interno della rete, come ad esempio
+    L'idea alla base di questo modello è che i nodi che hanno
+    molti neighbor in comune sono più propensi a essere connessi tra loro
+    rispetto a nodi con neighbor set diversi.
+    Questo perché i nodi con neighbor set simili tendono a essere coinvolti
+    in attività simili all'interno della rete, come ad esempio
     partecipare agli stessi gruppi o condividere gli stessi interessi.
 
-    Per utilizzare questa informazione per prevedere la probabilità di connessione tra due nodi,
-    il modello utilizza l'entropia di Shannon, una misura dell'incertezza di una
-    distribuzione di probabilità.
-    In particolare, l'entropia viene calcolata sui neighbor set dei due nodi, e la differenza tra le
-    entropie dei due set viene utilizzata per stimare la probabilità di connessione.
+    Per utilizzare questa informazione per prevedere la probabilità di
+    connessione tra due nodi, il modello utilizza l'entropia di Shannon,
+    una misura dell'incertezza di una
+    distribuzione di probabilità. In particolare, l'entropia viene calcolata
+    sui neighbor set dei due nodi, e la differenza tra le entropie dei due
+    set viene utilizzata per stimare la probabilità di connessione.
 
     Parameters
     ----------
