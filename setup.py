@@ -13,7 +13,7 @@ setup(
     packages=find_packages(where='.', include=['cnlp*']),
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/Typing-Monkeys/social-network-link-prediction',
+    url='https://github.com/Typing-Monkeys/complex-network-link-prediction',
     keywords='Link Prediction, Social Network, Complex Network Analisys',
     install_requires=[
         'networkx',
