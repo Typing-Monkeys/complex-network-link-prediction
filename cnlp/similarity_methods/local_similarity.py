@@ -90,8 +90,7 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Clustering and preferential attachment in growing networks](https://doi.org/10.1103/PhysRevE.64.025102)
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -135,8 +134,8 @@ def cosine_similarity(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Introduction to modern information
+    retrieval](https://archive.org/details/introductiontomo00salt/)
     """
 
     def __cosine_similarity(G: nx.Graph, x, y) -> float:
@@ -187,8 +186,8 @@ def hub_depressed(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Hierarchical Organization of Modularity in Metabolic
+    Networks](https://doi.org/10.1126/science.1073374)
     """
 
     def __hub_depressed(G: nx.Graph, x, y) -> float:
@@ -236,8 +235,8 @@ def hub_promoted(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Hierarchical Organization of Modularity in Metabolic
+    Networks](https://doi.org/10.1126/science.1073374)
     """
 
     def __hub_promoted(G: nx.Graph, x, y) -> float:
@@ -287,8 +286,9 @@ def jaccard(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Distribution de la Flore Alpine dans le Bassin des Dranses
+    et dans quelques
+    régions voisines](http://dx.doi.org/10.5169/seals-266440)
     """
 
     def __jaccard(G: nx.Graph, x, y) -> float:
@@ -348,8 +348,8 @@ def node_clustering(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Link prediction with node clustering
+    coefficient](https://doi.org/10.1016/j.physa.2016.01.038)
     """
 
     def __t(G: nx.Graph, z) -> int:
@@ -425,8 +425,8 @@ def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Evolution of the social network of scientific
+    collaborations](https://doi.org/10.1016/S0378-4371(02)00736-7)
     """
 
     def __preferential_attachment(G: nx.Graph,
@@ -490,8 +490,8 @@ def resource_allocation(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Predicting missing links via local
+    information](https://doi.org/10.1140/epjb/e2009-00335-8)
     """
 
     def __resource_allocation(G: nx.Graph, x, y) -> float:
@@ -538,8 +538,10 @@ def sorensen(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [A method of establishing group of equal amplitude in plant sociobiology
+    based on similarity of species content and its application to analyses
+    of the vegetation on Danish
+    commons](https://www.semanticscholar.org/paper/A-method-of-establishing-group-of-equal-amplitude-S%C3%B8rensen-S%C3%B8rensen/d8d3e6d95b60ec6ac8f91f42a6914a87b13a6bc1)
     """
 
     def __sorensen(G: nx.Graph, x, y) -> float:
