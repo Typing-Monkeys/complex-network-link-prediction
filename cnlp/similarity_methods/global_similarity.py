@@ -49,8 +49,8 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [A new status index derived from sociometric
+    analysis](https://link.springer.com/article/10.1007/BF02289026)
     """
 
     def __power_method(A: csr_matrix,
@@ -147,7 +147,8 @@ def link_prediction_rwr(G: nx.Graph,
 
     References
     ------------
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Fast Random Walk with Restart and Its
+    Applications](https://doi.org/10.1109/ICDM.2006.70)
     """
 
     def random_walk_with_restart(e: lil_array,
@@ -288,8 +289,8 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [The anatomy of a large-scale hypertextual Web search
+    engine](https://doi.org/10.1016/S0169-7552(98)00110-X)
     """
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
@@ -340,8 +341,8 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [The link prediction problem for social
+    networks](https://doi.org/10.1145/956863.956972)
     """
     dim = G.number_of_nodes()
     if cutoff is None:
@@ -401,8 +402,8 @@ def sim_rank(G: nx.Graph,
 
     References
     ----------
-    .. todo:: Copletare
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [SimRank: a measure of structural-context
+    similarity](http://doi.acm.org/10.1145/775047.775126)
     """
 
     def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:
