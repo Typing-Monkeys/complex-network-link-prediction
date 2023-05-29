@@ -70,6 +70,11 @@ def MI(G: nx.Graph) -> scipy.csr_matrix:
     Returns
     -------
     res_sparse: csr_matrix : the Similarity Matrix (in sparse format)
+
+    References
+    ----------
+    [Link Prediction in Complex Networks: A Mutual Information
+    Perspective](https://doi.org/10.1371/journal.pone.0107056)
     """
 
     def overlap_info(G: nx.Graph, x, y, edge_num: int) -> float:
@@ -208,6 +213,11 @@ def path_entropy(G: nx.Graph, max_path: int = 3) -> csr_matrix:
     Returns
     -------
     similarity_matrix: csr_matrix: the Similarity Matrix (in sparse format)
+
+    References
+    ----------
+    [Link prediction based on path
+    entropy](https://doi.org/10.1016/j.physa.2016.03.091)
     """
 
     def simple_path_entropy(paths: Generator[list, None, None],
