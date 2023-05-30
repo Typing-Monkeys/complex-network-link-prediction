@@ -40,7 +40,8 @@ def adamic_adar(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    [Friends and neighbors on the Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
+    [Friends and neighbors on the
+    Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
 
     def __adamic_adar(G: nx.Graph, x, y) -> float:
@@ -90,7 +91,8 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
 
     References
     ----------
-    [Clustering and preferential attachment in growing networks](https://doi.org/10.1103/PhysRevE.64.025102)
+    [Clustering and preferential attachment in growing
+    networks](https://doi.org/10.1103/PhysRevE.64.025102)
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
