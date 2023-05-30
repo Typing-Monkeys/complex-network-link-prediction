@@ -67,6 +67,11 @@ def stochastic_block_model(G: nx.Graph,
     Returns
     -------
     R: csr_matrix : the Similarity Matrix (in sparse format)
+
+    References
+    ----------
+    [Missing and spurious interactions and the reconstruction of complex
+    networks](https://doi.org/10.1073/pnas.0908366106)
     """
 
     def __random_changes(A_0: csr_matrix, p: float = .05) -> lil_matrix:
