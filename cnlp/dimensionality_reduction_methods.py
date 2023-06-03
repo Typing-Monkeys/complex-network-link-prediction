@@ -4,6 +4,28 @@ The curse of dimensionality is a well-known
 problem in machine learning.
 Some researchers employ dimension reduction techniques
 to tackle the above problem and apply it in the link prediction scenario.
+
+References
+----------
+- [Link prediction on evolving data using matrix and tensor
+factorizations](https://doi.org/10.1109/ICDMW.2009.54)
+- [Nonnegative matrix factorization algorithms for link prediction in temporal
+networks using graph
+communicability](https://doi.org/10.1016/j.patcog.2017.06.025)
+- [Temporal-relational classifiers for prediction in
+evolving domains](https://doi.org/10.1109/ICDM.2008.125)
+- [Link prediction via matrix
+factorization](http://dl.acm.org/citation.cfm?id=2034117.2034146)
+- [Link prediction based on non-negative matrix
+factorization](https://doi.org/10.1371/journal.pone.0182968)
+- [A perturbation-based framework for
+link prediction via non-negative matrix
+factorization](https://doi.org/10.1038/srep38938)
+- [Link prediction in dynamic networks based on non-negative matrix
+factorization](https://doi.org/10.26599/BDMA.2017.9020002)
+- [Link prediction algorithm by
+matrix factorization based on importance of
+edges](https://doi.org/10.16451/j.cnki.issn1003-6059.201802006)
 """
 import networkx as nx
 import numpy as np
@@ -54,6 +76,11 @@ def link_prediction_svd(G: nx.Graph,
 
     In most of the works, non-negative matrix factorization has been used.
     Some authors also applied the singular value decomposition technique.
+
+    References
+    ----------
+    [Link prediction using matrix factorization with
+    bagging](https://doi.org/10.1109/ICIS.2016.7550942)
     """
 
     # Create the adjacency matrix of the graph
@@ -125,6 +152,11 @@ def link_prediction_nmf(graph: nx.Graph,
 
     In most of the works, non-negative matrix factorization has been used.
     Some authors also applied the singular value decomposition technique.
+
+    References
+    ----------
+    [Convex and semi-nonnegative matrix
+    factorizations](https://doi.org/10.1109/TPAMI.2008.277)
     """
 
     adj_matrix = to_adjacency_matrix(graph, sparse=False)

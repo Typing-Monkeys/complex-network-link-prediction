@@ -52,6 +52,11 @@ def local_path_index(G: nx.Graph, epsilon: float, n: int) -> csr_matrix:
     Computing this index becomes more complicated with the increasing
     value of \\(n\\). The LP index outperforms the proximity-based indices,
     such as RA, AA, and CN.
+
+    References
+    ----------
+    [Similarity index based on local paths for link prediction of complex
+    networks](https://doi.org/10.1103/PhysRevE.80.046122)
     """
     A = to_adjacency_matrix(G)
     A = A @ A
@@ -97,6 +102,11 @@ def path_of_length_three(G: nx.Graph) -> csr_matrix:
     governs protein interaction. The TCP predicts well to the interaction of
     self-interaction proteins (SIPs), which are very small (4%) in PPI networks
     and fails in prediction between SIP and non SIP that amounts to 96%.
+
+    References
+    ----------
+    [Network-based prediction of protein
+    interactions](https://doi.org/10.1101/275529)
     """
 
     def __path_of_length_three_iter(G: nx.Graph, x, y) -> float:

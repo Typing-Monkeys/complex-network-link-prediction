@@ -46,6 +46,11 @@ def katz_index(G: nx.Graph, beta: int = 1) -> csr_matrix:
     The computational complexity of the given metric is high,
     and it can be roughly estimated to be cubic complexity
     which is not feasible for a large network.
+
+    References
+    ----------
+    [A new status index derived from sociometric
+    analysis](https://link.springer.com/article/10.1007/BF02289026)
     """
 
     def __power_method(A: csr_matrix,
@@ -133,11 +138,17 @@ def link_prediction_rwr(G: nx.Graph,
 
     The transition matrix \\(P\\) can be expressed as
 
-    .. math::
+    \\[
         P_{xy} = \\begin{cases}
                 \\frac{1}{k_x} & \\text{if } x \\text{ and } y \\text{ are connected,} \\\\
                 0 & \\text{otherwise.}
             \\end{cases}
+    \\]
+
+    References
+    ------------
+    [Fast Random Walk with Restart and Its
+    Applications](https://doi.org/10.1109/ICDM.2006.70)
     """
 
     def random_walk_with_restart(e: lil_array,
@@ -275,6 +286,11 @@ def rooted_page_rank(G: nx.Graph, alpha: float = .5) -> csr_matrix:
     walker moves to an arbitrary neighboring vertex with
     probability \\(\\alpha\\)
     and returns to \\(x\\) with probability \\( ( 1 - \\alpha )\\).
+
+    References
+    ----------
+    [The anatomy of a large-scale hypertextual Web search
+    engine](https://doi.org/10.1016/S0169-7552(98)00110-X)
     """
     A = to_adjacency_matrix(G)
     D = lil_matrix(A.shape)
@@ -322,6 +338,11 @@ def shortest_path(G: nx.Graph, cutoff: int = None) -> csr_matrix:
 
     The prediction accuracy
     of this index is low compared to most local indices.
+
+    References
+    ----------
+    [The link prediction problem for social
+    networks](https://doi.org/10.1145/956863.956972)
     """
     dim = G.number_of_nodes()
     if cutoff is None:
@@ -378,6 +399,11 @@ def sim_rank(G: nx.Graph,
     Returns
     -------
     sim_matrix: csr_matrix : the Similarity Matrix (in sparse format)
+
+    References
+    ----------
+    [SimRank: a measure of structural-context
+    similarity](http://doi.acm.org/10.1145/775047.775126)
     """
 
     def init_similarity_matrix(G: nx.Graph, n: int) -> lil_matrix:

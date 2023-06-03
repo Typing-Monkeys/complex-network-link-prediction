@@ -37,6 +37,11 @@ def adamic_adar(G: nx.Graph) -> csr_matrix:
     This is also intuitive in the real-world scenario, for example,
     a person with more number of friends spend less time/resource
     with an individual friend as compared to the less number of friends.
+
+    References
+    ----------
+    [Friends and neighbors on the
+    Web](https://doi.org/10.1016/S0378-8733(03)00009-1)
     """
 
     def __adamic_adar(G: nx.Graph, x, y) -> float:
@@ -83,6 +88,11 @@ def common_neighbors(G: nx.Graph) -> csr_matrix:
     -----
     The likelihood of the existence of a link between \\(x\\)
     and \\(y\\) increases with the number of common neighbors between them.
+
+    References
+    ----------
+    [Clustering and preferential attachment in growing
+    networks](https://doi.org/10.1103/PhysRevE.64.025102)
     """
     size = G.number_of_nodes()
     S = lil_matrix((size, size))
@@ -123,6 +133,11 @@ def cosine_similarity(G: nx.Graph) -> csr_matrix:
     This similarity index between two nodes is measured by
     calculating the Cosine of the angle between them.
     The metric is all about the orientation and not magnitude.
+
+    References
+    ----------
+    [Introduction to modern information
+    retrieval](https://archive.org/details/introductiontomo00salt/)
     """
 
     def __cosine_similarity(G: nx.Graph, x, y) -> float:
@@ -170,6 +185,11 @@ def hub_depressed(G: nx.Graph) -> csr_matrix:
     links between hubs and low degree nodes in the networks.
     The Hub depressed index promotes the links evolution
     between the hubs as well as the low degree nodes.
+
+    References
+    ----------
+    [Hierarchical Organization of Modularity in Metabolic
+    Networks](https://doi.org/10.1126/science.1073374)
     """
 
     def __hub_depressed(G: nx.Graph, x, y) -> float:
@@ -214,6 +234,11 @@ def hub_promoted(G: nx.Graph) -> csr_matrix:
     This similarity index promotes the formation of links between
     the sparsely connected nodes and hubs.
     It also tries to prevent links formation between the hub nodes.
+
+    References
+    ----------
+    [Hierarchical Organization of Modularity in Metabolic
+    Networks](https://doi.org/10.1126/science.1073374)
     """
 
     def __hub_promoted(G: nx.Graph, x, y) -> float:
@@ -260,6 +285,12 @@ def jaccard(G: nx.Graph) -> csr_matrix:
     common neighbors between the two vertices considered. Some researcher
     (**Liben-Nowell et al.**) demonstrated that this similarity metric
     performs worse as compared to Common Neighbors.
+
+    References
+    ----------
+    [Distribution de la Flore Alpine dans le Bassin des Dranses
+    et dans quelques
+    régions voisines](http://dx.doi.org/10.5169/seals-266440)
     """
 
     def __jaccard(G: nx.Graph, x, y) -> float:
@@ -316,6 +347,11 @@ def node_clustering(G: nx.Graph) -> csr_matrix:
     of the network in which the clustering coefficients of all
     the common neighbors of a seed node pair are computed
     and summed to find the final similarity score of the pair.
+
+    References
+    ----------
+    [Link prediction with node clustering
+    coefficient](https://doi.org/10.1016/j.physa.2016.01.038)
     """
 
     def __t(G: nx.Graph, z) -> int:
@@ -388,6 +424,11 @@ def preferential_attachment(G: nx.Graph, sum: bool = False) -> csr_matrix:
 
     In the above equation, summation can also be used instead of
     multiplication as an aggregate function (`sum = True`).
+
+    References
+    ----------
+    [Evolution of the social network of scientific
+    collaborations](https://doi.org/10.1016/S0378-4371(02)00736-7)
     """
 
     def __preferential_attachment(G: nx.Graph,
@@ -448,6 +489,11 @@ def resource_allocation(G: nx.Graph) -> csr_matrix:
     This index shows good performance on heterogeneous
     networks with a high clustering coefficient, especially
     on transportation networks.
+
+    References
+    ----------
+    [Predicting missing links via local
+    information](https://doi.org/10.1140/epjb/e2009-00335-8)
     """
 
     def __resource_allocation(G: nx.Graph, x, y) -> float:
@@ -491,6 +537,13 @@ def sorensen(G: nx.Graph) -> csr_matrix:
     -----
     It is very similar to the Jaccard index. **McCune et al.** show
     that it is more robust than Jaccard against the outliers.
+
+    References
+    ----------
+    [A method of establishing group of equal amplitude in plant sociobiology
+    based on similarity of species content and its application to analyses
+    of the vegetation on Danish
+    commons](https://www.semanticscholar.org/paper/A-method-of-establishing-group-of-equal-amplitude-S%C3%B8rensen-S%C3%B8rensen/d8d3e6d95b60ec6ac8f91f42a6914a87b13a6bc1)
     """
 
     def __sorensen(G: nx.Graph, x, y) -> float:
