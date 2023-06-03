@@ -27,6 +27,32 @@ the link prediction problem. The authors assumed that there is no
 correlation among the degrees of the nodes in the network.
 
 And many many more.
+
+
+References
+----------
+- [Entropy measures for networks: Toward an information theory of complex
+topologies](https://doi.org/10.1103/PhysRevE.80.045102)
+- [Information Theory of Complex Networks: On Evolution and Architectural
+Constraints](https://doi.org/10.1007/978-3-540-44485-5_9)
+- [Maximal entropy random networks with given
+degree distribution](https://arxiv.org/abs/cond-mat/0206150)
+- [Link prediction in complex networks: A mutual
+information perspective](https://doi.org/10.1371/journal.pone.0107056)
+- [An information-theoretic model for link prediction in
+complex networks](https://doi.org/10.1038/srep13707)
+- [Link prediction based on path
+entropy](https://doi.org/10.1016/j.physa.2016.03.091)
+- [Entropy-based link prediction
+in weighted networks](http://stacks.iop.org/1674-1056/26/i=1/a=01890)
+- [Link Prediction in Evolving Networks Based on Popularity of
+Nodes](https://doi.org/10.1038/s41598-017-07315-4)
+- [An evidential link prediction method and link predictability based on
+shannon entropy](https://doi.org/10.1016/j.physa.2017.04.106)
+- [Entropy-based approach to missing-links
+prediction](https://doi.org/10.1007/s41109-018-0073-4)
+- [Maximal entropy random walk on heterogenous network for mirna-disease
+association prediction](https://doi.org/10.1016/j.mbs.2018.10.004)
 """
 import networkx as nx
 import numpy as np
